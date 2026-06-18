@@ -96,6 +96,10 @@ body {
 .note-label { font-size: 11px; color: var(--gold); font-weight: 700; margin-right: 6px; }
 .current-tag { font-size: 11px; background: var(--gold); color: var(--bg); padding: 1px 7px; border-radius: 999px; margin-left: 8px; font-weight: 700; }
 
+/* Claude 後補步驟：左側強調條 + 徽章 */
+.step.added { border-left: 3px solid #6f9bd8; background: rgba(111, 155, 216, 0.08); }
+.added-tag { font-size: 11px; background: linear-gradient(90deg, #6f9bd8, #8f7fd8); color: #fff; padding: 1px 8px; border-radius: 999px; margin-left: 8px; font-weight: 700; white-space: nowrap; }
+
 .step-extra { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .chip { font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--bg2); border: 1px solid var(--border); color: var(--muted); }
 .chip.item { color: #d8c98a; border-color: #4a4226; }

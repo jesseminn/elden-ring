@@ -41,6 +41,7 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
   if (done) cls.push("done");
   if (isCurrent) cls.push("current");
   if (flashing) cls.push("flash");
+  if (step.added) cls.push("added");
 
   return (
     <div className={cls.join(" ")} ref={ref} data-step={step.id}>
@@ -55,6 +56,7 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
         <span className="step-text">
           <span className="step-icon">{step.type === "optional" ? "▲" : "●"}</span>
           {step.text}
+          {step.added && <span className="added-tag" title="此步驟由 Claude 查證網路資料後補充">✨ Claude 補充</span>}
           {isCurrent && <span className="current-tag">目前進度</span>}
         </span>
 

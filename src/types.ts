@@ -9,6 +9,8 @@ export interface Step {
   items: string[];
   boss: boolean;
   quests: string[];
+  /** Claude 後補的步驟，UI 會以徽章與高亮標示 */
+  added?: boolean;
 }
 
 export interface Chapter {
