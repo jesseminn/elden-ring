@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>艾爾登法環 流程攻略追蹤器</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>艾爾登法環 <span>流程攻略追蹤器</span></h1>
+      <p class="subtitle">依「個人筆記式攻略（A.C / feiouex）」整理的線性流程與支線總覽</p>
+    </div>
+    <div class="overall">
+      <div class="overall-bar"><div id="overallFill" class="overall-fill"></div></div>
+      <div class="overall-text"><span id="overallText">0 / 0</span> 已完成</div>
+      <button id="resetBtn" class="ghost-btn" title="清除所有進度">重設進度</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="flow">📜 線性流程</button>
+    <button class="tab" data-tab="quests">🧭 支線總覽</button>
+  </nav>
+
+  <!-- 線性流程 -->
+  <main id="view-flow" class="view active">
+    <div class="toolbar">
+      <label class="chk"><input type="checkbox" id="hideDone" /> 隱藏已完成</label>
+      <label class="chk"><input type="checkbox" id="onlyMain" /> 只看主線章節</label>
+      <button id="expandAll" class="ghost-btn small">全部展開</button>
+      <button id="collapseAll" class="ghost-btn small">全部收合</button>
+      <button id="jumpCurrent" class="gold-btn small">跳到目前進度 ▾</button>
+    </div>
+    <div id="chapters"></div>
+  </main>
+
+  <!-- 支線總覽 -->
+  <main id="view-quests" class="view">
+    <div class="quests-layout">
+      <aside id="questList" class="quest-list"></aside>
+      <section id="questDetail" class="quest-detail">
+        <div class="quest-empty">← 從左側選擇一條支線，查看完整流程與目前進度</div>
+      </section>
+    </div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
