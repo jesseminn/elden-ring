@@ -28,13 +28,19 @@ function ChapterCardInner({ chapter, done, collapsed, hideDone, currentStepId, f
           {chapter.nonMainline && <span className="badge side">非主線地圖</span>}
         </span>
         <span className="chapter-prog">
-          <span>
-            {stats.done}/{stats.total}
-          </span>
-          <span className="mini-bar">
-            <span className="mini-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
-          </span>
-          <span className="chapter-caret">▾</span>
+          {(() => {
+            const p = pct(stats.done, stats.total);
+            return (
+              <span className={"ring" + (p === 100 ? " full" : "")} title={`${stats.done}/${stats.total}`}>
+                <svg viewBox="0 0 36 36">
+                  <circle className="ring-bg" cx="18" cy="18" r="15.5" />
+                  <circle className="ring-fg" cx="18" cy="18" r="15.5" pathLength={100} strokeDasharray={`${p} 100`} />
+                </svg>
+                <span className="ring-pct">{p}%</span>
+              </span>
+            );
+          })()}
+          <span className="chapter-caret">▸</span>
         </span>
       </div>
 

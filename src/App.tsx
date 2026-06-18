@@ -22,43 +22,45 @@ export default function App() {
 
   return (
     <>
-      <header className="topbar">
-        <div className="brand">
-          <h1>
-            艾爾登法環 <span>流程攻略追蹤器</span>
-          </h1>
-          <p className="subtitle">依「個人筆記式攻略（A.C / feiouex）」整理的線性流程與支線總覽</p>
-        </div>
-        <div className="overall">
-          <div className="overall-bar">
-            <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
+      <div className="sticky-top">
+        <header className="topbar">
+          <div className="brand">
+            <h1>
+              艾爾登法環 <span>流程追蹤器</span>
+            </h1>
+            <p className="subtitle">線性流程 · 支線總覽 · 100% 全收集</p>
           </div>
-          <div className="overall-text">
-            <b>
-              {stats.done} / {stats.total}
-            </b>{" "}
-            已完成
+          <div className="overall">
+            <div className="overall-bar">
+              <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
+            </div>
+            <div className="overall-text">
+              <b>
+                {stats.done} / {stats.total}
+              </b>{" "}
+              · {pct(stats.done, stats.total)}%
+            </div>
           </div>
           <button className="ghost-btn" title="清除所有進度" onClick={reset}>
-            重設進度
+            重設
           </button>
-        </div>
-      </header>
+        </header>
 
-      <nav className="tabs">
-        <button
-          className={"tab" + (state.ui.tab === "flow" ? " active" : "")}
-          onClick={() => dispatch({ type: "setTab", tab: "flow" })}
-        >
-          📜 線性流程
-        </button>
-        <button
-          className={"tab" + (state.ui.tab === "quests" ? " active" : "")}
-          onClick={() => dispatch({ type: "setTab", tab: "quests" })}
-        >
-          🧭 支線總覽
-        </button>
-      </nav>
+        <nav className="tabs">
+          <button
+            className={"tab" + (state.ui.tab === "flow" ? " active" : "")}
+            onClick={() => dispatch({ type: "setTab", tab: "flow" })}
+          >
+            📜 線性流程
+          </button>
+          <button
+            className={"tab" + (state.ui.tab === "quests" ? " active" : "")}
+            onClick={() => dispatch({ type: "setTab", tab: "quests" })}
+          >
+            🧭 支線總覽
+          </button>
+        </nav>
+      </div>
 
       {state.ui.tab === "flow" ? <FlowView onToast={showToast} /> : <QuestView />}
 
