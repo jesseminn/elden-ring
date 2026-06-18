@@ -18,7 +18,8 @@
           "boss": false,
           "quests": [
             "varre"
-          ]
+          ],
+          "location": "寧姆格福・引導之始"
         },
         {
           "id": "ch1-s2",
@@ -181,7 +182,8 @@
           "boss": false,
           "quests": [
             "yura"
-          ]
+          ],
+          "location": "寧姆格福・海岸廢墟東北（亞基爾湖畔）"
         },
         {
           "id": "ch1-s15",
@@ -191,7 +193,8 @@
           "chapterId": "ch1",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "location": "寧姆格福・亞基爾湖"
         },
         {
           "id": "ch1-s16",
@@ -203,7 +206,8 @@
           "boss": false,
           "quests": [
             "yura"
-          ]
+          ],
+          "location": "寧姆格福・亞基爾湖"
         },
         {
           "id": "ch1-s17",
@@ -273,7 +277,8 @@
           "boss": false,
           "quests": [
             "patches"
-          ]
+          ],
+          "location": "寧姆格福・濛流洞窟（帕奇處）"
         },
         {
           "id": "ch1-s23",
@@ -327,7 +332,8 @@
           "boss": false,
           "quests": [
             "patches"
-          ]
+          ],
+          "location": "寧姆格福・濛流洞窟（帕奇處）"
         },
         {
           "id": "ch1-s28",
@@ -407,7 +413,8 @@
           "boss": false,
           "quests": [
             "alexander"
-          ]
+          ],
+          "location": "風暴山丘（大橋旁高台，南瓜頭附近）"
         },
         {
           "id": "ch2-s5",
@@ -421,7 +428,8 @@
           "boss": false,
           "quests": [
             "roderika"
-          ]
+          ],
+          "location": "風暴山丘・習戰者的破屋（左側小屋）"
         },
         {
           "id": "ch2-s6",
@@ -522,7 +530,8 @@
           "boss": false,
           "quests": [
             "d"
-          ]
+          ],
+          "location": "寧姆格福・水喚村外圍（屍體旁的D）"
         },
         {
           "id": "ch3-s3",
@@ -544,7 +553,8 @@
           "boss": true,
           "quests": [
             "d"
-          ]
+          ],
+          "location": "寧姆格福・水喚村附近（D處）"
         },
         {
           "id": "ch3-s5",
@@ -578,7 +588,8 @@
           "boss": false,
           "quests": [
             "kenneth"
-          ]
+          ],
+          "location": "東寧姆格福・斷橋拱門上（霧林外圍↔瑪莉卡第三教堂之間）"
         },
         {
           "id": "ch3-s8",
@@ -629,7 +640,8 @@
           "boss": false,
           "quests": [
             "kenneth"
-          ]
+          ],
+          "location": "海德要塞（肯尼斯處）"
         },
         {
           "id": "ch3-s12",
@@ -713,7 +725,8 @@
           "boss": false,
           "quests": [
             "blaidd"
-          ]
+          ],
+          "location": "寧姆格福・無主獵犬的封印監牢"
         },
         {
           "id": "ch3-s19",
@@ -968,7 +981,8 @@
           "boss": false,
           "quests": [
             "roderika"
-          ]
+          ],
+          "location": "圓桌廳堂（孿生老嫗）"
         },
         {
           "id": "ch5-s5",
@@ -1048,7 +1062,8 @@
           "boss": false,
           "quests": [
             "gostoc"
-          ]
+          ],
+          "location": "史東薇爾城・正門（門衛葛托克）"
         },
         {
           "id": "ch6-s5",
@@ -1119,7 +1134,8 @@
           "boss": false,
           "quests": [
             "roderika"
-          ]
+          ],
+          "location": "史東薇爾城（蛹群處）"
         },
         {
           "id": "ch6-s10",
@@ -1319,7 +1335,8 @@
           "boss": false,
           "quests": [
             "rya"
-          ]
+          ],
+          "location": "利耶尼亞・遠眺島（涼亭，菈雅）"
         },
         {
           "id": "ch7-s9",
@@ -1345,7 +1362,8 @@
           "boss": false,
           "quests": [
             "rya"
-          ]
+          ],
+          "location": "利耶尼亞・遠眺島（菈雅）"
         },
         {
           "id": "ch7-s11",
@@ -1575,7 +1593,8 @@
           "boss": false,
           "quests": [
             "varre"
-          ]
+          ],
+          "location": "利耶尼亞・薔薇教堂（梵雷處）"
         },
         {
           "id": "ch7-s30",
@@ -1673,7 +1692,8 @@
           "boss": false,
           "quests": [
             "yura"
-          ]
+          ],
+          "location": "雷亞盧卡利亞學院・正門口（尤拉）"
         },
         {
           "id": "ch7-s39",
@@ -1994,7 +2014,8 @@
           "items": [],
           "boss": false,
           "quests": [],
-          "added": true
+          "added": true,
+          "location": "雷亞盧卡利亞大圖書館（滿月女王菈妮處）"
         },
         {
           "id": "ch8-s2",
@@ -2245,7 +2266,8 @@
             "淚滴幼體"
           ],
           "boss": false,
-          "quests": []
+          "quests": [],
+          "location": "希芙拉河（地下，木製建築底部商人）"
         },
         {
           "id": "ch9-s5",
@@ -2502,7 +2524,8 @@
           "boss": false,
           "quests": [
             "millicent"
-          ]
+          ],
+          "location": "蓋利德・腐敗病教堂（米莉森）"
         },
         {
           "id": "ch10-s19",
@@ -2743,7 +2766,8 @@
           "boss": false,
           "quests": [
             "alexander"
-          ]
+          ],
+          "location": "利耶尼亞湖（卡利亞書齋南，亞歷山大第二處）"
         },
         {
           "id": "ch10-s39",
@@ -2825,7 +2849,8 @@
           "boss": false,
           "quests": [
             "seluvis"
-          ]
+          ],
+          "location": "亞壇高原・賽爾維斯魔法師塔"
         },
         {
           "id": "ch11-s3",
@@ -2835,7 +2860,8 @@
           "chapterId": "ch11",
           "items": [],
           "boss": false,
-          "quests": []
+          "quests": [],
+          "location": "亞壇高原・賽爾維斯魔法師塔"
         },
         {
           "id": "ch11-s4",
@@ -2886,7 +2912,8 @@
           "boss": false,
           "quests": [
             "seluvis"
-          ]
+          ],
+          "location": "亞壇高原・賽爾維斯魔法師塔"
         },
         {
           "id": "ch11-s8",
@@ -3024,7 +3051,8 @@
           "quests": [
             "corhyn",
             "goldmask"
-          ]
+          ],
+          "location": "亞壇高原・大橋（金面具處）"
         },
         {
           "id": "ch11-s19",
@@ -3471,7 +3499,8 @@
           "boss": false,
           "quests": [
             "alexander"
-          ]
+          ],
+          "location": "格密爾火山・熔岩湖（熔岩土龍附近）"
         },
         {
           "id": "ch13-s5",
@@ -3538,7 +3567,8 @@
           "chapterId": "ch13",
           "items": [],
           "boss": false,
-          "quests": []
+          "quests": [],
+          "location": "格密爾火山（爬山路上的流浪民商人）"
         },
         {
           "id": "ch13-s10",
@@ -3796,7 +3826,8 @@
           "quests": [
             "patches",
             "tanith"
-          ]
+          ],
+          "location": "格密爾火山・火山官邸（帕奇）"
         },
         {
           "id": "ch13-s31",
@@ -3846,7 +3877,8 @@
           "boss": false,
           "quests": [
             "tanith"
-          ]
+          ],
+          "location": "格密爾火山・火山官邸"
         },
         {
           "id": "ch13-s35",
@@ -3858,7 +3890,8 @@
           "boss": false,
           "quests": [
             "diallos"
-          ]
+          ],
+          "location": "格密爾火山・火山官邸（狄亞羅斯）"
         },
         {
           "id": "ch13-s36",
@@ -3907,7 +3940,8 @@
           "boss": false,
           "quests": [
             "rya"
-          ]
+          ],
+          "location": "格密爾火山・火山官邸（神皮貴族→菈雅）"
         },
         {
           "id": "ch13-s40",
@@ -4210,7 +4244,8 @@
           "chapterId": "ch14",
           "items": [],
           "boss": false,
-          "quests": []
+          "quests": [],
+          "location": "王城・外圍壕溝（流氓處）"
         },
         {
           "id": "ch14-s21",
@@ -4341,7 +4376,8 @@
           "chapterId": "ch14",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "location": "王城羅德爾・黃金樹聖所（葛孚雷黃金樹之影）"
         },
         {
           "id": "ch14-s30",
@@ -4364,7 +4400,8 @@
           "quests": [
             "corhyn",
             "goldmask"
-          ]
+          ],
+          "location": "王城羅德爾（金面具與柯林）"
         },
         {
           "id": "ch14-s32",
@@ -4386,7 +4423,8 @@
           "chapterId": "ch14",
           "items": [],
           "boss": false,
-          "quests": []
+          "quests": [],
+          "location": "雷亞盧卡利亞大圖書館（滿月女王處重新配點）"
         },
         {
           "id": "ch14-s34",
@@ -4419,7 +4457,8 @@
           "quests": [
             "corhyn",
             "goldmask"
-          ]
+          ],
+          "location": "王城羅德爾（金面具與柯林）"
         },
         {
           "id": "ch14-s37",
@@ -4429,7 +4468,8 @@
           "chapterId": "ch14",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "location": "王城羅德爾・黃金樹根部（惡兆王蒙葛特）"
         },
         {
           "id": "ch14-s38",
@@ -4525,7 +4565,8 @@
           "boss": false,
           "quests": [
             "hyetta"
-          ]
+          ],
+          "location": "王城・接近癲火封印處（地下深處，海妲）"
         },
         {
           "id": "ch14-s46",
@@ -4619,7 +4660,8 @@
           "boss": false,
           "quests": [
             "ranni"
-          ]
+          ],
+          "location": "利耶尼亞・三姐妹（菈妮魔法師塔）"
         },
         {
           "id": "ch14-s53",
@@ -4854,7 +4896,8 @@
           "quests": [
             "blaidd",
             "iji"
-          ]
+          ],
+          "location": "卡利亞・通往城寨的道路（鐵匠伊吉）"
         },
         {
           "id": "ch16-s9",
@@ -4995,7 +5038,8 @@
           "boss": true,
           "quests": [
             "yura"
-          ]
+          ],
+          "location": "巨人前峰・薩米爾廢墟（假尤拉／夏玻利利）"
         },
         {
           "id": "ch18-s2",
@@ -5159,7 +5203,8 @@
           "chapterId": "ch18",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "location": "格密爾火山・火山官邸（伊格雷神殿，褻瀆君王拉卡德）"
         },
         {
           "id": "ch18-s15",
@@ -5183,7 +5228,8 @@
           "chapterId": "ch18",
           "items": [],
           "boss": false,
-          "quests": []
+          "quests": [],
+          "location": "格密爾火山・火山官邸（走廊）"
         },
         {
           "id": "ch18-s17",
@@ -5547,7 +5593,8 @@
           "boss": false,
           "quests": [
             "latenna"
-          ]
+          ],
+          "location": "化聖雪原・離教廢屋（勒緹娜）"
         },
         {
           "id": "ch19-s10",
@@ -5671,7 +5718,8 @@
           "boss": false,
           "quests": [
             "varre"
-          ]
+          ],
+          "location": "血之王朝・王朝靈廟（中段，梵雷武器）"
         },
         {
           "id": "ch20-s7",
@@ -5693,7 +5741,8 @@
           "chapterId": "ch20",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "location": "血之王朝・蒙格王朝靈廟（鮮血君王蒙格）"
         }
       ]
     },
@@ -5815,7 +5864,8 @@
           "boss": false,
           "quests": [
             "millicent"
-          ]
+          ],
+          "location": "聖樹米凱拉・艾布雷菲爾（米莉森）"
         },
         {
           "id": "ch21-s10",
@@ -5846,7 +5896,8 @@
           "quests": [
             "millicent",
             "gowry"
-          ]
+          ],
+          "location": "蓋利德・格威的破屋"
         },
         {
           "id": "ch21-s12",
@@ -5886,7 +5937,8 @@
           "boss": false,
           "quests": [
             "gowry"
-          ]
+          ],
+          "location": "蓋利德・格威的破屋"
         },
         {
           "id": "ch21-s15",
@@ -5909,7 +5961,8 @@
           "chapterId": "ch21",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "location": "聖樹米凱拉・艾布雷菲爾（女武神瑪蓮妮亞）"
         },
         {
           "id": "ch21-s17",
@@ -5922,7 +5975,8 @@
             "古龍岩失色鍛造石"
           ],
           "boss": false,
-          "quests": []
+          "quests": [],
+          "location": "聖樹米凱拉・艾布雷菲爾（米莉森之花）"
         },
         {
           "id": "ch21-s18",
@@ -5990,7 +6044,8 @@
           "boss": false,
           "quests": [
             "alexander"
-          ]
+          ],
+          "location": "逐漸崩毀的法姆・亞茲拉（亞歷山大）"
         },
         {
           "id": "ch22-s5",
@@ -6000,7 +6055,8 @@
           "chapterId": "ch22",
           "items": [],
           "boss": false,
-          "quests": []
+          "quests": [],
+          "location": "逐漸崩毀的法姆・亞茲拉"
         },
         {
           "id": "ch22-s6",
@@ -6111,7 +6167,8 @@
           "quests": [
             "diallos",
             "jarbairn"
-          ]
+          ],
+          "location": "利耶尼亞・壺村（小壺與狄亞羅斯）"
         },
         {
           "id": "ch22-s15",
@@ -6136,7 +6193,8 @@
           "quests": [
             "diallos",
             "jarbairn"
-          ]
+          ],
+          "location": "利耶尼亞・壺村"
         },
         {
           "id": "ch22-s17",
@@ -6174,7 +6232,8 @@
           "quests": [
             "alexander",
             "jarbairn"
-          ]
+          ],
+          "location": "利耶尼亞・壺村（小壺）"
         },
         {
           "id": "ch22-s20",
@@ -6216,7 +6275,8 @@
           "chapterId": "ch22",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "location": "逐漸崩毀的法姆・亞茲拉（黑劍瑪利喀斯）"
         }
       ]
     },
@@ -6255,7 +6315,8 @@
           "quests": [
             "corhyn",
             "goldmask"
-          ]
+          ],
+          "location": "灰城羅德爾（金面具裝備）"
         },
         {
           "id": "ch23-s3",
@@ -6277,7 +6338,8 @@
           "chapterId": "ch23",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "location": "灰城羅德爾・黃金樹根部（荷萊露）"
         },
         {
           "id": "ch23-s5",
@@ -6287,7 +6349,8 @@
           "chapterId": "ch23",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "location": "灰城羅德爾・艾爾登王座（最終BOSS）"
         },
         {
           "id": "ch23-s6",
@@ -6335,7 +6398,8 @@
           "boss": false,
           "quests": [
             "yura"
-          ]
+          ],
+          "location": "巨人前峰・薩米爾廢墟（假尤拉）"
         },
         {
           "id": "ch23-s10",

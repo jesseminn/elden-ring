@@ -11,6 +11,8 @@ export interface Step {
   quests: string[];
   /** Claude 後補的步驟，UI 會以徽章與高亮標示 */
   added?: boolean;
+  /** Claude 後補的地點標示（原步驟未寫明發生地點時補上） */
+  location?: string;
 }
 
 export interface Chapter {

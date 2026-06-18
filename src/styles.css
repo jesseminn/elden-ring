@@ -104,6 +104,7 @@ body {
 .chip { font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--bg2); border: 1px solid var(--border); color: var(--muted); }
 .chip.item { color: #d8c98a; border-color: #4a4226; }
 .chip.boss { color: #fff; background: var(--boss); border-color: var(--boss); font-weight: 700; }
+.chip.loc { color: #cfe0f5; background: rgba(111, 155, 216, 0.16); border-color: #4a6488; }
 .chip.quest { cursor: pointer; color: #fff; border: none; transition: filter 0.15s; font-family: inherit; }
 .chip.quest:hover { filter: brightness(1.2); }
 

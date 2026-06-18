@@ -60,9 +60,12 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
           {isCurrent && <span className="current-tag">目前進度</span>}
         </span>
 
-        {(step.boss || step.items.length > 0 || step.quests.length > 0) && (
+        {(step.boss || step.location || step.items.length > 0 || step.quests.length > 0) && (
           <div className="step-extra">
             {step.boss && <span className="chip boss">⚔ BOSS</span>}
+            {step.location && (
+              <span className="chip loc" title="地點（Claude 查證補充）">📍 {step.location}</span>
+            )}
             {step.items.map((it, i) => (
               <span className="chip item" key={i}>
                 {it}
