@@ -29,9 +29,27 @@ export default function FlowView({ onToast }: { onToast: (m: string) => void }) 
     dispatch({ type: "gotoStep", chapterId: ch.id, stepId: curId });
   };
 
+  const facets = ui.facets;
+  const anyFacet = facets.boss || facets.collect || facets.npc;
+
+  const FACETS: { key: "boss" | "collect" | "npc"; label: string; cls: string }[] = [
+    { key: "boss", label: "⚔ BOSS", cls: "f-boss" },
+    { key: "collect", label: "🎁 收集", cls: "f-collect" },
+    { key: "npc", label: "🧭 支線", cls: "f-npc" },
+  ];
+
   return (
     <div className="view">
       <div className="toolbar">
+        {FACETS.map((f) => (
+          <button
+            key={f.key}
+            className={"pill " + f.cls + (facets[f.key] ? " on" : "")}
+            onClick={() => dispatch({ type: "toggleFacet", facet: f.key })}
+          >
+            {f.label}
+          </button>
+        ))}
         <label className="chk">
           <input
             type="checkbox"
@@ -68,6 +86,8 @@ export default function FlowView({ onToast }: { onToast: (m: string) => void }) 
             done={done}
             collapsed={!!ui.collapsed[ch.id]}
             hideDone={ui.hideDone}
+            facets={facets}
+            anyFacet={anyFacet}
             currentStepId={curId}
             flashStepId={highlight?.stepId ?? null}
           />

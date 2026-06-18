@@ -56,6 +56,7 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
         <span className="step-text">
           <span className="step-icon">{step.type === "optional" ? "▲" : "●"}</span>
           {step.text}
+          {step.missable && <span className="miss-tag" title="易斷：操作不當可能永久錯過">⚠ 易斷</span>}
           {step.added && <span className="added-tag" title="此步驟由 Claude 查證網路資料後補充">✨ Claude 補充</span>}
           {isCurrent && <span className="current-tag">目前進度</span>}
         </span>
@@ -79,10 +80,10 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
                   key={qid}
                   className="chip quest"
                   style={{ background: q.color }}
-                  title={`查看「${q.name}」完整支線流程`}
-                  onClick={() => dispatch({ type: "openQuest", id: qid })}
+                  title={`查看「${q.name}」完整支線流程（底部彈出）`}
+                  onClick={() => dispatch({ type: "openPeek", qid, fromStepId: step.id })}
                 >
-                  🧭 {q.name}
+                  🧭 {q.name} ↗
                 </button>
               );
             })}

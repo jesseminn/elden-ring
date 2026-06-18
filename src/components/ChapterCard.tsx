@@ -1,7 +1,7 @@
 import { memo } from "react";
-import type { Chapter } from "../types";
+import type { Chapter, Step } from "../types";
 import { chapterStats, pct, type DoneMap } from "../lib/data";
-import { useDispatch } from "../store";
+import { useDispatch, type Facets } from "../store";
 import { StepRow } from "./StepRow";
 
 interface Props {
@@ -9,13 +9,32 @@ interface Props {
   done: DoneMap;
   collapsed: boolean;
   hideDone: boolean;
+  facets: Facets;
+  anyFacet: boolean;
   currentStepId: string | null;
   flashStepId: string | null;
 }
 
-function ChapterCardInner({ chapter, done, collapsed, hideDone, currentStepId, flashStepId }: Props) {
+const matchFacet = (s: Step, f: Facets) =>
+  (f.boss && s.boss) ||
+  (f.collect && s.items.length > 0) ||
+  (f.npc && s.quests.length > 0);
+
+function ChapterCardInner({ chapter, done, collapsed, hideDone, facets, anyFacet, currentStepId, flashStepId }: Props) {
   const dispatch = useDispatch();
   const stats = chapterStats(chapter, done);
+
+  const visibleSteps = chapter.steps.filter((s) => {
+    if (anyFacet) {
+      if (s.type === "note") return false; // 篩選時隱藏提示
+      if (!matchFacet(s, facets)) return false;
+    }
+    if (hideDone && s.type !== "note" && done[s.id]) return false;
+    return true;
+  });
+
+  // 篩選後本章沒有任何符合的步驟就整章隱藏
+  if (anyFacet && visibleSteps.length === 0) return null;
 
   return (
     <div className={"chapter" + (collapsed ? " collapsed" : "")} data-ch={chapter.id}>
@@ -46,18 +65,16 @@ function ChapterCardInner({ chapter, done, collapsed, hideDone, currentStepId, f
 
       {!collapsed && (
         <div className="chapter-body">
-          {chapter.steps.map((s) => {
-            if (hideDone && s.type !== "note" && done[s.id]) return null;
-            return (
-              <StepRow
-                key={s.id}
-                step={s}
-                done={!!done[s.id]}
-                isCurrent={s.id === currentStepId}
-                flash={s.id === flashStepId}
-              />
-            );
-          })}
+          {visibleSteps.map((s) => (
+            <StepRow
+              key={s.id}
+              step={s}
+              done={!!done[s.id]}
+              isCurrent={s.id === currentStepId}
+              flash={s.id === flashStepId}
+            />
+          ))}
+          {visibleSteps.length === 0 && <div className="empty-note">（此章已全部完成）</div>}
         </div>
       )}
     </div>

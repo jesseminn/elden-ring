@@ -13,6 +13,8 @@ export interface Step {
   added?: boolean;
   /** Claude 後補的地點標示（原步驟未寫明發生地點時補上） */
   location?: string;
+  /** 易斷：會錯過（missable）的關鍵步驟，UI 以 ⚠ 標示 */
+  missable?: boolean;
 }
 
 export interface Chapter {

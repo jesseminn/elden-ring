@@ -13,12 +13,19 @@ const LS_UI = "elden-ui-v1";
 
 export type Tab = "flow" | "quests";
 
+export interface Facets {
+  boss: boolean;
+  collect: boolean;
+  npc: boolean;
+}
+
 export interface UiState {
   tab: Tab;
   collapsed: Record<string, boolean>;
   hideDone: boolean;
   onlyMain: boolean;
   activeQuest: string | null;
+  facets: Facets;
 }
 
 export interface State {
@@ -26,17 +33,23 @@ export interface State {
   ui: UiState;
   // 跨頁跳轉用：要捲動並閃爍的步驟（非持久化）
   highlight: { stepId: string; nonce: number } | null;
+  // 底部彈出的支線全貌（非持久化）
+  peek: { qid: string; fromStepId: string } | null;
 }
 
 export type Action =
   | { type: "toggleStep"; id: string; value: boolean }
+  | { type: "setProgress"; done: DoneMap }
   | { type: "resetProgress" }
   | { type: "setTab"; tab: Tab }
   | { type: "toggleChapter"; id: string }
   | { type: "setAllCollapsed"; ids: string[]; value: boolean }
   | { type: "setHideDone"; value: boolean }
   | { type: "setOnlyMain"; value: boolean }
+  | { type: "toggleFacet"; facet: keyof Facets }
   | { type: "openQuest"; id: string }
+  | { type: "openPeek"; qid: string; fromStepId: string }
+  | { type: "closePeek" }
   | { type: "gotoStep"; chapterId: string; stepId: string }
   | { type: "clearHighlight" };
 
@@ -55,13 +68,16 @@ const defaultUi: UiState = {
   hideDone: false,
   onlyMain: false,
   activeQuest: null,
+  facets: { boss: false, collect: false, npc: false },
 };
 
 export function initialState(): State {
+  const savedUi = load<Partial<UiState>>(LS_UI, {});
   return {
     done: load<DoneMap>(LS_PROGRESS, {}),
-    ui: { ...defaultUi, ...load<Partial<UiState>>(LS_UI, {}) },
+    ui: { ...defaultUi, ...savedUi, facets: { ...defaultUi.facets, ...(savedUi.facets || {}) } },
     highlight: null,
+    peek: null,
   };
 }
 
@@ -73,6 +89,8 @@ function reducer(state: State, action: Action): State {
       else delete done[action.id];
       return { ...state, done };
     }
+    case "setProgress":
+      return { ...state, done: action.done };
     case "resetProgress":
       return { ...state, done: {} };
     case "setTab":
@@ -94,11 +112,21 @@ function reducer(state: State, action: Action): State {
       return { ...state, ui: { ...state.ui, hideDone: action.value } };
     case "setOnlyMain":
       return { ...state, ui: { ...state.ui, onlyMain: action.value } };
+    case "toggleFacet":
+      return {
+        ...state,
+        ui: { ...state.ui, facets: { ...state.ui.facets, [action.facet]: !state.ui.facets[action.facet] } },
+      };
     case "openQuest":
       return { ...state, ui: { ...state.ui, tab: "quests", activeQuest: action.id } };
+    case "openPeek":
+      return { ...state, peek: { qid: action.qid, fromStepId: action.fromStepId } };
+    case "closePeek":
+      return { ...state, peek: null };
     case "gotoStep":
       return {
         ...state,
+        peek: null,
         ui: {
           ...state.ui,
           tab: "flow",
