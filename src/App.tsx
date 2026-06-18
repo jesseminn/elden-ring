@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { overallStats, pct } from "./lib/data";
+import { overallStats, pct, currentStepId, data } from "./lib/data";
 import { useAppState, useDispatch } from "./store";
 import FlowView from "./components/FlowView";
 import QuestView from "./components/QuestView";
@@ -14,12 +14,22 @@ export default function App() {
   const showToast = useCallback((msg: string) => setToast({ msg, nonce: Date.now() }), []);
 
   const stats = useMemo(() => overallStats(state.done), [state.done]);
+  const curId = useMemo(() => currentStepId(state.done), [state.done]);
 
   const reset = () => {
     if (confirm("確定要清除所有進度嗎？此動作無法復原。")) {
       dispatch({ type: "resetProgress" });
       showToast("已清除所有進度");
     }
+  };
+
+  const jumpCurrent = () => {
+    if (!curId) {
+      showToast("流程已全部完成");
+      return;
+    }
+    const ch = data.chapters.find((c) => c.steps.some((s) => s.id === curId))!;
+    dispatch({ type: "gotoStep", chapterId: ch.id, stepId: curId });
   };
 
   return (
@@ -44,6 +54,9 @@ export default function App() {
             </div>
           </div>
           <div className="head-btns">
+            <button className="gold-btn" title="跳到流程中第一個未完成的步驟" onClick={jumpCurrent}>
+              跳到目前進度
+            </button>
             <button className="ghost-btn" title="清除所有進度" onClick={reset}>
               重設
             </button>
@@ -73,7 +86,7 @@ export default function App() {
       </div>
 
       {state.ui.tab === "flow" ? (
-        <FlowView onToast={showToast} />
+        <FlowView />
       ) : state.ui.tab === "quests" ? (
         <QuestView />
       ) : (

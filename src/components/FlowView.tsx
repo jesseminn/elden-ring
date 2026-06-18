@@ -3,7 +3,7 @@ import { data, currentStepId } from "../lib/data";
 import { useAppState, useDispatch } from "../store";
 import { ChapterCard } from "./ChapterCard";
 
-export default function FlowView({ onToast }: { onToast: (m: string) => void }) {
+export default function FlowView() {
   const state = useAppState();
   const dispatch = useDispatch();
   const { done, ui, highlight } = state;
@@ -20,15 +20,6 @@ export default function FlowView({ onToast }: { onToast: (m: string) => void }) 
 
   const chapterIds = data.chapters.map((c) => c.id);
 
-  const jumpCurrent = () => {
-    if (!curId) {
-      onToast("流程已全部完成 🎉");
-      return;
-    }
-    const ch = data.chapters.find((c) => c.steps.some((s) => s.id === curId))!;
-    dispatch({ type: "gotoStep", chapterId: ch.id, stepId: curId });
-  };
-
   const facets = ui.facets;
   const anyFacet = facets.boss || facets.collect || facets.npc;
 
@@ -40,41 +31,45 @@ export default function FlowView({ onToast }: { onToast: (m: string) => void }) 
 
   return (
     <div className="view">
-      <div className="toolbar">
-        {FACETS.map((f) => (
-          <button
-            key={f.key}
-            className={"pill " + f.cls + (facets[f.key] ? " on" : "")}
-            onClick={() => dispatch({ type: "toggleFacet", facet: f.key })}
-          >
-            {f.label}
+      <div className="toolbar2">
+        <div className="tb-row">
+          <span className="tb-label">篩選</span>
+          {FACETS.map((f) => (
+            <button
+              key={f.key}
+              className={"pill " + f.cls + (facets[f.key] ? " on" : "")}
+              onClick={() => dispatch({ type: "toggleFacet", facet: f.key })}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+        <div className="tb-row">
+          <span className="tb-label">檢視</span>
+          <label className="chk">
+            <input
+              type="checkbox"
+              checked={ui.hideDone}
+              onChange={(e) => dispatch({ type: "setHideDone", value: e.target.checked })}
+            />
+            隱藏已完成
+          </label>
+          <label className="chk">
+            <input
+              type="checkbox"
+              checked={ui.onlyMain}
+              onChange={(e) => dispatch({ type: "setOnlyMain", value: e.target.checked })}
+            />
+            只看主線
+          </label>
+          <span className="tb-spacer" />
+          <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: chapterIds, value: false })}>
+            展開
           </button>
-        ))}
-        <label className="chk">
-          <input
-            type="checkbox"
-            checked={ui.hideDone}
-            onChange={(e) => dispatch({ type: "setHideDone", value: e.target.checked })}
-          />
-          隱藏已完成
-        </label>
-        <label className="chk">
-          <input
-            type="checkbox"
-            checked={ui.onlyMain}
-            onChange={(e) => dispatch({ type: "setOnlyMain", value: e.target.checked })}
-          />
-          只看主線章節
-        </label>
-        <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: chapterIds, value: false })}>
-          全部展開
-        </button>
-        <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: chapterIds, value: true })}>
-          全部收合
-        </button>
-        <button className="gold-btn small" onClick={jumpCurrent}>
-          跳到目前進度 ▾
-        </button>
+          <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: chapterIds, value: true })}>
+            收合
+          </button>
+        </div>
       </div>
 
       {data.chapters.map((ch) => {
