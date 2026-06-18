@@ -80,7 +80,7 @@ body {
 .chapter { border: 1px solid var(--border); border-radius: 5px; margin-bottom: 10px; background: var(--panel); overflow: hidden; }
 .chapter-head { display: flex; align-items: center; gap: 11px; padding: 12px 13px; cursor: pointer; user-select: none; }
 .chapter-head:hover { background: var(--panel2); }
-.chapter-num { font-size: 13px; font-weight: 700; color: var(--bg); background: var(--gold); border-radius: 3px; padding: 2px 8px; min-width: 26px; text-align: center; }
+.chapter-num { font-size: 13px; font-weight: 700; color: var(--gold-bright); background: #c9a14a1f; border: 1px solid #c9a14a55; border-radius: 3px; padding: 1px 7px; min-width: 24px; text-align: center; }
 .chapter-title { font-family: var(--serif); font-size: 16px; font-weight: 700; color: var(--gold-bright); flex-shrink: 0; }
 .chapter-meta { display: flex; gap: 5px; flex-wrap: wrap; flex: 1; }
 .badge { font-size: 10px; padding: 2px 7px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
@@ -117,16 +117,16 @@ body {
 .step.optional .step-icon { color: #8fae7a; }
 .step-text { font-size: 13.5px; line-height: 1.45; }
 .note-label { font-size: 10px; color: var(--gold); font-weight: 700; margin-right: 6px; }
-.current-tag { font-size: 10px; background: var(--gold); color: var(--bg); padding: 1px 7px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; }
-.added-tag { font-size: 10px; background: linear-gradient(90deg, #6f9bd8, #8f7fd8); color: #fff; padding: 1px 7px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; }
+.current-tag { font-size: 10px; color: var(--gold-bright); background: #c9a14a1f; border: 1px solid #c9a14a66; padding: 1px 6px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; }
+.added-tag { font-size: 10px; color: #9fb4e0; background: #6f9bd81f; border: 1px solid #6f9bd866; padding: 1px 6px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; }
 
 .step-extra { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
 .chip { font-size: 10.5px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
 .chip.item { color: #cbbd84; border-color: #4a4226; }
-.chip.boss { color: #fff; background: var(--boss); border-color: var(--boss); font-weight: 700; }
+.chip.boss { color: var(--boss); background: #c97b5a1f; border-color: #c97b5a88; font-weight: 700; }
 .chip.loc { color: #a8c0dc; border-color: #3f5870; }
-.chip.quest { cursor: pointer; color: #fff; border: none; transition: filter 0.15s; font-family: inherit; }
-.chip.quest:hover { filter: brightness(1.2); }
+.chip.quest { cursor: pointer; transition: filter 0.15s; font-family: inherit; }
+.chip.quest:hover { filter: brightness(1.25); }
 
 .detail-toggle { font-size: 10.5px; color: var(--muted2); cursor: pointer; background: none; border: none; padding: 3px 2px; font-family: inherit; }
 .detail-toggle:hover { color: var(--gold-bright); }
@@ -207,7 +207,7 @@ body {
 .sheet-close { margin-top: 12px; flex-shrink: 0; width: 100%; padding: 11px 0; background: transparent; color: var(--muted); border: 1px solid var(--border2); border-radius: 4px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; }
 .sheet-close:hover { border-color: var(--gold); color: var(--gold-bright); }
 .tl-step.from { background: #c9a14a14; border-radius: 6px; }
-.from-tag { font-size: 10px; background: var(--gold); color: var(--bg); padding: 1px 7px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; }
+.from-tag { font-size: 10px; color: var(--gold-bright); background: #c9a14a1f; border: 1px solid #c9a14a66; padding: 1px 6px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; }
 
 .modal { background: var(--panel); border: 1px solid var(--border2); border-radius: 6px; padding: 18px; width: 100%; max-width: 440px; box-sizing: border-box; animation: slideup .2s ease; }
 .modal-title { font-family: var(--serif); font-size: 18px; color: var(--gold-bright); margin-bottom: 4px; }

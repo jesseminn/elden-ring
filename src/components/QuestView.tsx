@@ -118,8 +118,8 @@ function QuestCard({ quest, done, open }: { quest: Quest; done: DoneMap; open: b
                     </div>
                     {(s.boss || s.location || s.items.length > 0) && (
                       <div className="tl-extra">
-                        {s.boss && <span className="chip boss">⚔ BOSS</span>}
-                        {s.location && <span className="chip loc">📍 {s.location}</span>}
+                        {s.boss && <span className="chip boss">BOSS</span>}
+                        {s.location && <span className="chip loc">{s.location}</span>}
                         {s.items.map((it, i) => (
                           <span className="chip item" key={i}>
                             {it}

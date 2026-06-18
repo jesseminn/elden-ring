@@ -4,13 +4,11 @@ import { useAppState, useDispatch } from "./store";
 import FlowView from "./components/FlowView";
 import QuestView from "./components/QuestView";
 import QuestPeek from "./components/QuestPeek";
-import DataModal from "./components/DataModal";
 
 export default function App() {
   const state = useAppState();
   const dispatch = useDispatch();
   const [toast, setToast] = useState<{ msg: string; nonce: number } | null>(null);
-  const [showData, setShowData] = useState(false);
 
   const showToast = useCallback((msg: string) => setToast({ msg, nonce: Date.now() }), []);
 
@@ -45,9 +43,6 @@ export default function App() {
             </div>
           </div>
           <div className="head-btns">
-            <button className="ghost-btn" title="匯出 / 匯入進度（換裝置用）" onClick={() => setShowData(true)}>
-              搬移
-            </button>
             <button className="ghost-btn" title="清除所有進度" onClick={reset}>
               重設
             </button>
@@ -59,13 +54,13 @@ export default function App() {
             className={"tab" + (state.ui.tab === "flow" ? " active" : "")}
             onClick={() => dispatch({ type: "setTab", tab: "flow" })}
           >
-            📜 線性流程
+            線性流程
           </button>
           <button
             className={"tab" + (state.ui.tab === "quests" ? " active" : "")}
             onClick={() => dispatch({ type: "setTab", tab: "quests" })}
           >
-            🧭 支線總覽
+            支線總覽
           </button>
         </nav>
       </div>
@@ -73,7 +68,6 @@ export default function App() {
       {state.ui.tab === "flow" ? <FlowView onToast={showToast} /> : <QuestView />}
 
       <QuestPeek />
-      {showData && <DataModal onClose={() => setShowData(false)} />}
       <Toast toast={toast} />
     </>
   );

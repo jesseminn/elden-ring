@@ -54,18 +54,17 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
       </label>
       <div className="step-main">
         <span className="step-text">
-          <span className="step-icon">{step.type === "optional" ? "▲" : "●"}</span>
           {step.text}
-          {step.missable && <span className="miss-tag" title="易斷：操作不當可能永久錯過">⚠ 易斷</span>}
-          {step.added && <span className="added-tag" title="此步驟由 Claude 查證網路資料後補充">✨ Claude 補充</span>}
+          {step.missable && <span className="miss-tag" title="易斷：操作不當可能永久錯過">易斷</span>}
+          {step.added && <span className="added-tag" title="此步驟由 Claude 查證網路資料後補充">Claude 補充</span>}
           {isCurrent && <span className="current-tag">目前進度</span>}
         </span>
 
         {(step.boss || step.location || step.items.length > 0 || step.quests.length > 0) && (
           <div className="step-extra">
-            {step.boss && <span className="chip boss">⚔ BOSS</span>}
+            {step.boss && <span className="chip boss">BOSS</span>}
             {step.location && (
-              <span className="chip loc" title="地點（Claude 查證補充）">📍 {step.location}</span>
+              <span className="chip loc" title="地點（Claude 查證補充）">{step.location}</span>
             )}
             {step.items.map((it, i) => (
               <span className="chip item" key={i}>
@@ -79,11 +78,11 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
                 <button
                   key={qid}
                   className="chip quest"
-                  style={{ background: q.color }}
+                  style={{ color: q.color, borderColor: q.color + "88", background: q.color + "1f" }}
                   title={`查看「${q.name}」完整支線流程（底部彈出）`}
                   onClick={() => dispatch({ type: "openPeek", qid, fromStepId: step.id })}
                 >
-                  🧭 {q.name} ↗
+                  {q.name} ↗
                 </button>
               );
             })}

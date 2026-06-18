@@ -33,9 +33,9 @@ export default function FlowView({ onToast }: { onToast: (m: string) => void }) 
   const anyFacet = facets.boss || facets.collect || facets.npc;
 
   const FACETS: { key: "boss" | "collect" | "npc"; label: string; cls: string }[] = [
-    { key: "boss", label: "⚔ BOSS", cls: "f-boss" },
-    { key: "collect", label: "🎁 收集", cls: "f-collect" },
-    { key: "npc", label: "🧭 支線", cls: "f-npc" },
+    { key: "boss", label: "BOSS", cls: "f-boss" },
+    { key: "collect", label: "收集", cls: "f-collect" },
+    { key: "npc", label: "支線", cls: "f-npc" },
   ];
 
   return (
