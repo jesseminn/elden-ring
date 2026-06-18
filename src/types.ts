@@ -41,3 +41,25 @@ export interface Walkthrough {
   chapters: Chapter[];
   quests: Quest[];
 }
+
+export interface CollectItem {
+  id: string;
+  kind: string;
+  text: string;
+  miss?: boolean;
+  note?: string;
+}
+
+export interface CollectRegion {
+  id: string;
+  name: string;
+  en: string;
+  lv: string;
+  wpn: string;
+  note: string;
+  items: CollectItem[];
+}
+
+export interface CollectionData {
+  regions: CollectRegion[];
+}

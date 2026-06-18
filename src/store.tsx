@@ -11,7 +11,7 @@ import type { DoneMap } from "./lib/data";
 const LS_PROGRESS = "elden-progress-v1";
 const LS_UI = "elden-ui-v1";
 
-export type Tab = "flow" | "quests";
+export type Tab = "flow" | "quests" | "collect";
 
 export interface Facets {
   boss: boolean;
@@ -26,6 +26,7 @@ export interface UiState {
   onlyMain: boolean;
   activeQuest: string | null;
   facets: Facets;
+  collectKind: string; // 收集分頁的種類 filter，"" = 全部
 }
 
 export interface State {
@@ -47,6 +48,7 @@ export type Action =
   | { type: "setHideDone"; value: boolean }
   | { type: "setOnlyMain"; value: boolean }
   | { type: "toggleFacet"; facet: keyof Facets }
+  | { type: "setCollectKind"; kind: string }
   | { type: "openQuest"; id: string }
   | { type: "openPeek"; qid: string; fromStepId: string }
   | { type: "closePeek" }
@@ -69,6 +71,7 @@ const defaultUi: UiState = {
   onlyMain: false,
   activeQuest: null,
   facets: { boss: false, collect: false, npc: false },
+  collectKind: "",
 };
 
 export function initialState(): State {
@@ -117,6 +120,8 @@ function reducer(state: State, action: Action): State {
         ...state,
         ui: { ...state.ui, facets: { ...state.ui.facets, [action.facet]: !state.ui.facets[action.facet] } },
       };
+    case "setCollectKind":
+      return { ...state, ui: { ...state.ui, collectKind: action.kind } };
     case "openQuest":
       return { ...state, ui: { ...state.ui, tab: "quests", activeQuest: action.id } };
     case "openPeek":

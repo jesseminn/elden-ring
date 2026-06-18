@@ -1,7 +1,10 @@
 import raw from "../data/walkthrough.json";
-import type { Walkthrough, Chapter, Step, Quest } from "../types";
+import rawCol from "../data/collection.json";
+import type { Walkthrough, Chapter, Step, Quest, CollectionData, CollectRegion } from "../types";
 
 export const data = raw as unknown as Walkthrough;
+export const collection = rawCol as unknown as CollectionData;
+export const collectRegions: CollectRegion[] = collection.regions.filter((r) => r.items.length > 0);
 
 // ---- 索引 ----
 export const stepById: Record<string, Step> = {};
@@ -65,3 +68,34 @@ export function currentStepId(done: DoneMap): string | null {
 }
 
 export const pct = (a: number, b: number) => (b ? Math.round((a / b) * 100) : 0);
+
+// ---- 收集 ----
+export function collectRegionStats(r: CollectRegion, done: DoneMap) {
+  let cnt = 0;
+  for (const it of r.items) if (done[it.id]) cnt++;
+  return { total: r.items.length, done: cnt };
+}
+
+export function collectionOverall(done: DoneMap) {
+  let total = 0,
+    cnt = 0;
+  for (const r of collectRegions)
+    for (const it of r.items) {
+      total++;
+      if (done[it.id]) cnt++;
+    }
+  return { total, done: cnt };
+}
+
+// 全部收集物的種類（依出現順序）
+export const collectKinds: string[] = (() => {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const r of collectRegions)
+    for (const it of r.items)
+      if (!seen.has(it.kind)) {
+        seen.add(it.kind);
+        out.push(it.kind);
+      }
+  return out;
+})();

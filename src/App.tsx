@@ -3,6 +3,7 @@ import { overallStats, pct } from "./lib/data";
 import { useAppState, useDispatch } from "./store";
 import FlowView from "./components/FlowView";
 import QuestView from "./components/QuestView";
+import CollectionView from "./components/CollectionView";
 import QuestPeek from "./components/QuestPeek";
 
 export default function App() {
@@ -62,10 +63,22 @@ export default function App() {
           >
             支線總覽
           </button>
+          <button
+            className={"tab" + (state.ui.tab === "collect" ? " active" : "")}
+            onClick={() => dispatch({ type: "setTab", tab: "collect" })}
+          >
+            收集
+          </button>
         </nav>
       </div>
 
-      {state.ui.tab === "flow" ? <FlowView onToast={showToast} /> : <QuestView />}
+      {state.ui.tab === "flow" ? (
+        <FlowView onToast={showToast} />
+      ) : state.ui.tab === "quests" ? (
+        <QuestView />
+      ) : (
+        <CollectionView />
+      )}
 
       <QuestPeek />
       <Toast toast={toast} />
