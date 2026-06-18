@@ -36,6 +36,8 @@ export interface State {
   highlight: { stepId: string; nonce: number } | null;
   // 底部彈出的支線全貌（非持久化）
   peek: { qid: string; fromStepId: string } | null;
+  // 底部彈出的系列收集（非持久化）；值為收集種類，如「黃金種子」
+  seriesPeek: string | null;
 }
 
 export type Action =
@@ -52,6 +54,8 @@ export type Action =
   | { type: "openQuest"; id: string }
   | { type: "openPeek"; qid: string; fromStepId: string }
   | { type: "closePeek" }
+  | { type: "openSeries"; kind: string }
+  | { type: "closeSeries" }
   | { type: "gotoStep"; chapterId: string; stepId: string }
   | { type: "clearHighlight" };
 
@@ -81,6 +85,7 @@ export function initialState(): State {
     ui: { ...defaultUi, ...savedUi, facets: { ...defaultUi.facets, ...(savedUi.facets || {}) } },
     highlight: null,
     peek: null,
+    seriesPeek: null,
   };
 }
 
@@ -128,6 +133,10 @@ function reducer(state: State, action: Action): State {
       return { ...state, peek: { qid: action.qid, fromStepId: action.fromStepId } };
     case "closePeek":
       return { ...state, peek: null };
+    case "openSeries":
+      return { ...state, seriesPeek: action.kind };
+    case "closeSeries":
+      return { ...state, seriesPeek: null };
     case "gotoStep":
       return {
         ...state,

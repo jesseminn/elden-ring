@@ -92,15 +92,10 @@ export default function QuestPeek() {
                       第{ch.num}章 ›
                     </button>
                   </div>
-                  {(s.boss || s.location || s.items.length > 0) && (
+                  {(s.boss || s.location) && (
                     <div className="tl-extra">
                       {s.boss && <span className="chip boss">BOSS</span>}
                       {s.location && <span className="chip loc">{s.location}</span>}
-                      {s.items.map((it, i) => (
-                        <span className="chip item" key={i}>
-                          {it}
-                        </span>
-                      ))}
                     </div>
                   )}
                   {s.detail.length > 0 && (

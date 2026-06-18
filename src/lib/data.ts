@@ -87,6 +87,28 @@ export function collectionOverall(done: DoneMap) {
   return { total, done: cnt };
 }
 
+// 某系列（種類）在各區的項目，依區順序分組
+export function seriesByRegion(kind: string) {
+  const out: { region: CollectRegion; items: CollectRegion["items"] }[] = [];
+  for (const r of collectRegions) {
+    const items = r.items.filter((it) => it.kind === kind);
+    if (items.length) out.push({ region: r, items });
+  }
+  return out;
+}
+
+export function kindStats(kind: string, done: DoneMap) {
+  let total = 0,
+    cnt = 0;
+  for (const r of collectRegions)
+    for (const it of r.items)
+      if (it.kind === kind) {
+        total++;
+        if (done[it.id]) cnt++;
+      }
+  return { total, done: cnt };
+}
+
 // 全部收集物的種類（依出現順序）
 export const collectKinds: string[] = (() => {
   const seen = new Set<string>();

@@ -5,6 +5,7 @@ import FlowView from "./components/FlowView";
 import QuestView from "./components/QuestView";
 import CollectionView from "./components/CollectionView";
 import QuestPeek from "./components/QuestPeek";
+import SeriesPeek from "./components/SeriesPeek";
 
 export default function App() {
   const state = useAppState();
@@ -94,6 +95,7 @@ export default function App() {
       )}
 
       <QuestPeek />
+      <SeriesPeek />
       <Toast toast={toast} />
     </>
   );

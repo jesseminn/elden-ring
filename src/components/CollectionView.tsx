@@ -3,6 +3,7 @@ import {
   collectRegionStats,
   collectionOverall,
   collectKinds,
+  kindStats,
   pct,
   type DoneMap,
 } from "../lib/data";
@@ -12,10 +13,13 @@ import { useAppState, useDispatch } from "../store";
 export default function CollectionView() {
   const { done, ui } = useAppState();
   const dispatch = useDispatch();
-  const kind = ui.collectKind;
   const overall = collectionOverall(done);
-
   const expIds = collectRegions.map((r) => "exp-" + r.id);
+
+  // 系列 = 有 2 項以上的種類
+  const series = collectKinds
+    .map((k) => ({ kind: k, ...kindStats(k, done) }))
+    .filter((s) => s.total >= 2);
 
   return (
     <div className="view">
@@ -28,37 +32,46 @@ export default function CollectionView() {
         </div>
       </div>
 
-      <div className="toolbar">
-        <select
-          className="kind-select"
-          value={kind}
-          onChange={(e) => dispatch({ type: "setCollectKind", kind: e.target.value })}
-        >
-          <option value="">全部種類</option>
-          {collectKinds.map((k) => (
-            <option key={k} value={k}>
-              {k}
-            </option>
-          ))}
-        </select>
-        <label className="chk">
-          <input
-            type="checkbox"
-            checked={ui.hideDone}
-            onChange={(e) => dispatch({ type: "setHideDone", value: e.target.checked })}
-          />
-          隱藏已取得
-        </label>
-        <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: expIds, value: true })}>
-          全部展開
-        </button>
-        <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: expIds, value: false })}>
-          全部收合
-        </button>
+      <div className="series-bar">
+        <span className="tb-label">系列（點擊看所有取得地點）</span>
+        <div className="series-pills">
+          {series.map((s) => {
+            const full = s.done === s.total;
+            return (
+              <button
+                key={s.kind}
+                className={"series-pill" + (full ? " full" : "")}
+                onClick={() => dispatch({ type: "openSeries", kind: s.kind })}
+              >
+                {s.kind} <span className="sp-count">{s.done}/{s.total}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="toolbar2">
+        <div className="tb-row">
+          <label className="chk">
+            <input
+              type="checkbox"
+              checked={ui.hideDone}
+              onChange={(e) => dispatch({ type: "setHideDone", value: e.target.checked })}
+            />
+            隱藏已取得
+          </label>
+          <span className="tb-spacer" />
+          <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: expIds, value: true })}>
+            展開
+          </button>
+          <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: expIds, value: false })}>
+            收合
+          </button>
+        </div>
       </div>
 
       {collectRegions.map((r) => (
-        <RegionCard key={r.id} region={r} done={done} kind={kind} hideDone={ui.hideDone} expanded={!!ui.collapsed["exp-" + r.id]} />
+        <RegionCard key={r.id} region={r} done={done} hideDone={ui.hideDone} expanded={!!ui.collapsed["exp-" + r.id]} />
       ))}
     </div>
   );
@@ -67,13 +80,11 @@ export default function CollectionView() {
 function RegionCard({
   region,
   done,
-  kind,
   hideDone,
   expanded,
 }: {
   region: CollectRegion;
   done: DoneMap;
-  kind: string;
   hideDone: boolean;
   expanded: boolean;
 }) {
@@ -81,14 +92,7 @@ function RegionCard({
   const stats = collectRegionStats(region, done);
   const p = pct(stats.done, stats.total);
 
-  const items = region.items.filter((it) => {
-    if (kind && it.kind !== kind) return false;
-    if (hideDone && done[it.id]) return false;
-    return true;
-  });
-
-  // 套用種類 filter 後本區沒有項目就隱藏
-  if (kind && region.items.every((it) => it.kind !== kind)) return null;
+  const items = region.items.filter((it) => !(hideDone && done[it.id]));
 
   return (
     <div className={"chapter" + (expanded ? "" : " collapsed")}>
@@ -128,7 +132,17 @@ function RegionCard({
                 />
                 <span className="citem-main">
                   <span className="citem-top">
-                    <span className="chip kind">{it.kind}</span>
+                    <button
+                      className="chip kind clickable"
+                      title={`查看所有「${it.kind}」取得地點`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        dispatch({ type: "openSeries", kind: it.kind });
+                      }}
+                    >
+                      {it.kind}
+                    </button>
                     {it.miss && <span className="miss-tag">易斷</span>}
                   </span>
                   <span className="citem-text">{it.text}</span>
@@ -137,7 +151,7 @@ function RegionCard({
               </label>
             );
           })}
-          {items.length === 0 && <div className="empty-note">（此區目前篩選下沒有項目）</div>}
+          {items.length === 0 && <div className="empty-note">（此區已全部取得）</div>}
         </div>
       )}
     </div>

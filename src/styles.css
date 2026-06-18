@@ -232,6 +232,22 @@ body {
   border-radius: 4px; padding: 5px 9px; font-family: inherit; cursor: pointer;
 }
 .region-note { font-size: 12px; line-height: 1.5; color: #b7ad96; background: #ffffff06; border-left: 2px solid var(--gold); padding: 7px 10px; margin: 4px 0 8px; }
+
+/* 系列收集藥丸 */
+.series-bar { margin-bottom: 12px; }
+.series-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.series-pill {
+  font-size: 12px; cursor: pointer; border-radius: 5px; padding: 4px 10px; font-family: inherit;
+  border: 1px solid var(--border2); background: transparent; color: var(--text); transition: all .15s;
+}
+.series-pill:hover { border-color: var(--gold); }
+.series-pill .sp-count { color: var(--muted); margin-left: 3px; }
+.series-pill.full { border-color: #7c9a6a55; color: var(--green-bright); }
+.series-pill.full .sp-count { color: var(--green); }
+.chip.kind.clickable { cursor: pointer; transition: all .15s; }
+.chip.kind.clickable:hover { border-color: var(--gold); color: var(--gold-bright); }
+.series-group { margin-bottom: 10px; }
+.series-region { font-size: 12px; font-weight: 700; color: var(--gold-bright); font-family: var(--serif); padding: 6px 2px 2px; border-bottom: 1px solid var(--border); margin-bottom: 2px; }
 .citem { display: flex; gap: 9px; padding: 8px 6px; border-bottom: 1px solid var(--border); cursor: pointer; align-items: flex-start; }
 .citem:last-child { border-bottom: none; }
 .citem:hover { background: var(--panel2); }
