@@ -64,9 +64,12 @@ click(lvlBtn); await wait();
 const ui = JSON.parse(localStorage.getItem("elden-ui-v1")||"{}");
 console.log("   升級後 buildLv:", ui.buildLv, "(預期 6)");
 
-// 6) 切換 build：選「龍饗」，驗證 build 切換且裝備清單更新（出現龍饗聖印）
-console.log("   build 選項數:", $$(".build-pick").length);
-click([...$$(".build-pick")].find(b=>b.textContent.includes("龍饗"))); await wait();
+// 6) 切換 build：下拉選「龍饗」，驗證 build 切換且裝備清單更新（出現龍饗聖印）
+const sel = $(".build-picker select");
+console.log("   build 選項數:", sel ? sel.options.length : 0);
+const dragonOpt = [...sel.options].find(o=>o.textContent.includes("龍饗"));
+sel.value = dragonOpt.value;
+sel.dispatchEvent(new window.Event("change", { bubbles: true })); await wait();
 const ui2 = JSON.parse(localStorage.getItem("elden-ui-v1")||"{}");
 const hasSeal = $$(".build-gear-name").some(n=>n.textContent.includes("龍饗聖印"));
 console.log("6) 切換後 buildId:", ui2.buildId, "| 出現龍饗聖印:", hasSeal);

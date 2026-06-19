@@ -238,15 +238,18 @@ export default function BuildView() {
     <div className="view build-view">
       {/* ---------- build 選擇 ---------- */}
       <div className="build-picker">
-        {BUILDS.map((b) => (
-          <button
-            key={b.id}
-            className={"build-pick" + (b.id === build.id ? " active" : "")}
-            onClick={() => dispatch({ type: "setBuildId", id: b.id })}
-          >
-            {b.name}
-          </button>
-        ))}
+        <span className="tb-label">流派</span>
+        <select
+          className="kind-select"
+          value={build.id}
+          onChange={(e) => dispatch({ type: "setBuildId", id: e.target.value })}
+        >
+          {BUILDS.map((b) => (
+            <option key={b.id} value={b.id}>
+              {b.name}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="build-intro">{build.intro}</div>
 
