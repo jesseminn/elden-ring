@@ -126,12 +126,12 @@ body {
 .added-tag { font-size: 10px; color: #9fb4e0; background: #6f9bd81f; border: 1px solid #6f9bd866; padding: 1px 6px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; }
 
 .step-extra { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
-.chip { font-size: 10.5px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
+.chip { font-size: 10.5px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; background: transparent; }
 .chip.item { color: #cbbd84; border-color: #4a4226; }
 .chip.boss { color: var(--boss); background: #c97b5a1f; border-color: #c97b5a88; font-weight: 700; }
 .chip.loc { color: #a8c0dc; border-color: #3f5870; }
-.chip.link { color: #9fc2a0; border-color: #3f6045; cursor: pointer; font-family: inherit; transition: all .15s; }
-.chip.link:hover { border-color: var(--gold); color: var(--gold-bright); }
+.chip.link { color: var(--green-bright); border-color: #4d7050; background: #7c9a6a26; cursor: pointer; font-family: inherit; transition: all .15s; }
+.chip.link:hover { border-color: var(--green-bright); background: #7c9a6a40; }
 .citem-region { font-size: 10.5px; color: var(--muted2); }
 .chip.quest { cursor: pointer; transition: filter 0.15s; font-family: inherit; }
 .chip.quest:hover { filter: brightness(1.25); }
