@@ -1,10 +1,19 @@
 import raw from "../data/walkthrough.json";
 import rawCol from "../data/collection.json";
+import rawLinks from "../data/links.json";
 import type { Walkthrough, Chapter, Step, Quest, CollectionData, CollectRegion } from "../types";
 
 export const data = raw as unknown as Walkthrough;
 export const collection = rawCol as unknown as CollectionData;
 export const collectRegions: CollectRegion[] = collection.regions.filter((r) => r.items.length > 0);
+
+// 流程步驟 ↔ 收集項目 的雙向連動表（勾一邊另一邊同步）
+const linkData = rawLinks as unknown as { links: [string, string][] };
+export const linkMap: Record<string, string[]> = {};
+for (const [a, b] of linkData.links) {
+  (linkMap[a] ||= []).push(b);
+  (linkMap[b] ||= []).push(a);
+}
 
 // ---- 索引 ----
 export const stepById: Record<string, Step> = {};

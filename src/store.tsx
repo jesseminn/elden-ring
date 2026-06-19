@@ -7,6 +7,7 @@ import {
   type Dispatch,
 } from "react";
 import type { DoneMap } from "./lib/data";
+import { linkMap } from "./lib/data";
 
 const LS_PROGRESS = "elden-progress-v1";
 const LS_UI = "elden-ui-v1";
@@ -93,8 +94,12 @@ function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "toggleStep": {
       const done = { ...state.done };
-      if (action.value) done[action.id] = true;
-      else delete done[action.id];
+      // 連動：流程步驟與對應收集項目同步勾選
+      const ids = [action.id, ...(linkMap[action.id] || [])];
+      for (const id of ids) {
+        if (action.value) done[id] = true;
+        else delete done[id];
+      }
       return { ...state, done };
     }
     case "setProgress":

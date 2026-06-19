@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef, useState } from "react";
 import type { Step } from "../types";
-import { questById } from "../lib/data";
+import { questById, linkMap } from "../lib/data";
 import { useDispatch } from "../store";
 
 interface Props {
@@ -60,11 +60,14 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
           {isCurrent && <span className="current-tag">目前進度</span>}
         </span>
 
-        {(step.boss || step.location || step.quests.length > 0) && (
+        {(step.boss || step.location || step.quests.length > 0 || linkMap[step.id]) && (
           <div className="step-extra">
             {step.boss && <span className="chip boss">BOSS</span>}
             {step.location && (
               <span className="chip loc" title="地點（Claude 查證補充）">{step.location}</span>
+            )}
+            {linkMap[step.id] && (
+              <span className="chip link" title="此步驟已與「收集」清單連動，勾選會同步">計入收集</span>
             )}
             {step.quests.map((qid) => {
               const q = questById[qid];
