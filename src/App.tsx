@@ -55,39 +55,42 @@ export default function App() {
         <header className="topbar">
           <div className="brand">
             <h1>艾爾登法環</h1>
-            <nav className="modes">
+            <div className="modes">
               <button className={"mode" + (!onBuild ? " active" : "")} onClick={goTracker}>
                 流程追蹤器
               </button>
               <button className={"mode" + (onBuild ? " active" : "")} onClick={goBuild}>
                 配點器
               </button>
-            </nav>
+            </div>
           </div>
           {!onBuild && (
-            <>
-              <div className="overall">
-                <div className="overall-bar">
-                  <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
-                </div>
-                <div className="overall-text">
-                  <b>
-                    {stats.done} / {stats.total}
-                  </b>{" "}
-                  · {pct(stats.done, stats.total)}%
-                </div>
-              </div>
-              <div className="head-btns">
-                <button className="gold-btn" title="跳到流程中第一個未完成的步驟" onClick={jumpCurrent}>
-                  跳到目前進度
-                </button>
-                <button className="ghost-btn" title="清除所有進度" onClick={reset}>
-                  重設
-                </button>
-              </div>
-            </>
+            <div className="head-btns">
+              <button className="gold-btn" title="跳到流程中第一個未完成的步驟" onClick={jumpCurrent}>
+                跳到目前進度
+              </button>
+              <button className="ghost-btn" title="清除所有進度" onClick={reset}>
+                重設
+              </button>
+            </div>
           )}
         </header>
+
+        {!onBuild && (
+          <div className="subbar">
+            <div className="overall">
+              <div className="overall-bar">
+                <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
+              </div>
+              <div className="overall-text">
+                <b>
+                  {stats.done} / {stats.total}
+                </b>{" "}
+                · {pct(stats.done, stats.total)}%
+              </div>
+            </div>
+          </div>
+        )}
 
         {!onBuild && (
           <nav className="tabs">

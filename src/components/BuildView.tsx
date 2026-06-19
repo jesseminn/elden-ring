@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { pct } from "../lib/data";
 import { useAppState, useDispatch } from "../store";
 
 /* ============================================================
@@ -168,14 +167,9 @@ export default function BuildView() {
 
   return (
     <div className="view build-view">
-      {/* ---------- 進度摘要 ---------- */}
-      <div className="collect-summary">
-        <div className="overall-bar">
-          <div className="overall-fill" style={{ width: pct(lv - BASE_LV, MAX_LV - BASE_LV) + "%" }} />
-        </div>
-        <div className="collect-summary-text">
-          配點進度 <b>Lv{lv}</b> / {MAX_LV} · 盜賊 → 感應出血流（長牙雙太刀 + 完整血咒雙修，Lv187 核心畢業）
-        </div>
+      {/* ---------- 說明 ---------- */}
+      <div className="build-intro">
+        盜賊 → 感應出血流 · 目標 Lv{MAX_LV}（長牙雙太刀 + 完整血咒雙修，Lv187 核心畢業）
       </div>
 
       {/* ---------- 升級步進器 ---------- */}
