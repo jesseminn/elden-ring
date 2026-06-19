@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { pct } from "../lib/data";
 import { useAppState, useDispatch } from "../store";
 
@@ -140,6 +140,28 @@ export default function BuildView() {
 
   const [showAll, setShowAll] = useState(false);
 
+  // 等級輸入框：用本地字串 state，允許暫時清空／中途值，避免邊打邊被塞回
+  const [lvText, setLvText] = useState(String(lv));
+  // 滑桿／＋－／時間軸等其他控制改動等級時，同步回輸入框
+  useEffect(() => {
+    setLvText(String(lv));
+  }, [lv]);
+  const onLvChange = (t: string) => {
+    setLvText(t);
+    if (t === "") return; // 允許清空，不立即寫入
+    const n = parseInt(t, 10);
+    if (!Number.isNaN(n) && n >= BASE_LV && n <= MAX_LV) setLevel(n);
+  };
+  const onLvBlur = () => {
+    const n = parseInt(lvText, 10);
+    if (lvText === "" || Number.isNaN(n)) {
+      setLvText(String(lv)); // 空白／無效則還原
+      return;
+    }
+    setLevel(n); // 超出範圍時 clamp
+    setLvText(String(Math.max(BASE_LV, Math.min(MAX_LV, n))));
+  };
+
   const stats = useMemo(() => statsAt(lv), [lv]);
   const next = lv < MAX_LV ? PLAN[lv - BASE_LV] : null;
   const upcoming = useMemo(() => PLAN.slice(lv - BASE_LV, lv - BASE_LV + 8), [lv]);
@@ -167,10 +189,11 @@ export default function BuildView() {
             <input
               type="number"
               className="build-lv-input"
-              value={lv}
+              value={lvText}
               min={BASE_LV}
               max={MAX_LV}
-              onChange={(e) => setLevel(parseInt(e.target.value || String(BASE_LV), 10))}
+              onChange={(e) => onLvChange(e.target.value)}
+              onBlur={onLvBlur}
             />
           </div>
           <button className="gold-btn build-pm" onClick={() => setLevel(lv + 1)} disabled={lv >= MAX_LV}>
