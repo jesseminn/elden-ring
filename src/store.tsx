@@ -29,6 +29,7 @@ export interface UiState {
   facets: Facets;
   collectKind: string; // 收集分頁的種類 filter，"" = 全部
   buildLv: number; // 配點分頁目前等級（盜賊起手 Lv5）
+  buildId: string; // 配點：選擇的 build（"bleed" / "dragon"）
 }
 
 export interface State {
@@ -56,6 +57,7 @@ export type Action =
   | { type: "toggleFacet"; facet: keyof Facets }
   | { type: "setCollectKind"; kind: string }
   | { type: "setBuildLv"; lv: number }
+  | { type: "setBuildId"; id: string }
   | { type: "openQuest"; id: string }
   | { type: "openPeek"; qid: string; fromStepId: string }
   | { type: "closePeek" }
@@ -84,6 +86,7 @@ const defaultUi: UiState = {
   facets: { boss: false, collect: false, npc: false },
   collectKind: "",
   buildLv: 5,
+  buildId: "bleed",
 };
 
 export function initialState(): State {
@@ -142,6 +145,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, ui: { ...state.ui, collectKind: action.kind } };
     case "setBuildLv":
       return { ...state, ui: { ...state.ui, buildLv: action.lv } };
+    case "setBuildId":
+      return { ...state, ui: { ...state.ui, buildId: action.id } };
     case "openQuest":
       return { ...state, ui: { ...state.ui, tab: "quests", activeQuest: action.id } };
     case "openPeek":
