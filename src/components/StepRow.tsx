@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef, useState } from "react";
 import type { Step } from "../types";
-import { questById, linkMap } from "../lib/data";
+import { questById, linkMap, collectIdsForStep, collectItemById } from "../lib/data";
 import { useDispatch } from "../store";
 
 interface Props {
@@ -69,8 +69,13 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
             {linkMap[step.id] && (
               <button
                 className="chip link"
-                title="查看此步驟對應的收集品（勾選會同步）"
-                onClick={() => dispatch({ type: "openCollectPeek", stepId: step.id })}
+                title="查看對應的收集系列（勾選會同步）"
+                onClick={() => {
+                  const ids = collectIdsForStep(step.id);
+                  const kinds = [...new Set(ids.map((id) => collectItemById[id]?.item.kind).filter(Boolean))];
+                  if (kinds.length === 1) dispatch({ type: "openSeries", kind: kinds[0] as string });
+                  else dispatch({ type: "openCollectPeek", stepId: step.id });
+                }}
               >
                 收集 ↗
               </button>
