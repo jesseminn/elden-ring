@@ -57,6 +57,8 @@ body {
 .gold-btn { border-color: var(--gold); color: var(--gold-bright); background: #c9a14a14; }
 .gold-btn:hover { background: #c9a14a33; }
 .small { padding: 5px 9px; font-size: 11.5px; }
+/* 配點工具切換鈕（獨立於流程分頁，啟用時金色高亮） */
+.build-toggle.active { border-color: var(--gold); color: var(--gold-bright); background: #c9a14a26; }
 
 /* ---- 分頁 ---- */
 .tabs { display: flex; gap: 6px; padding: 8px 14px 12px; }

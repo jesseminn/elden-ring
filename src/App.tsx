@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { overallStats, pct, currentStepId, data } from "./lib/data";
 import { useAppState, useDispatch } from "./store";
 import FlowView from "./components/FlowView";
@@ -18,6 +18,19 @@ export default function App() {
 
   const stats = useMemo(() => overallStats(state.done), [state.done]);
   const curId = useMemo(() => currentStepId(state.done), [state.done]);
+
+  // 配點是獨立工具（與流程無關），用 header 按鈕切換而非分頁。
+  // 記住進配點前所在的流程分頁，再點一次可切回。
+  const prevTabRef = useRef<typeof state.ui.tab>("flow");
+  const onBuild = state.ui.tab === "build";
+  const toggleBuild = () => {
+    if (onBuild) {
+      dispatch({ type: "setTab", tab: prevTabRef.current === "build" ? "flow" : prevTabRef.current });
+    } else {
+      prevTabRef.current = state.ui.tab;
+      dispatch({ type: "setTab", tab: "build" });
+    }
+  };
 
   const reset = () => {
     if (confirm("確定要清除所有進度嗎？此動作無法復原。")) {
@@ -63,6 +76,13 @@ export default function App() {
             <button className="ghost-btn" title="清除所有進度" onClick={reset}>
               重設
             </button>
+            <button
+              className={"ghost-btn build-toggle" + (onBuild ? " active" : "")}
+              title="配點計畫（盜賊 → 感應出血流）"
+              onClick={toggleBuild}
+            >
+              ⚔ 配點
+            </button>
           </div>
         </header>
 
@@ -84,12 +104,6 @@ export default function App() {
             onClick={() => dispatch({ type: "setTab", tab: "collect" })}
           >
             收集
-          </button>
-          <button
-            className={"tab" + (state.ui.tab === "build" ? " active" : "")}
-            onClick={() => dispatch({ type: "setTab", tab: "build" })}
-          >
-            配點
           </button>
         </nav>
       </div>

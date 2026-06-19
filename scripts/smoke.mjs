@@ -56,9 +56,9 @@ if (tlcb){ tlcb.click(); await wait(); }
 const after = $(".qd-next .txt")?.textContent;
 console.log("4) 勾選後下一步有變化:", before !== after, "| 新下一步:", (after||"").slice(0,20));
 
-// 5) 配點分頁：渲染 + 「記錄 +1」升級並持久化 buildLv
-click([...$$(".tab")].find(t=>t.textContent.includes("配點"))); await wait();
-console.log("5) 配點分頁渲染:", !!$(".build-view"), "| 附近時間軸列數:", $$(".build-view .build-tl-row").length);
+// 5) 配點工具（header 按鈕，非分頁）：渲染 + 「記錄 +1」升級並持久化 buildLv
+click($(".build-toggle")); await wait();
+console.log("5) 配點工具渲染:", !!$(".build-view"), "| 分頁列無 active:", $$(".tab.active").length === 0, "| 附近時間軸列數:", $$(".build-view .build-tl-row").length);
 const lvlBtn = $$(".build-view button").find(b=>b.textContent.includes("記錄"));
 click(lvlBtn); await wait();
 const ui = JSON.parse(localStorage.getItem("elden-ui-v1")||"{}");
