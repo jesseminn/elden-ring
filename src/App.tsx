@@ -4,6 +4,7 @@ import { useAppState, useDispatch } from "./store";
 import FlowView from "./components/FlowView";
 import QuestView from "./components/QuestView";
 import CollectionView from "./components/CollectionView";
+import BuildView from "./components/BuildView";
 import QuestPeek from "./components/QuestPeek";
 import SeriesPeek from "./components/SeriesPeek";
 import CollectPeek from "./components/CollectPeek";
@@ -42,7 +43,7 @@ export default function App() {
             <h1>
               艾爾登法環 <span>流程追蹤器</span>
             </h1>
-            <p className="subtitle">線性流程 · 支線總覽 · 100% 全收集</p>
+            <p className="subtitle">線性流程 · 支線總覽 · 100% 全收集 · 配點計畫</p>
           </div>
           <div className="overall">
             <div className="overall-bar">
@@ -84,6 +85,12 @@ export default function App() {
           >
             收集
           </button>
+          <button
+            className={"tab" + (state.ui.tab === "build" ? " active" : "")}
+            onClick={() => dispatch({ type: "setTab", tab: "build" })}
+          >
+            配點
+          </button>
         </nav>
       </div>
 
@@ -91,8 +98,10 @@ export default function App() {
         <FlowView />
       ) : state.ui.tab === "quests" ? (
         <QuestView />
-      ) : (
+      ) : state.ui.tab === "collect" ? (
         <CollectionView />
+      ) : (
+        <BuildView />
       )}
 
       <QuestPeek />

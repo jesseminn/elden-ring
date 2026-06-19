@@ -275,3 +275,11 @@ body {
   .topbar { align-items: center; }
   .overall { flex: none; min-width: 220px; }
 }
+
+/* ---- 配點分頁（BuildView，自帶 inline 樣式，這裡只補互動態） ---- */
+.bp-root .tl-row:hover { background: rgba(217, 179, 102, 0.06) !important; }
+.bp-root button:disabled { opacity: 0.35; cursor: default; }
+.bp-root button:focus-visible, .bp-root input:focus-visible { outline: 2px solid #d9b366; outline-offset: 2px; }
+.bp-root input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+.bp-root .gold-slider { accent-color: #d9b366; }
+@media (prefers-reduced-motion: reduce) { .bp-root * { transition: none !important; } }

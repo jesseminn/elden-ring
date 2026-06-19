@@ -12,7 +12,7 @@ import { linkMap } from "./lib/data";
 const LS_PROGRESS = "elden-progress-v1";
 const LS_UI = "elden-ui-v1";
 
-export type Tab = "flow" | "quests" | "collect";
+export type Tab = "flow" | "quests" | "collect" | "build";
 
 export interface Facets {
   boss: boolean;
@@ -28,6 +28,7 @@ export interface UiState {
   activeQuest: string | null;
   facets: Facets;
   collectKind: string; // 收集分頁的種類 filter，"" = 全部
+  buildLv: number; // 配點分頁目前等級（盜賊起手 Lv5）
 }
 
 export interface State {
@@ -54,6 +55,7 @@ export type Action =
   | { type: "setOnlyMain"; value: boolean }
   | { type: "toggleFacet"; facet: keyof Facets }
   | { type: "setCollectKind"; kind: string }
+  | { type: "setBuildLv"; lv: number }
   | { type: "openQuest"; id: string }
   | { type: "openPeek"; qid: string; fromStepId: string }
   | { type: "closePeek" }
@@ -81,6 +83,7 @@ const defaultUi: UiState = {
   activeQuest: null,
   facets: { boss: false, collect: false, npc: false },
   collectKind: "",
+  buildLv: 5,
 };
 
 export function initialState(): State {
@@ -137,6 +140,8 @@ function reducer(state: State, action: Action): State {
       };
     case "setCollectKind":
       return { ...state, ui: { ...state.ui, collectKind: action.kind } };
+    case "setBuildLv":
+      return { ...state, ui: { ...state.ui, buildLv: action.lv } };
     case "openQuest":
       return { ...state, ui: { ...state.ui, tab: "quests", activeQuest: action.id } };
     case "openPeek":
