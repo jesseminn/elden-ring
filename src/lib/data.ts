@@ -144,8 +144,8 @@ export function seriesKindsForStep(stepId: string): string[] {
   return out;
 }
 
-// 補充說明中，純粹複述收集品的「取得「…」」行（收集標籤已涵蓋，避免重複）
-const ITEM_ECHO_RE = /^取得[「『]/;
+// 純粹複述收集品的「整行」：取得「…」。（後面沒有其他補充說明才算）
+const ITEM_ECHO_RE = /^取得[「『].+[」』]\s*。?\s*$/;
 // 取得該步驟「去除收集複述後」的補充說明；無收集連動時原樣保留，避免資訊遺失
 export function visibleDetail(step: Step): string[] {
   if (collectIdsForStep(step.id).length === 0) return step.detail;
