@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef, useState } from "react";
 import type { Step } from "../types";
-import { questById, linkMap, collectIdsForStep, collectItemById } from "../lib/data";
+import { questById, collectIdsForStep, seriesKindsForStep, visibleDetail } from "../lib/data";
 import { useDispatch } from "../store";
 
 interface Props {
@@ -43,6 +43,10 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
   if (flashing) cls.push("flash");
   if (step.added) cls.push("added");
 
+  const collectIds = collectIdsForStep(step.id);
+  const seriesKinds = seriesKindsForStep(step.id);
+  const detail = visibleDetail(step);
+
   return (
     <div className={cls.join(" ")} ref={ref} data-step={step.id}>
       <label className="step-cb">
@@ -60,26 +64,31 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
           {isCurrent && <span className="current-tag">目前進度</span>}
         </span>
 
-        {(step.boss || step.location || step.quests.length > 0 || linkMap[step.id]) && (
+        {(step.boss || step.location || step.quests.length > 0 || collectIds.length > 0) && (
           <div className="step-extra">
             {step.boss && <span className="chip boss">BOSS</span>}
             {step.location && (
               <span className="chip loc" title="地點（Claude 查證補充）">{step.location}</span>
             )}
-            {linkMap[step.id] && (
+            {collectIds.length > 0 && (
               <button
-                className="chip link"
-                title="查看對應的收集系列（勾選會同步）"
-                onClick={() => {
-                  const ids = collectIdsForStep(step.id);
-                  const kinds = [...new Set(ids.map((id) => collectItemById[id]?.item.kind).filter(Boolean))];
-                  if (kinds.length === 1) dispatch({ type: "openSeries", kind: kinds[0] as string });
-                  else dispatch({ type: "openCollectPeek", stepId: step.id });
-                }}
+                className="chip collect"
+                title="檢視此步驟可收集的物品（勾選會同步）"
+                onClick={() => dispatch({ type: "openCollectPeek", stepId: step.id })}
               >
-                收集 ↗
+                收集 ({collectIds.length}) ↗
               </button>
             )}
+            {seriesKinds.map((k) => (
+              <button
+                key={k}
+                className="chip series"
+                title={`查看「${k}」全地圖收集位置`}
+                onClick={() => dispatch({ type: "openSeries", kind: k })}
+              >
+                系列：{k} ↗
+              </button>
+            ))}
             {step.quests.map((qid) => {
               const q = questById[qid];
               if (!q) return null;
@@ -98,8 +107,8 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
           </div>
         )}
 
-        {step.detail.length > 0 && (
-          <DetailBlock detail={step.detail} show={showDetail} onToggle={() => setShowDetail((v) => !v)} />
+        {detail.length > 0 && (
+          <DetailBlock detail={detail} show={showDetail} onToggle={() => setShowDetail((v) => !v)} />
         )}
       </div>
     </div>

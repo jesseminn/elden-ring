@@ -125,6 +125,33 @@ export function kindStats(kind: string, done: DoneMap) {
   return { total, done: cnt };
 }
 
+// 「系列」收集物的種類：散落全地圖、值得一次檢視所有位置者（排除武器/護符等泛用裝備類）
+export const SERIES_KINDS = new Set<string>([
+  "黃金種子", "聖盃露滴", "淚滴", "記憶石", "古龍岩", "死根", "追憶", "符節", "畫作", "地圖", "製作筆記",
+]);
+
+// 某流程步驟連動到的「系列」種類（去重、依出現順序）
+export function seriesKindsForStep(stepId: string): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const id of collectIdsForStep(stepId)) {
+    const k = collectItemById[id]?.item.kind;
+    if (k && SERIES_KINDS.has(k) && !seen.has(k)) {
+      seen.add(k);
+      out.push(k);
+    }
+  }
+  return out;
+}
+
+// 補充說明中，純粹複述收集品的「取得「…」」行（收集標籤已涵蓋，避免重複）
+const ITEM_ECHO_RE = /^取得[「『]/;
+// 取得該步驟「去除收集複述後」的補充說明；無收集連動時原樣保留，避免資訊遺失
+export function visibleDetail(step: Step): string[] {
+  if (collectIdsForStep(step.id).length === 0) return step.detail;
+  return step.detail.filter((d) => !ITEM_ECHO_RE.test(d));
+}
+
 // 全部收集物的種類（依出現順序）
 export const collectKinds: string[] = (() => {
   const seen = new Set<string>();
