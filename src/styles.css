@@ -130,7 +130,9 @@ body {
 .chip.item { color: #cbbd84; border-color: #4a4226; }
 .chip.boss { color: var(--boss); background: #c97b5a1f; border-color: #c97b5a88; font-weight: 700; }
 .chip.loc { color: #a8c0dc; border-color: #3f5870; }
-.chip.link { color: #9fc2a0; border-color: #3f6045; }
+.chip.link { color: #9fc2a0; border-color: #3f6045; cursor: pointer; font-family: inherit; transition: all .15s; }
+.chip.link:hover { border-color: var(--gold); color: var(--gold-bright); }
+.citem-region { font-size: 10.5px; color: var(--muted2); }
 .chip.quest { cursor: pointer; transition: filter 0.15s; font-family: inherit; }
 .chip.quest:hover { filter: brightness(1.25); }
 

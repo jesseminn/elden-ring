@@ -1,11 +1,15 @@
 import raw from "../data/walkthrough.json";
 import rawCol from "../data/collection.json";
 import rawLinks from "../data/links.json";
-import type { Walkthrough, Chapter, Step, Quest, CollectionData, CollectRegion } from "../types";
+import type { Walkthrough, Chapter, Step, Quest, CollectionData, CollectRegion, CollectItem } from "../types";
 
 export const data = raw as unknown as Walkthrough;
 export const collection = rawCol as unknown as CollectionData;
 export const collectRegions: CollectRegion[] = collection.regions.filter((r) => r.items.length > 0);
+
+// 收集項目索引（id → 項目 + 區域名）
+export const collectItemById: Record<string, { item: CollectItem; regionName: string }> = {};
+for (const r of collectRegions) for (const it of r.items) collectItemById[it.id] = { item: it, regionName: r.name };
 
 // 流程步驟 ↔ 收集項目 的雙向連動表（勾一邊另一邊同步）
 const linkData = rawLinks as unknown as { links: [string, string][] };
@@ -14,6 +18,9 @@ for (const [a, b] of linkData.links) {
   (linkMap[a] ||= []).push(b);
   (linkMap[b] ||= []).push(a);
 }
+// 取某流程步驟連動到的收集項 id（過濾掉非 col- 的，以防萬一）
+export const collectIdsForStep = (stepId: string): string[] =>
+  (linkMap[stepId] || []).filter((id) => id.startsWith("col-"));
 
 // ---- 索引 ----
 export const stepById: Record<string, Step> = {};

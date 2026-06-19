@@ -67,7 +67,13 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
               <span className="chip loc" title="地點（Claude 查證補充）">{step.location}</span>
             )}
             {linkMap[step.id] && (
-              <span className="chip link" title="此步驟已與「收集」清單連動，勾選會同步">計入收集</span>
+              <button
+                className="chip link"
+                title="查看此步驟對應的收集品（勾選會同步）"
+                onClick={() => dispatch({ type: "openCollectPeek", stepId: step.id })}
+              >
+                收集 ↗
+              </button>
             )}
             {step.quests.map((qid) => {
               const q = questById[qid];
