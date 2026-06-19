@@ -107,7 +107,12 @@ function QuestCard({ quest, done, open }: { quest: Quest; done: DoneMap; open: b
                           onChange={(e) => dispatch({ type: "toggleStep", id: sid, value: e.target.checked })}
                         />
                       </label>
-                      <span className="tl-text">{s.text}</span>
+                      <span className="tl-text">
+                        {s.text}
+                        {s.missable && (
+                          <span className="miss-tag" title="易斷：操作不當可能永久錯過">易斷</span>
+                        )}
+                      </span>
                       <button
                         className="tl-loc"
                         title="在線性流程中查看此步驟"
