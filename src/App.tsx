@@ -19,17 +19,18 @@ export default function App() {
   const stats = useMemo(() => overallStats(state.done), [state.done]);
   const curId = useMemo(() => currentStepId(state.done), [state.done]);
 
-  // 配點是獨立工具（與流程無關），用 header 按鈕切換而非分頁。
-  // 記住進配點前所在的流程分頁，再點一次可切回。
+  // 配點器與流程追蹤器是兩個同層的頂層模式（最頂部切換）。
+  // 記住進配點前所在的流程分頁，切回追蹤器時還原。
   const prevTabRef = useRef<typeof state.ui.tab>("flow");
   const onBuild = state.ui.tab === "build";
-  const toggleBuild = () => {
-    if (onBuild) {
-      dispatch({ type: "setTab", tab: prevTabRef.current === "build" ? "flow" : prevTabRef.current });
-    } else {
-      prevTabRef.current = state.ui.tab;
-      dispatch({ type: "setTab", tab: "build" });
-    }
+  const goBuild = () => {
+    if (onBuild) return;
+    prevTabRef.current = state.ui.tab;
+    dispatch({ type: "setTab", tab: "build" });
+  };
+  const goTracker = () => {
+    if (!onBuild) return;
+    dispatch({ type: "setTab", tab: prevTabRef.current === "build" ? "flow" : prevTabRef.current });
   };
 
   const reset = () => {
@@ -53,59 +54,63 @@ export default function App() {
       <div className="sticky-top">
         <header className="topbar">
           <div className="brand">
-            <h1>
-              艾爾登法環 <span>流程追蹤器</span>
-            </h1>
-            <p className="subtitle">線性流程 · 支線總覽 · 100% 全收集 · 配點計畫</p>
+            <h1>艾爾登法環</h1>
+            <nav className="modes">
+              <button className={"mode" + (!onBuild ? " active" : "")} onClick={goTracker}>
+                流程追蹤器
+              </button>
+              <button className={"mode" + (onBuild ? " active" : "")} onClick={goBuild}>
+                配點器
+              </button>
+            </nav>
           </div>
-          <div className="overall">
-            <div className="overall-bar">
-              <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
-            </div>
-            <div className="overall-text">
-              <b>
-                {stats.done} / {stats.total}
-              </b>{" "}
-              · {pct(stats.done, stats.total)}%
-            </div>
-          </div>
-          <div className="head-btns">
-            <button className="gold-btn" title="跳到流程中第一個未完成的步驟" onClick={jumpCurrent}>
-              跳到目前進度
-            </button>
-            <button className="ghost-btn" title="清除所有進度" onClick={reset}>
-              重設
-            </button>
-            <button
-              className={"ghost-btn build-toggle" + (onBuild ? " active" : "")}
-              title="配點計畫（盜賊 → 感應出血流）"
-              onClick={toggleBuild}
-            >
-              ⚔ 配點
-            </button>
-          </div>
+          {!onBuild && (
+            <>
+              <div className="overall">
+                <div className="overall-bar">
+                  <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
+                </div>
+                <div className="overall-text">
+                  <b>
+                    {stats.done} / {stats.total}
+                  </b>{" "}
+                  · {pct(stats.done, stats.total)}%
+                </div>
+              </div>
+              <div className="head-btns">
+                <button className="gold-btn" title="跳到流程中第一個未完成的步驟" onClick={jumpCurrent}>
+                  跳到目前進度
+                </button>
+                <button className="ghost-btn" title="清除所有進度" onClick={reset}>
+                  重設
+                </button>
+              </div>
+            </>
+          )}
         </header>
 
-        <nav className="tabs">
-          <button
-            className={"tab" + (state.ui.tab === "flow" ? " active" : "")}
-            onClick={() => dispatch({ type: "setTab", tab: "flow" })}
-          >
-            線性流程
-          </button>
-          <button
-            className={"tab" + (state.ui.tab === "quests" ? " active" : "")}
-            onClick={() => dispatch({ type: "setTab", tab: "quests" })}
-          >
-            支線總覽
-          </button>
-          <button
-            className={"tab" + (state.ui.tab === "collect" ? " active" : "")}
-            onClick={() => dispatch({ type: "setTab", tab: "collect" })}
-          >
-            收集
-          </button>
-        </nav>
+        {!onBuild && (
+          <nav className="tabs">
+            <button
+              className={"tab" + (state.ui.tab === "flow" ? " active" : "")}
+              onClick={() => dispatch({ type: "setTab", tab: "flow" })}
+            >
+              線性流程
+            </button>
+            <button
+              className={"tab" + (state.ui.tab === "quests" ? " active" : "")}
+              onClick={() => dispatch({ type: "setTab", tab: "quests" })}
+            >
+              支線總覽
+            </button>
+            <button
+              className={"tab" + (state.ui.tab === "collect" ? " active" : "")}
+              onClick={() => dispatch({ type: "setTab", tab: "collect" })}
+            >
+              收集
+            </button>
+          </nav>
+        )}
       </div>
 
       {state.ui.tab === "flow" ? (
