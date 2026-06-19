@@ -58,8 +58,8 @@ console.log("4) 勾選後下一步有變化:", before !== after, "| 新下一步
 
 // 5) 配點分頁：渲染 + 「記錄 +1」升級並持久化 buildLv
 click([...$$(".tab")].find(t=>t.textContent.includes("配點"))); await wait();
-console.log("5) 配點分頁渲染:", !!$(".bp-root"), "| 附近時間軸列數:", $$(".bp-root .tl-row").length);
-const lvlBtn = $$(".bp-root button").find(b=>b.textContent.includes("記錄"));
+console.log("5) 配點分頁渲染:", !!$(".build-view"), "| 附近時間軸列數:", $$(".build-view .build-tl-row").length);
+const lvlBtn = $$(".build-view button").find(b=>b.textContent.includes("記錄"));
 click(lvlBtn); await wait();
 const ui = JSON.parse(localStorage.getItem("elden-ui-v1")||"{}");
 console.log("   升級後 buildLv:", ui.buildLv, "(預期 6)");
