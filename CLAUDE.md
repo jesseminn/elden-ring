@@ -125,3 +125,26 @@ npm run build             # 正式建置要過
 - 回覆用**繁體中文**，直接、給結論與建議而非長篇選項。
 - 動手前能查證就查證；改完據實回報（過了就說過了，跳過就說跳過）。
 - 使用者偏好**精準、保守、可逆、零資訊遺失**的改動，並且自己掌握查證的最終拍板權。
+
+---
+
+## 9. 環境與技能（容器是用完即丟）
+
+- **遠端容器每個 session 重新 clone repo、家目錄 `~/.claude/` 不保證保留。**
+  要跨 session 留住的東西**一律 commit 進 repo**。
+- **設計類技能：`frontend-design`（Anthropic 官方）已 commit 在 `.claude/skills/frontend-design/`**
+  （單一 SKILL.md，純指引、無腳本無相依，~28K），所以每個新 session clone 後就自動有。
+  動 UI（`styles.css` / 版面 / 配色 / 字體）時會觸發；理念是「跳脫 AI 罐頭味、做有觀點的設計」。
+  - 曾試過第三方 `ui-ux-pro-max`（12M repo、含 30 個 CSV + Python 搜尋腳本），**嫌太肥已棄用**，別再裝。
+- 安裝技能的做法：**手動把 SKILL.md（必要時連同 scripts/data）放進 `.claude/skills/<name>/`**，
+  **不要跑來路不明的 `npx` 安裝器**；裝前先掃腳本有無網路/`subprocess`/`eval` 等可疑行為。
+
+---
+
+## 10. 待辦 / 已知限制
+
+- **遠端分支 `claude/elden-ring-strategy-tool-wqmtv8` 待手動刪除**：已合併進 main 後就多餘，
+  但**沙箱 git proxy 不接受刪除 push、GitHub MCP 也沒有刪 ref 的工具**，所以只能請使用者
+  到 GitHub 網頁 Branches 頁面刪。（本地分支已刪）
+- 同理：`github.io`、`wiki.biligame.com` 等被 egress 白名單擋；`github.com` 本身可連
+  （能 clone 官方 skills repo）。
