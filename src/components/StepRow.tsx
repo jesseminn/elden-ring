@@ -60,7 +60,7 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
         <span className="step-text">
           {step.text}
           {step.missable && <span className="miss-tag" title="易斷：操作不當可能永久錯過">易斷</span>}
-          {step.added && <span className="added-tag" title="此步驟由 Claude 查證網路資料後補充">Claude 補充</span>}
+          {step.added && <span className="added-tag" title="此步驟為查證網路資料後補充，非攻略原文">查證補充</span>}
           {isCurrent && <span className="current-tag">目前進度</span>}
         </span>
 
@@ -68,7 +68,7 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
           <div className="step-extra">
             {step.boss && <span className="chip boss">BOSS</span>}
             {step.location && (
-              <span className="chip loc" title="地點（Claude 查證補充）">{step.location}</span>
+              <span className="chip loc" title="地點（查證補充）">{step.location}</span>
             )}
             {collectIds.length > 0 && (
               <button
