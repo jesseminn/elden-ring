@@ -15,19 +15,17 @@
 
 ## 2. 開發 / 部署流程（最常忘）
 
-- **開發分支固定是 `claude/elden-ring-strategy-tool-wqmtv8`。** 所有 commit 推這條。
-- **部署 = GitHub Pages，只在 push 到 `main` 時觸發**（`.github/workflows/deploy.yml`，
-  build → `npm run build` → 上傳 `dist`）。沒有別的部署管線。
-- **推 `main` 需要使用者明確同意**（每次部署他都會說「要」）。流程：
-  ```
-  git checkout main
-  git merge --ff-only claude/elden-ring-strategy-tool-wqmtv8   # 一向能快轉
-  git push origin main
-  git checkout claude/elden-ring-strategy-tool-wqmtv8           # 切回來繼續開發
-  ```
-- 部署完用 GitHub MCP 確認 run 狀態（見 §7）。線上網址 **https://jesseminn.github.io/elden-ring/**。
-- **不要主動開 PR**（除非使用者明說）。commit/push 才是常態。
-- Commit 訊息結尾固定加：
+- **單線開發：直接在 `main` 上 commit，`git push origin main` 即觸發部署。**
+  （使用者於 2026-06 決定：單人專案、無測試環境、不跑本地測試、出問題用 git
+  切回去即可，所以**不再用 feature 分支、也不必每次部署都先問**。）
+- **部署 = GitHub Pages，push 到 `main` 觸發**（`.github/workflows/deploy.yml`，
+  `npm run build` → 上傳 `dist`）。沒有別的部署管線。線上網址
+  **https://jesseminn.github.io/elden-ring/**。部署完用 GitHub MCP 確認 run（見 §7）。
+- **鐵則：push 前一定先跑 §3 驗證四件套**，`tsc` / `smoke` / `build` 任一沒過就**不要 push**
+  （使用者不跑本地測試，這層由 Claude 把關；壞掉的 build 部署會失敗，線上雖留著舊版但別污染 main）。
+- commit 要**原子化、訊息清楚**，方便出事時 `git revert`。
+- 攻略「內容查證」類改動仍要**保守、可逆、據實回報改了什麼**（最終由使用者拍板，見 §6）。
+- **不要主動開 PR**。Commit 訊息結尾固定加：
   ```
   Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
   Claude-Session: https://claude.ai/code/session_01641ouA7Q8DQbpBSZ9WYum3
