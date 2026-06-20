@@ -70,7 +70,7 @@ export default function App() {
                 跳到目前進度
               </button>
               <button className="ghost-btn" title="清除所有進度" onClick={reset}>
-                重設
+                清除進度
               </button>
             </div>
           )}

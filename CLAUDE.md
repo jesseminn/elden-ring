@@ -79,7 +79,8 @@ npm run build             # 正式建置要過
 
 - **線性流程簡潔、支線總覽詳細**：`detail` 在線性流程預設收合、在支線總覽展開。
 - 線性流程每步的標籤（`StepRow.tsx`）：`BOSS` / 地點 / **`收集(n) ↗`**（開 `CollectPeek`）/
-  **`系列：X ↗`**（開 `SeriesPeek`）/ 支線 chips / `易斷`(missable) / `Claude 補充`(added)。
+  **`系列：X ↗`**（開 `SeriesPeek`）/ 支線 chips / `易斷`(missable) / `查證補充`(added，UI 標籤；
+  刻意不寫「Claude」以免暴露實作）。
 - **去重規則**（`visibleDetail()` in `src/lib/data.ts`）：當某步有收集連動時，濾掉
   **「整行純複述」**的 `取得「…」。` detail（避免和收集標籤重複）。規則**收得很嚴**：
   只有整行就是 `取得「…」` 才濾——後面還有別的說明（例如「菇菇人王冠要到腐敗湖才能入手」）
