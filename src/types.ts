@@ -63,3 +63,48 @@ export interface CollectRegion {
 export interface CollectionData {
   regions: CollectRegion[];
 }
+
+// ---- 配點器（build planner）----
+export type StatKey = "vig" | "mnd" | "end" | "str" | "dex" | "int" | "fai" | "arc";
+export type Stats = Record<StatKey, number>;
+
+export interface StatMeta {
+  name: string;
+  en: string;
+  color: string;
+}
+
+/** 一段連續加點：把屬性 s 加 n 點；note 顯示在該段最後一級 */
+export interface Segment {
+  s: StatKey;
+  n: number;
+  note?: string;
+}
+
+export interface GearItem {
+  name: string;
+  req: Partial<Stats>;
+  tag: string;
+}
+
+export interface BuildDef {
+  id: string;
+  name: string;
+  intro: string;
+  /** 武器/輸出路線（顯示在「裝備解鎖狀態」section） */
+  route: string;
+  softcaps: string;
+  /** Lv57→200 分流段 */
+  tail: Segment[];
+  gear: GearItem[];
+}
+
+export interface BuildData {
+  statMeta: Record<StatKey, StatMeta>;
+  statOrder: StatKey[];
+  base: Stats;
+  baseLv: number;
+  /** Lv5→57 共用段 */
+  earlySegments: Segment[];
+  builds: BuildDef[];
+}
