@@ -278,10 +278,6 @@ body {
 .collect-summary .overall-bar { height: 6px; }
 .collect-summary-text { font-size: 12px; color: var(--muted); margin-top: 5px; text-align: right; }
 .collect-summary-text b { color: var(--gold); }
-.kind-select {
-  font-size: 12px; color: var(--text); background: var(--panel); border: 1px solid var(--border2);
-  border-radius: 4px; padding: 5px 9px; font-family: inherit; cursor: pointer;
-}
 .region-note { font-size: 12px; line-height: 1.5; color: #b7ad96; background: #ffffff06; border-left: 2px solid var(--gold); padding: 7px 10px; margin: 4px 0 8px; }
 
 /* 系列收集藥丸 */
@@ -324,9 +320,6 @@ body {
 }
 
 /* ---- 配點器 ---- */
-.build-picker { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-.build-picker .kind-select { flex: 1; }
-
 /* ---- 可復用下拉：bottom sheet 選擇器（SheetSelect） ---- */
 .ss { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .ss-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 24px; }

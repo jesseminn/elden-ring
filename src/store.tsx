@@ -27,7 +27,6 @@ export interface UiState {
   onlyMain: boolean;
   activeQuest: string | null;
   facets: Facets;
-  collectKind: string; // 收集分頁的種類 filter，"" = 全部
   buildLv: number; // 配點分頁目前等級（盜賊起手 Lv5）
   buildId: string; // 配點：選擇的 build（"bleed" / "dragon"）
   classId: string; // 配點：選擇的初始職業（浪費比較用，預設 bandit）
@@ -57,7 +56,6 @@ export type Action =
   | { type: "setHideDone"; value: boolean }
   | { type: "setOnlyMain"; value: boolean }
   | { type: "toggleFacet"; facet: keyof Facets }
-  | { type: "setCollectKind"; kind: string }
   | { type: "setBuildLv"; lv: number }
   | { type: "setBuildId"; id: string }
   | { type: "setClassId"; id: string }
@@ -88,7 +86,6 @@ const defaultUi: UiState = {
   onlyMain: false,
   activeQuest: null,
   facets: { boss: false, collect: false, npc: false },
-  collectKind: "",
   buildLv: 5,
   buildId: "bleed",
   classId: "bandit",
@@ -147,8 +144,6 @@ function reducer(state: State, action: Action): State {
         ...state,
         ui: { ...state.ui, facets: { ...state.ui.facets, [action.facet]: !state.ui.facets[action.facet] } },
       };
-    case "setCollectKind":
-      return { ...state, ui: { ...state.ui, collectKind: action.kind } };
     case "setBuildLv":
       return { ...state, ui: { ...state.ui, buildLv: action.lv } };
     case "setBuildId":
