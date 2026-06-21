@@ -100,20 +100,25 @@ npm run build             # 正式建置要過
   曾犯：英文摘要把**相鄰事件糅在一起**（把亞歷山大「利耶尼亞油壺解救」誤接成
   「格密爾熔岩土龍」），導致我反過來誤判**原始資料其實是對的**。教訓：
   **多個來源交叉比對；改別人原文前要有把握；沒把握就用「附加註記」而非改寫/刪除。**
-- **網路 egress 有白名單**：`wiki.biligame.com`、`*.github.io` 等**真的被擋**（Bash `curl` 回
-  `Host not in allowlist`）。這類才需**請使用者貼上或上傳 PDF**（`Read` 能讀 PDF），別假裝查得到。
+- **網路 egress 有白名單**：`*.github.io`、`imgur`、discord cdn 等**真的被擋**（Bash `curl` 回
+  `Host not in allowlist` / `Blocked by egress policy`，WebFetch 回 403）。真被擋的才需
+  **請使用者貼上或上傳 PDF/圖檔**（`Read` 能讀），別假裝查得到。
 - **⚠ WebFetch 403 ≠ 被 egress 擋**：`home.gamer.com.tw`（巴哈，含 **feiouex 攻略/武器/護符一覽**）
   會擋 WebFetch 的 User-Agent → 回 **403**，但 **Bash `curl` 抓得到（200）**！所以 WebFetch 一 403
   別急著放棄或推給使用者——**先用 `curl -sS "<url>" -o /tmp/x.html` 拉下來，再用 python 去標籤解析**
   （查武器/護符官方繁中名超好用）。判別法：`curl` 回 `Host not in allowlist`=真被擋；回 200=只是 UA 問題。
+  - 補充：`wiki.biligame.com` 本 session 實測 curl **200**（與本檔舊註記「被擋」相反），但列表頁多簡中、少英文。
+- **讀網頁也可用 Jina Reader**：`curl "https://r.jina.ai/<原始網址>"`，伺服器端抓取、回乾淨 Markdown
+  （連巴哈 `home.gamer.com.tw` 這種 WebFetch 被 403 擋的站也讀得到）。`r.jina.ai` 在白名單內。
+  注意：**Jina 對「圖片網址」只回該圖床的網頁外殼、不會 OCR**，圖片內容繞不過 egress；
+  要看圖請使用者**直接上傳圖檔**（`Read` 是視覺型，能看懂 PNG/JPG/WebP 的畫面與文字）。
   - 血淚案例（2026-06）：配點器武器名我一堆用英文搜尋摘要亂猜全錯（Blasphemous=褻瀆聖劍非「瀆神之劍」、
     Sacred Relic=神軀化劍、Bastard=混種大劍、Bolt of Gransax=古蘭桑克斯的雷電…），最後 curl 巴哈
-    feiouex 武器一覽才一次校正乾淨。**官方繁中名一律以 feiouex 一覽為準，別信英文摘要音譯。**
+    feiouex 武器一覽才一次校正乾淨。**官方繁中名一律以 feiouex 一覽／遊戲解包文本為準，別信英文摘要音譯。**
 - **查官方繁中專名（武器/法術/Boss/地名…）最佳來源 = 遊戲解包文本**
   `github.com/elden-ring-data/msg`（`zhotw/`=官方正體中文、`engus/`=官方英文，curl raw 直接可得，
   以 FMG id 對齊即得官方 EN↔繁中）。已整理成 `docs/translations/*.csv`（見該資料夾 README）。
   比 feiouex/wiki 更權威（例：官方「腐**敗**吐息」非「腐爛吐息」）。
-  - 補充：`wiki.biligame.com` 本 session 實測 curl **200**（與本檔舊註記「被擋」相反），但列表頁多簡中、少英文。
 - 改攻略資料時**保守**：能附加就不改寫、能標註就不刪除；破壞性改動先確認。
 
 ---
