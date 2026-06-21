@@ -332,7 +332,16 @@ body {
 .mb-pick { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .mb-pick .tb-label { margin: 0; }
 .mb-pick .kind-select { width: 100%; }
+.mb-pick-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 24px; }
+.mb-detail-btn.on { border-color: var(--gold); color: var(--gold-bright); background: #c9a14a14; }
+.mb-detail { margin-bottom: 12px; }
 @media (max-width: 480px) { .mb-pickers { flex-direction: column; } }
+
+/* ---- 升級追蹤（主角）標題 ---- */
+.pt-head { margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--border); margin-bottom: 8px; }
+.pt-head .build-section-title { margin-bottom: 0; font-size: 16px; }
+.pt-empty { margin-top: 12px; }
+.pt-jump { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 
 .mb-verdict { border: 1px solid var(--border); border-left-width: 3px; border-radius: 5px; background: var(--panel); padding: 12px 13px; margin-bottom: 12px; }
 .mb-verdict.perfect { border-left-color: var(--green-bright); background: #5fa35f10; }

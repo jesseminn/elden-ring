@@ -56,24 +56,27 @@ if (tlcb){ tlcb.click(); await wait(); }
 const after = $(".qd-next .txt")?.textContent;
 console.log("4) 勾選後下一步有變化:", before !== after, "| 新下一步:", (after||"").slice(0,20));
 
-// 5) 配點器：兩個選單（職業／流派）＋ 浪費分析卡，且分頁列收起
+// 5) 配點器：兩個選單（職業／流派）＋ 主角=逐級追蹤常駐；詳情預設收合
 click([...$$(".mode")].find(b=>b.textContent.includes("配點"))); await wait();
 const picks = $$(".mb-pick select");
-console.log("5) 配點器渲染:", !!$(".build-view"), "| 分頁列收起:", $$(".tab").length === 0, "| 選單數:", picks.length, "| 職業選項:", picks[0]?.options.length, "| 流派選項:", picks[1]?.options.length);
-console.log("   預設(盜賊×出血流) perfect:", $(".mb-verdict")?.classList.contains("perfect"), "|", $(".mb-verdict-waste")?.textContent.trim());
-
-// 6) 換職業=星見、流派=純智力 → 應零浪費；再換純信仰 → 浪費變大
-const [clsSel, bSel] = picks;
 const setSel = (el,v)=>{ el.value=v; el.dispatchEvent(new window.Event("change",{bubbles:true})); };
+console.log("5) 配點器渲染:", !!$(".build-view"), "| 分頁列收起:", $$(".tab").length === 0, "| 選單數:", picks.length, "| 職業選項:", picks[0]?.options.length, "| 流派選項:", picks[1]?.options.length);
+console.log("   詳情預設收合:", $(".mb-verdict")==null, "| 逐級追蹤常駐(下一級鈕):", $$(".build-view button").some(b=>b.textContent.includes("記錄")));
+
+// 5b) 點「詳情」展開浪費分析卡（預設盜賊×出血流應 perfect）
+const detailBtn = $$(".build-view button").find(b=>b.textContent.includes("詳情"));
+click(detailBtn); await wait();
+console.log("   點詳情後(盜賊×出血流):", $(".mb-verdict")?.classList.contains("perfect"), "|", $(".mb-verdict-waste")?.textContent.trim());
+
+// 6) 換職業=星見、流派=純智力 → 應零浪費；再換純信仰 → 浪費變大（詳情已開）
+const [clsSel, bSel] = picks;
 setSel(clsSel,"astrologer"); await wait(); setSel(bSel,"int"); await wait();
 console.log("6) 星見×純智力:", $(".mb-verdict-waste")?.textContent.trim(), "| perfect:", $(".mb-verdict.perfect")!=null);
 setSel(bSel,"fai"); await wait();
 console.log("   星見×純信仰:", $(".mb-verdict-waste")?.textContent.trim());
 
-// 7) 回盜賊×龍饗，展開逐級計畫並升級 +1，驗證裝備清單與 buildLv
+// 7) 回盜賊×龍饗：逐級追蹤裝備出現龍饗聖印，升級 +1
 setSel(clsSel,"bandit"); await wait(); setSel(bSel,"dragon"); await wait();
-const expandBtn = $$(".build-view .ghost-btn.small").find(b=>b.textContent.includes("展開"));
-if (expandBtn){ click(expandBtn); await wait(); }
 const hasSeal = $$(".build-gear-name").some(n=>n.textContent.includes("龍饗聖印"));
 const lvlBtn = $$(".build-view button").find(b=>b.textContent.includes("記錄"));
 if (lvlBtn){ click(lvlBtn); await wait(); }
