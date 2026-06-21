@@ -101,9 +101,14 @@ npm run build             # 正式建置要過
   曾犯：英文摘要把**相鄰事件糅在一起**（把亞歷山大「利耶尼亞油壺解救」誤接成
   「格密爾熔岩土龍」），導致我反過來誤判**原始資料其實是對的**。教訓：
   **多個來源交叉比對；改別人原文前要有把握；沒把握就用「附加註記」而非改寫/刪除。**
-- **網路 egress 有白名單**：`wiki.biligame.com`、`*.github.io` 等都被擋（curl 回
-  `Host not in allowlist`，WebFetch 回 403）。需要這些內容時**請使用者貼上或上傳 PDF**
-  （`Read` 能讀 PDF），不要假裝查得到。
+- **網路 egress 有白名單**：`wiki.biligame.com`、`*.github.io`、`imgur`、discord cdn
+  等都被擋（curl 回 `Host not in allowlist` / `Blocked by egress policy`，WebFetch 回 403）。
+  需要這些內容時**請使用者貼上或上傳 PDF**（`Read` 能讀 PDF），不要假裝查得到。
+- **讀網頁優先用 Jina Reader**：`curl "https://r.jina.ai/<原始網址>"`，伺服器端抓取、
+  回乾淨 Markdown（連巴哈 `home.gamer.com.tw` 這種 WebFetch 被 403 擋的站也讀得到，
+  feiouex 原始攻略就是這篇）。`r.jina.ai` 在白名單內。
+  注意：**Jina 對「圖片網址」只回該圖床的網頁外殼，不會 OCR**，所以圖片內容繞不過 egress；
+  要看圖請使用者**直接上傳圖檔**（`Read` 是視覺型，能看懂 PNG/JPG/WebP 的畫面與文字）。
 - 改攻略資料時**保守**：能附加就不改寫、能標註就不刪除；破壞性改動先確認。
 
 ---
