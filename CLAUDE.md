@@ -100,9 +100,15 @@ npm run build             # 正式建置要過
   曾犯：英文摘要把**相鄰事件糅在一起**（把亞歷山大「利耶尼亞油壺解救」誤接成
   「格密爾熔岩土龍」），導致我反過來誤判**原始資料其實是對的**。教訓：
   **多個來源交叉比對；改別人原文前要有把握；沒把握就用「附加註記」而非改寫/刪除。**
-- **網路 egress 有白名單**：`wiki.biligame.com`、`*.github.io` 等都被擋（curl 回
-  `Host not in allowlist`，WebFetch 回 403）。需要這些內容時**請使用者貼上或上傳 PDF**
-  （`Read` 能讀 PDF），不要假裝查得到。
+- **網路 egress 有白名單**：`wiki.biligame.com`、`*.github.io` 等**真的被擋**（Bash `curl` 回
+  `Host not in allowlist`）。這類才需**請使用者貼上或上傳 PDF**（`Read` 能讀 PDF），別假裝查得到。
+- **⚠ WebFetch 403 ≠ 被 egress 擋**：`home.gamer.com.tw`（巴哈，含 **feiouex 攻略/武器/護符一覽**）
+  會擋 WebFetch 的 User-Agent → 回 **403**，但 **Bash `curl` 抓得到（200）**！所以 WebFetch 一 403
+  別急著放棄或推給使用者——**先用 `curl -sS "<url>" -o /tmp/x.html` 拉下來，再用 python 去標籤解析**
+  （查武器/護符官方繁中名超好用）。判別法：`curl` 回 `Host not in allowlist`=真被擋；回 200=只是 UA 問題。
+  - 血淚案例（2026-06）：配點器武器名我一堆用英文搜尋摘要亂猜全錯（Blasphemous=褻瀆聖劍非「瀆神之劍」、
+    Sacred Relic=神軀化劍、Bastard=混種大劍、Bolt of Gransax=古蘭桑克斯的雷電…），最後 curl 巴哈
+    feiouex 武器一覽才一次校正乾淨。**官方繁中名一律以 feiouex 一覽為準，別信英文摘要音譯。**
 - 改攻略資料時**保守**：能附加就不改寫、能標註就不刪除；破壞性改動先確認。
 
 ---
