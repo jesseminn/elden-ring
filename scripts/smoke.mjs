@@ -80,14 +80,14 @@ console.log("6) 星見×純智力:", $(".mb-verdict-waste")?.textContent.trim(),
 await openTrig(1); await pickOpt("純信仰");
 console.log("   星見×純信仰:", $(".mb-verdict-waste")?.textContent.trim());
 
-// 7) 回盜賊×龍饗：逐級追蹤裝備出現龍饗聖印，升級 +1
+// 7) 回盜賊×龍饗：逐級追蹤裝備出現龍饗印記，升級 +1
 await openTrig(0); await pickOpt("盜賊");
 await openTrig(1); await pickOpt("龍饗");
-const hasSeal = $$(".build-gear-name").some(n=>n.textContent.includes("龍饗聖印"));
+const hasSeal = $$(".build-gear-name").some(n=>n.textContent.includes("龍饗印記"));
 const lvlBtn = $$(".build-view button").find(b=>b.textContent.includes("記錄"));
 if (lvlBtn){ click(lvlBtn); await wait(); }
 const ui = JSON.parse(localStorage.getItem("elden-ui-v1")||"{}");
-console.log("7) 出現龍饗聖印:", hasSeal, "| 升級後 buildLv:", ui.buildLv, "(預期 6)");
+console.log("7) 出現龍饗印記:", hasSeal, "| 升級後 buildLv:", ui.buildLv, "(預期 6)");
 
 console.log("錯誤數:", errors.length);
 errors.slice(0,4).forEach(e=>console.log("  X", e.slice(0,140)));
