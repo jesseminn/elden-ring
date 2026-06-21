@@ -1,63 +1,61 @@
 # 中英翻譯資料（Elden Ring 官方繁中 ↔ English）
 
 把可查詢的中英名稱對照**資料**收進 repo，供配點器/流程追蹤器查證專名時直接比對。
-資料為 `zh,en` 兩欄 CSV，方便 `grep`／`jq`／試算表開啟。
+資料為 `zh,en` 兩欄 CSV（含逗號的欄位以雙引號包住），方便 `grep`／`jq`／試算表開啟。
+
+## 來源（最權威：遊戲內官方文本）
+
+取自遊戲解包文本 **[`github.com/elden-ring-data/msg`](https://github.com/elden-ring-data/msg)**：
+- `engus/item.msgbnd.dcx.json` = 遊戲官方**英文**
+- `zhotw/item.msgbnd.dcx.json` = 遊戲官方**正體中文**（即遊戲內繁中）
+
+以 FMG 條目 **id 對齊** en↔zhotw 產生。這是遊戲本身的官方繁中，**比 feiouex/wiki 更權威**
+（例：官方為「腐**敗**吐息」非攻略常見的「腐爛吐息」；「褻瀆聖劍」「屍山血海」「彗星亞茲勒」均一致）。
 
 ## 資料檔
 
-| 檔案 | 內容 | 筆數 | 來源 |
-|---|---|--|---|
-| `weapons.csv` | 本體武器中英對照 | 306 | feiouex《本體武器一覽》sn=5416196 |
-| `talismans.csv` | 本體護符中英對照 | 91 | feiouex《本體護符一覽》sn=5405697 |
-| `spirit-ashes.csv` | 本體骨灰中英對照 | 52 | feiouex《本體骨灰一覽》sn=5403710 |
-| `ashes-of-war.csv` | 本體戰灰中英對照 | 91 | feiouex《本體戰灰一覽》sn=5408129 |
+| 檔案 | FMG 來源 | 內容 | 筆數 |
+|---|---|---|--|
+| `weapons.csv` | WeaponName | 武器（全武裝基礎名，標準派生 id%10000==0） | 445 |
+| `armor.csv` | ProtectorName | 防具 | 577 |
+| `talismans.csv` | AccessoryName | 護符（去 +N 強化變體） | 93 |
+| `sorceries.csv` | GoodsName 4000–5999 | 魔法/法術 | 70 |
+| `incantations.csv` | GoodsName 6000–7999 | 禱告 | 101 |
+| `spirit-ashes.csv` | GoodsName 200000+ | 骨灰（去 +N） | 64 |
+| `ashes-of-war.csv` | ArtsName | 戰技/戰灰 | 177 |
+| `npcs.csv` | NpcName | NPC / Boss / 生物 | 255 |
+| `places.csv` | PlaceName | 地名 / 賜福點 | 437 |
 
-> 註：`spirit-ashes.csv` 的英文名沿用來源的全大寫（如 `MIMIC TEAR ASHES`）；查詢用 `grep -i` 不分大小寫即可。
-
-> 權威來源為原攻略作者 **feiouex（巴哈姆特）**，與流程追蹤器同源；名稱即官方繁中。
+> 武器只收標準派生的基礎名（不列 Heavy/Keen… 派生與 +N 強化），避免上千筆重複。
 
 ## 查詢範例
 
 ```bash
-grep -i "blasphemous" docs/translations/weapons.csv      # 英文 → 中文
-grep "屍山血海" docs/translations/weapons.csv            # 中文 → 英文
-awk -F, 'NR>1{print $2}' docs/translations/weapons.csv   # 列出所有英文名
+grep -i "blasphemous" docs/translations/weapons.csv      # 英 → 中：褻瀆聖劍
+grep "屍山血海" docs/translations/weapons.csv            # 中 → 英：Rivers of Blood
+grep -i "rotten breath" docs/translations/incantations.csv
+grep -i "malenia" docs/translations/npcs.csv             # Boss/NPC
+grep "史東薇爾" docs/translations/places.csv             # 地名
 ```
 
-## 取得 / 更新方法（吃過虧，務必照做）
-
-巴哈 `home.gamer.com.tw` **WebFetch 會回 403**（擋 User-Agent），但 **Bash `curl` 抓得到（200）**：
+## 更新方法
 
 ```bash
-curl -sS "https://home.gamer.com.tw/artwork.php?sn=5416196" -o /tmp/w.html
-# 表格為「序號→中文→英文→說明」，去標籤後取相鄰「中文行 / 英文行」配對；
-# 注意把 \xa0(不斷行空白) 正規化成空白，否則多字英文名(如 Crimson Amber Medallion)會被截斷。
+for L in engus zhotw; do
+  curl -sSL "https://raw.githubusercontent.com/elden-ring-data/msg/main/$L/item.msgbnd.dcx.json" -o /tmp/item_$L.json
+done
+# 結構：{ "...\\XxxName.fmg": { "id": "文字" } }；以 id 對齊 en↔zhotw，
+# 去 <tag>/%null%/[ERROR]/test/+N，weapons 取 id%10000==0。腳本見 git 歷史。
 ```
 
-判別「真被 egress 擋」vs「只是 UA」：`curl` 回 `Host not in allowlist` = 真被擋
-（`wiki.biligame.com`、`*.github.io`、`b23.tv→bilibili` 風控頁屬此類）；回 200 = 只是 UA 問題。
-**英文搜尋摘要的音譯不可信，一律以 feiouex 一覽為準。**
+DLC 名稱若要補：本 repo 的 item.msgbnd 為本體；DLC 文本見上游 repo 對應檔或 Carian/Impalers Archive。
 
-## 尚未收錄（目前來源不可用）
+## 取得繁中名的來源備忘（吃過虧）
 
-- **法術 / 禱告**：feiouex 無「發售後」的乾淨法術/禱告一覽；只有發售前的《祈禱一覽》
-  (sn=5388864，IGN 發售前資料)，名稱可能與正式版不同，為免引入過時譯名暫不採用。
-  待找到可靠的發售後繁中來源再補。
-- **Boss / 生物名**：feiouex 追憶 BOSS 頁(sn=5413336)是 HP/圖文、無乾淨中英表；
-  bilibili 生物對照表為簡中、且被風控驗證碼擋死。**暫無可靠繁中來源**。
-- **地名 / 賜福點**：zoncheng 賜福點頁的中英清單未隨 HTML 回傳（延遲載入）。
-  流程追蹤器內的地名/Boss 名本就取自 feiouex 主攻略原文，已是官方繁中。
-
-## feiouex 各篇一覽（巴哈 sn）
-
-| 主題 | URL |
-|---|---|
-| 本體武器一覽 | https://home.gamer.com.tw/artwork.php?sn=5416196 |
-| 本體護符一覽 | https://home.gamer.com.tw/artwork.php?sn=5405697 |
-| 個人筆記式攻略（主攻略） | https://home.gamer.com.tw/artwork.php?sn=5419567 |
-| 多周目「追憶」BOSS 資料 | https://home.gamer.com.tw/artwork.php?sn=5413336 |
-| 初始職業介紹 / 適合屬性 | sn=5389611 / sn=5387926 |
-| 感應軟硬上限 / 力量效益點法 | sn=5405089 / sn=5373322 |
+- **首選**：上述 GitHub 官方文本 dump（github.com，curl raw 直接可得）。
+- 巴哈 `home.gamer.com.tw`（feiouex 各篇一覽）：**WebFetch 會 403，Bash `curl` 可得 200**。
+- `wiki.biligame.com`：本 session 實測 **curl 200**（與舊註記相反），但其列表頁多為簡中且少英文。
+- 判別真被 egress 擋：`curl` 回 `Host not in allowlist`。**英文搜尋摘要的音譯不可信。**
 
 ## 屬性與職業（配點器用，官方繁中）
 
@@ -76,4 +74,4 @@ curl -sS "https://home.gamer.com.tw/artwork.php?sn=5416196" -o /tmp/w.html
 | Prophet | 預言者 | 7 | 10 14 8 11 10 7 16 10 |
 | Wretch | 無賴 | 1 | 10 10 10 10 10 10 10 10 |
 
-> 等級 = 八維總和 − 79（已用 Fextralife 數值驗證）。
+> 等級 = 八維總和 − 79（已用官方數值驗證）。

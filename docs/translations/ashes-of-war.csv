@@ -1,4 +1,5 @@
 zh,en
+無戰技,No Skill
 獅子斬,Lion's Claw
 貫穿,Impaling Thrust
 突刺,Piercing Fang
@@ -15,12 +16,14 @@ zh,en
 居合,Unsheathe
 準備架式,Square Off
 狩獵巨人,Giant Hunt
+火把攻擊,Torch Attack
 羅蕾塔的斬擊,Loretta's Slash
 雙吻毒蛾,Poison Moth Flight
 轉啊轉,Spinning Weapon
 風暴襲擊,Storm Assault
 喚起風暴,Stormcaller
 劍舞,Sword Dance
+迴旋鎖鏈,Spinning Chain
 輝劍圓陣,Glintblade Phalanx
 神聖刀刃,Sacred Blade
 冰槍,Ice Spear
@@ -41,6 +44,7 @@ zh,en
 真空斬,Vacuum Slice
 黑焰漩渦,Black Flame Tornado
 神聖光環,Sacred Ring of Light
+噴火,Firebreather
 血刃,Blood Blade
 幻影共擊,Phantom Slash
 幻影槍,Spectral Lance
@@ -49,11 +53,11 @@ zh,en
 盾牌衝擊,Shield Bash
 鐵壁盾防,Barricade Shield
 格擋,Parry
+小圓盾格擋,Buckler Parry
 卡利亞式奉還,Carian Retaliation
 風暴障壁,Storm Wall
 黃金格擋,Golden Parry
 突進衝擊,Shield Crash
-無戰技,No Skill
 托普斯的力場,Thops's Barrier
 貫穿射擊,Through and Through
 連續射擊,Barrage
@@ -69,13 +73,13 @@ zh,en
 墜落震擊,Ground Slam
 黃金墜落震擊,Golden Slam
 黑暗波動,Waves of Darkness
-荷萊·露的撼地,Hoarah Loux's Earthshaker
+荷萊‧露的撼地,Hoarah Loux's Earthshaker
 決心,Determination
 侍王騎士的決心,Royal Knight's Resolve
 暗殺辦法,Assassin's Gambit
 黃金樹立誓,Golden Vow
 聖律,Sacred Order
-共用聖律,Shared Order
+共享聖律,Shared Order
 切腹,Seppuku
 岩石劍,Cragblade
 野蠻咆哮,Barbaric Roar
@@ -90,3 +94,85 @@ zh,en
 獵犬步法,Bloodhound's Step
 潛霧猛禽,Raptor of the Mists
 白影誘惑,White Shadow's Lure
+信仰噴發,Surge of Faith
+火焰唾球,Flame Spit
+火焰舌柱,Tongues of Fire
+神諭泡泡,Oracular Bubble
+傾注泡泡,Bubble Shower
+神諭大泡泡,Great Oracular Bubble
+熔岩海,Sea of Magma
+毒蛇咬殺,Viper Bite
+月光劍,Moonlight Greatsword
+志留亞的漩渦,Siluria's Woe
+歸於麾下,Rallying Standard
+敬請見證！,Bear Witness!
+歐赫劍舞,Eochaid's Dancing Blade
+惡意氣息,Soul Stifler
+掠奪火焰,Taker's Flames
+滅洛斯的狂嚎,Shriek of Milos
+逆刺血刃,Reduvia Blood Blade
+輝石彗礫,Glintstone Dart
+流體化,Flowing Form
+夜與火的架式,Night-and-Flame Stance
+黃金波動,Wave of Gold
+毀滅靈火,Ruinous Ghostflame
+高舉黃金律法,Establish Order
+催眠煙霧,Mists of Slumber
+喚矛儀式,Spearcall Ritual
+狼襲,Wolf's Assault
+雷雲化身,Thundercloud Form
+咒血斬擊,Cursed-Blood Slice
+水鳥亂舞,Waterfowl Dance
+黃金碎擊,Gold Breaker
+跪下吧！,"I Command Thee, Kneel!"
+王者嘶吼,Regal Roar
+喚星,Starcaller Cry
+崩壞波,Wave of Destruction
+授血儀式,Bloodboon Ritual
+死亡刀刃,Blade of Death
+黃金刀刃,Blade of Gold
+命定之死,Destined Death
+旋轉刺輪,Spinning Wheel
+白王引力波,Alabaster Lords' Pull
+黑王推力波,Onyx Lords' Repulsion
+復仇誓言,Oath of Vengeance
+冰雷劍,Ice Lightning Sword
+獸王爪,Regal Beastclaw
+火焰舞,Flame Dance
+彈指,Claw Flick
+星雲,Nebula
+點燃靈火,Ghostflame Ignition
+古雷電槍,Ancient Lightning Spear
+癲火突擊,Frenzyflame Thrust
+米凱拉的光環,Miquella's Ring of Light
+黃金劍技,Golden Tempering
+哀悼墓碑,Last Rites
+不可擋之刃,Unblockable Blade
+屍蠟斬擊,Corpse Wax Cutter
+薩米爾冰風暴,Zamor Ice Storm
+拉塔恩的驟雨,Radahn's Rain
+女王黑焰,The Queen's Black Flame
+王朝劍技,Dynast's Finesse
+潑灑熔岩,Magma Shower
+死亡閃焰,Death Flare
+獵犬劍技,Bloodhound's Finesse
+熔岩斷首,Magma Guillotine
+屍橫遍野,Corpse Piler
+隙間月影,Transient Moonlight
+血刃亂舞,Bloodblade Dance
+百智的世界,Knowledge Above All
+吞世,Devourer of Worlds
+家族怨魂,Familal Rancor
+羅澤司的喚聲,Rosus's Summons
+雷電風暴,Thunderstorm
+聖矛障壁,Sacred Phalanx
+狩獵大蛇,Great-Serpent Hunt
+天使羽翼,Angel's Wings
+風暴踢擊,Storm Kick
+錫杖魔法,Sorcery of the Crozier
+黃金樹墜落震擊,Erdtree Slam
+重力雷電,Gravity Bolt
+催眠火焰,Fires of Slumber
+黃金式奉還,Golden Retaliation
+共鳴憤怒,Contagious Fury
+奧陶琵斯的漩渦,Ordovis's Vortex

@@ -109,6 +109,11 @@ npm run build             # 正式建置要過
   - 血淚案例（2026-06）：配點器武器名我一堆用英文搜尋摘要亂猜全錯（Blasphemous=褻瀆聖劍非「瀆神之劍」、
     Sacred Relic=神軀化劍、Bastard=混種大劍、Bolt of Gransax=古蘭桑克斯的雷電…），最後 curl 巴哈
     feiouex 武器一覽才一次校正乾淨。**官方繁中名一律以 feiouex 一覽為準，別信英文摘要音譯。**
+- **查官方繁中專名（武器/法術/Boss/地名…）最佳來源 = 遊戲解包文本**
+  `github.com/elden-ring-data/msg`（`zhotw/`=官方正體中文、`engus/`=官方英文，curl raw 直接可得，
+  以 FMG id 對齊即得官方 EN↔繁中）。已整理成 `docs/translations/*.csv`（見該資料夾 README）。
+  比 feiouex/wiki 更權威（例：官方「腐**敗**吐息」非「腐爛吐息」）。
+  - 補充：`wiki.biligame.com` 本 session 實測 curl **200**（與本檔舊註記「被擋」相反），但列表頁多簡中、少英文。
 - 改攻略資料時**保守**：能附加就不改寫、能標註就不刪除；破壞性改動先確認。
 
 ---
