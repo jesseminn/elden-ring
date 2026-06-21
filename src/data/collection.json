@@ -6,7 +6,7 @@
       "en": "Limgrave / Weeping Peninsula",
       "lv": "Lv1–20",
       "wpn": "+0 ~ +3",
-      "note": "開局御三家：蕾杜薇亞+大刀互為雙匕首，招架靠小圓盾。先把柏克、尤拉、帕奇、D、肯尼斯前置鋪好。",
+      "note": "開局御三家：逆刺+單刃小刀互為雙匕首，招架靠小圓盾。先把柏克、尤拉、帕奇、D、肯尼斯前置鋪好。",
       "items": [
         {
           "id": "col-r1-1",
@@ -16,7 +16,7 @@
         {
           "id": "col-r1-2",
           "kind": "武器",
-          "text": "蕾杜薇亞 Reduvia（濁水河涅瑞琉斯・出血飛刀）",
+          "text": "逆刺 Reduvia（濁水河涅瑞琉斯・出血飛刀）",
           "note": "力5/敏13/感13 即可裝"
         },
         {
@@ -190,7 +190,7 @@
         {
           "id": "col-r3-1",
           "kind": "戰灰",
-          "text": "血之斬擊 Bloody Slash（海德要塞葛瑞克騎士掉落）"
+          "text": "鮮血斬擊 Bloody Slash（海德要塞葛瑞克騎士掉落）"
         },
         {
           "id": "col-r3-2",
@@ -217,7 +217,7 @@
         {
           "id": "col-r3-6",
           "kind": "聖盃露滴",
-          "text": "第三瑪莉卡教堂 Third Church of Marika（含奇蹟露滴瓶）"
+          "text": "瑪莉卡第三教堂 Third Church of Marika（含奇蹟露滴瓶）"
         },
         {
           "id": "col-r3-7",
@@ -423,7 +423,7 @@
         {
           "id": "col-r6-23",
           "kind": "聖盃露滴",
-          "text": "彼魯姆/貝魯姆教堂 Bellum Church（穿封印傳送過斷橋）"
+          "text": "彼魯姆教堂 Bellum Church（穿封印傳送過斷橋）"
         },
         {
           "id": "col-r6-24",
@@ -593,7 +593,7 @@
         {
           "id": "col-r9-16",
           "kind": "聖盃露滴",
-          "text": "瘟疫教堂 Church of the Plague（瑟利亞鎮，需解 town 謎題·龍墓區）"
+          "text": "腐敗病教堂 Church of the Plague（瑟利亞鎮，需解 town 謎題·龍墓區）"
         },
         {
           "id": "col-r9-17",
@@ -770,7 +770,7 @@
         {
           "id": "col-r12-6",
           "kind": "魔法",
-          "text": "彗星 Comet（亞人女王瑪姬旁·起源魔法師亞茲勒）"
+          "text": "帚星 Comet（亞人女王瑪姬旁·起源魔法師亞茲勒）"
         },
         {
           "id": "col-r12-7",
