@@ -532,10 +532,10 @@
     },
     {
       "id": "dex", "name": "純敏捷", "tag": "近戰", "primary": ["dex"],
-      "blurb": "瑪蓮妮亞之手／打刀等速攻武器，靈巧 80 吃滿補正，連段與居合。",
+      "blurb": "瑪蓮妮亞的義手刀／打刀等速攻武器，靈巧 80 吃滿補正，連段與居合。",
       "target": { "vig": 60, "mnd": 16, "end": 32, "str": 12, "dex": 83, "int": 9, "fai": 8, "arc": 9 },
       "gear": [
-        { "name": "瑪蓮妮亞之手 Hand of Malenia", "req": { "str": 16, "dex": 48 }, "tag": "主力" },
+        { "name": "瑪蓮妮亞的義手刀 Hand of Malenia", "req": { "str": 16, "dex": 48 }, "tag": "主力" },
         { "name": "打刀 Uchigatana", "req": { "str": 11, "dex": 15 }, "tag": "過渡" }
       ]
     },
@@ -563,7 +563,7 @@
       "target": { "vig": 60, "mnd": 38, "end": 17, "str": 12, "dex": 10, "int": 8, "fai": 75, "arc": 9 },
       "gear": [
         { "name": "神聖遺物劍 Sacred Relic Sword", "req": { "str": 14, "dex": 22, "fai": 22 }, "tag": "主力" },
-        { "name": "金律聖印 Erdtree Seal", "req": { "fai": 10 }, "tag": "聖印" }
+        { "name": "黃金樹聖印 Erdtree Seal", "req": { "fai": 10 }, "tag": "聖印" }
       ]
     },
     {
@@ -585,11 +585,11 @@
       ]
     },
     {
-      "id": "intstr", "name": "魔劍（月光大劍 智／力）", "tag": "魔劍", "primary": ["int", "str"],
-      "blurb": "智力為主、力氣為輔，月光大劍冰魔波＋輝石近戰混打。",
+      "id": "intstr", "name": "魔劍（暗月大劍 智／力）", "tag": "魔劍", "primary": ["int", "str"],
+      "blurb": "智力為主、力氣為輔，暗月大劍冰魔波＋輝石近戰混打。",
       "target": { "vig": 60, "mnd": 24, "end": 25, "str": 40, "dex": 12, "int": 52, "fai": 7, "arc": 9 },
       "gear": [
-        { "name": "月光大劍 Dark Moon Greatsword", "req": { "str": 16, "dex": 11, "int": 38 }, "tag": "主力" },
+        { "name": "暗月大劍 Dark Moon Greatsword", "req": { "str": 16, "dex": 11, "int": 38 }, "tag": "主力" },
         { "name": "卡利亞王室權杖 Carian Regal Scepter", "req": { "str": 8, "int": 60 }, "tag": "法杖" }
       ]
     },
@@ -603,12 +603,12 @@
       ]
     },
     {
-      "id": "faistr", "name": "信劍（瀆瀆之劍 信／力）", "tag": "信劍", "primary": ["fai", "str"],
-      "blurb": "信力雙修，瀆瀆之劍「斷罪」回血爆風＋火焰禱告，最強泛用信仰近戰。",
+      "id": "faistr", "name": "信劍（瀆神之劍 信／力）", "tag": "信劍", "primary": ["fai", "str"],
+      "blurb": "信力雙修，瀆神之劍「斷罪」回血爆風＋火焰禱告，最強泛用信仰近戰。",
       "target": { "vig": 60, "mnd": 20, "end": 26, "str": 40, "dex": 14, "int": 9, "fai": 51, "arc": 9 },
       "gear": [
-        { "name": "瀆瀆之劍 Blasphemous Blade", "req": { "str": 22, "dex": 15, "fai": 21 }, "tag": "主力" },
-        { "name": "金律聖印 Erdtree Seal", "req": { "fai": 10 }, "tag": "聖印" }
+        { "name": "瀆神之劍 Blasphemous Blade", "req": { "str": 22, "dex": 15, "fai": 21 }, "tag": "主力" },
+        { "name": "黃金樹聖印 Erdtree Seal", "req": { "fai": 10 }, "tag": "聖印" }
       ]
     },
     {
@@ -617,7 +617,7 @@
       "target": { "vig": 60, "mnd": 20, "end": 25, "str": 14, "dex": 45, "int": 9, "fai": 47, "arc": 9 },
       "gear": [
         { "name": "古蛇王的閃電矛 Bolt of Gransax", "req": { "str": 20, "dex": 40 }, "tag": "主力" },
-        { "name": "金律聖印 Erdtree Seal", "req": { "fai": 10 }, "tag": "聖印" }
+        { "name": "黃金樹聖印 Erdtree Seal", "req": { "fai": 10 }, "tag": "聖印" }
       ]
     },
     {
