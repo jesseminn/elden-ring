@@ -56,27 +56,33 @@ if (tlcb){ tlcb.click(); await wait(); }
 const after = $(".qd-next .txt")?.textContent;
 console.log("4) 勾選後下一步有變化:", before !== after, "| 新下一步:", (after||"").slice(0,20));
 
-// 5) 配點器：兩個選單（職業／流派）＋ 主角=逐級追蹤常駐；詳情預設收合
+// 5) 配點器：兩個自訂下拉(bottom sheet)＋ 主角=逐級追蹤常駐；詳情預設收合
 click([...$$(".mode")].find(b=>b.textContent.includes("配點"))); await wait();
-const picks = $$(".mb-pick select");
-const setSel = (el,v)=>{ el.value=v; el.dispatchEvent(new window.Event("change",{bubbles:true})); };
-console.log("5) 配點器渲染:", !!$(".build-view"), "| 分頁列收起:", $$(".tab").length === 0, "| 選單數:", picks.length, "| 職業選項:", picks[0]?.options.length, "| 流派選項:", picks[1]?.options.length);
-console.log("   詳情預設收合:", $(".mb-verdict")==null, "| 逐級追蹤常駐(下一級鈕):", $$(".build-view button").some(b=>b.textContent.includes("記錄")));
+const triggers = ()=>$$(".mb-pickers .ss-trigger");
+const openTrig = async (i)=>{ click(triggers()[i]); await wait(); };
+const pickOpt = async (text)=>{ const o=$$(".sheet .ss-option").find(x=>x.textContent.includes(text)); click(o); await wait(); };
+console.log("5) 配點器渲染:", !!$(".build-view"), "| 分頁列收起:", $$(".tab").length === 0, "| 自訂下拉數:", triggers().length, "| 詳情預設收合:", $(".mb-verdict")==null, "| 逐級追蹤常駐:", $$(".build-view button").some(b=>b.textContent.includes("記錄")));
+
+// 5a) 開職業 bottom sheet，確認彈出與選項數，選回盜賊
+await openTrig(0);
+console.log("   職業 sheet 開啟:", !!$(".sheet"), "| 職業選項:", $$(".sheet .ss-option").length);
+await pickOpt("盜賊");
+console.log("   選後 sheet 關閉:", $(".sheet")==null);
 
 // 5b) 點「詳情」展開浪費分析卡（預設盜賊×出血流應 perfect）
-const detailBtn = $$(".build-view button").find(b=>b.textContent.includes("詳情"));
-click(detailBtn); await wait();
+click($$(".build-view button").find(b=>b.textContent.includes("詳情"))); await wait();
 console.log("   點詳情後(盜賊×出血流):", $(".mb-verdict")?.classList.contains("perfect"), "|", $(".mb-verdict-waste")?.textContent.trim());
 
 // 6) 換職業=星見、流派=純智力 → 應零浪費；再換純信仰 → 浪費變大（詳情已開）
-const [clsSel, bSel] = picks;
-setSel(clsSel,"astrologer"); await wait(); setSel(bSel,"int"); await wait();
+await openTrig(0); await pickOpt("星見");
+await openTrig(1); await pickOpt("純智力");
 console.log("6) 星見×純智力:", $(".mb-verdict-waste")?.textContent.trim(), "| perfect:", $(".mb-verdict.perfect")!=null);
-setSel(bSel,"fai"); await wait();
+await openTrig(1); await pickOpt("純信仰");
 console.log("   星見×純信仰:", $(".mb-verdict-waste")?.textContent.trim());
 
 // 7) 回盜賊×龍饗：逐級追蹤裝備出現龍饗聖印，升級 +1
-setSel(clsSel,"bandit"); await wait(); setSel(bSel,"dragon"); await wait();
+await openTrig(0); await pickOpt("盜賊");
+await openTrig(1); await pickOpt("龍饗");
 const hasSeal = $$(".build-gear-name").some(n=>n.textContent.includes("龍饗聖印"));
 const lvlBtn = $$(".build-view button").find(b=>b.textContent.includes("記錄"));
 if (lvlBtn){ click(lvlBtn); await wait(); }

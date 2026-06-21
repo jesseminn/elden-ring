@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAppState, useDispatch } from "../store";
+import SheetSelect from "./SheetSelect";
 import {
   statMeta,
   statOrder,
@@ -79,49 +80,45 @@ export default function BuildView() {
     [cls],
   );
   const meta = metaBuilds.find((b) => b.id === state.ui.metaBuildId) ?? metaBuilds[0];
-  const waste = wasteOf(cls, meta);
 
   return (
     <div className="view build-view">
       {/* ---------- 選單：先職業、再流派（流派右上有「詳情」） ---------- */}
       <div className="mb-pickers">
-        <label className="mb-pick">
-          <span className="tb-label">初始職業</span>
-          <select
-            className="kind-select"
-            value={cls.id}
-            onChange={(e) => dispatch({ type: "setClassId", id: e.target.value })}
-          >
-            {classes.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}（{c.en} · Lv{c.lv}）
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="mb-pick">
-          <span className="mb-pick-head">
-            <span className="tb-label">流派（依浪費少→多）</span>
+        <SheetSelect
+          label="初始職業"
+          sheetTitle="選擇初始職業"
+          sheetSub="起始等級與八維決定配點浪費"
+          value={cls.id}
+          onChange={(id) => dispatch({ type: "setClassId", id })}
+          options={classes.map((c) => ({
+            value: c.id,
+            title: c.name,
+            sub: `${c.en} · 起始 Lv${c.lv}`,
+          }))}
+        />
+        <SheetSelect
+          label="流派（依浪費少→多）"
+          sheetTitle="選擇流派"
+          sheetSub="依目前職業浪費點數由少到多排序"
+          value={meta.id}
+          onChange={(id) => dispatch({ type: "setMetaBuildId", id })}
+          headExtra={
             <button
               type="button"
               className={"ghost-btn small mb-detail-btn" + (showDetail ? " on" : "")}
               onClick={() => setShowDetail((v) => !v)}
             >
-              {showDetail ? "收合詳情 ▴" : `詳情 ▾（浪費 ${waste}）`}
+              {showDetail ? "收合 ▴" : "詳情 ▾"}
             </button>
-          </span>
-          <select
-            className="kind-select"
-            value={meta.id}
-            onChange={(e) => dispatch({ type: "setMetaBuildId", id: e.target.value })}
-          >
-            {rankedBuilds.map(({ b, w }) => (
-              <option key={b.id} value={b.id}>
-                浪費 {w}　{b.name}
-              </option>
-            ))}
-          </select>
-        </label>
+          }
+          options={rankedBuilds.map(({ b, w }) => ({
+            value: b.id,
+            title: b.name,
+            sub: b.tag,
+            badge: `浪費 ${w}`,
+          }))}
+        />
       </div>
 
       {/* ---------- 流派詳情（點「詳情」才展開）：浪費分析 ---------- */}

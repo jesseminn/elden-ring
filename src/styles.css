@@ -327,12 +327,36 @@ body {
 .build-picker { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .build-picker .kind-select { flex: 1; }
 
+/* ---- 可復用下拉：bottom sheet 選擇器（SheetSelect） ---- */
+.ss { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ss-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 24px; }
+.ss-head .tb-label { margin: 0; }
+.ss-trigger {
+  width: 100%; display: flex; align-items: center; gap: 8px; cursor: pointer; text-align: left;
+  background: var(--panel2); color: var(--text); border: 1px solid var(--border2);
+  border-radius: 5px; padding: 9px 11px; font-size: 13px; font-family: inherit; transition: border-color .15s;
+}
+.ss-trigger:hover { border-color: var(--gold); }
+.ss-trigger-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.ss-trigger-badge { font-size: 11px; color: var(--gold-bright); background: #c9a14a1f; border: 1px solid #c9a14a55; padding: 1px 7px; border-radius: 3px; white-space: nowrap; }
+.ss-caret { color: var(--muted2); font-size: 11px; flex-shrink: 0; }
+
+.ss-option {
+  width: 100%; display: flex; align-items: center; gap: 10px; cursor: pointer; text-align: left;
+  background: var(--panel2); color: var(--text); border: 1px solid var(--border);
+  border-radius: 5px; padding: 11px 12px; margin-bottom: 6px; font-family: inherit; transition: border-color .15s;
+}
+.ss-option:hover { border-color: var(--gold); }
+.ss-option.current { border-color: var(--gold); background: #c9a14a1a; }
+.ss-option-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.ss-option-title { font-size: 14px; font-weight: 600; }
+.ss-option-sub { font-size: 11px; color: var(--muted); }
+.ss-option-badge { font-size: 11.5px; color: var(--gold-bright); background: #c9a14a1f; border: 1px solid #c9a14a55; padding: 1px 8px; border-radius: 3px; white-space: nowrap; }
+.ss-option-check { color: var(--green-bright); font-weight: 800; flex-shrink: 0; }
+
 /* ---- 職業 × 流派 浪費分析 ---- */
 .mb-pickers { display: flex; gap: 8px; margin-bottom: 12px; }
-.mb-pick { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.mb-pick .tb-label { margin: 0; }
-.mb-pick .kind-select { width: 100%; }
-.mb-pick-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 24px; }
+.mb-pickers > .ss { flex: 1; }
 .mb-detail-btn.on { border-color: var(--gold); color: var(--gold-bright); background: #c9a14a14; }
 .mb-detail { margin-bottom: 12px; }
 @media (max-width: 480px) { .mb-pickers { flex-direction: column; } }
