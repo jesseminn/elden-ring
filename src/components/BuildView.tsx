@@ -1,17 +1,39 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAppState, useDispatch } from "../store";
-import { statMeta, statOrder, base, baseLv, builds, earlySegments } from "../lib/builds";
+import {
+  statMeta,
+  statOrder,
+  base,
+  baseLv,
+  builds,
+  earlySegments,
+  classes,
+  metaBuilds,
+  wasteOf,
+  wasteByStat,
+  finalStats,
+  buildLevel,
+} from "../lib/builds";
 import type { StatKey, Stats, Segment } from "../types";
 
 /* ============================================================
-   配點器：盜賊（感應）為核心的兩套 build（Lv5 → Lv200）
-   官方繁中屬性名:生命力/集中力/耐力/力氣/靈巧/智力/信仰/感應
-   - Lv5→57 為共用段：對應使用者真實存檔（截圖驗證,不可變動）
-   - Lv57→200 依所選 build 分流
-   - 資料抽至 src/data/builds.json（型別見 src/types.ts），本檔只負責邏輯與渲染
+   配點器
+   ① 上半：職業 × 流派 浪費分析（先選初始職業，再選流派；流派依浪費少→多排序）
+      浪費機制：洗點時每屬性不能低於初始職業起始值，故用不到的高起始屬性=永久浪費。
+   ② 下半：盜賊感應流 Lv5→200 逐級實戰計畫（對應實機存檔，可收合）
+   官方繁中屬性名：生命力/集中力/耐力/力氣/靈巧/智力/信仰/感應
    ============================================================ */
 
-/* ---------- 由 segments 展開逐級計畫 ---------- */
+const TARGET_LV = 150; // meta 流派以 150 級為基準
+
+function suitability(waste: number): { label: string; cls: string } {
+  if (waste === 0) return { label: "完美契合 · 零浪費", cls: "perfect" };
+  if (waste <= 3) return { label: "極省 · 幾乎無浪費", cls: "great" };
+  if (waste <= 7) return { label: "普通 · 小幅浪費", cls: "ok" };
+  return { label: "不建議 · 浪費偏大", cls: "bad" };
+}
+
+/* ---------- 由 segments 展開逐級計畫（盜賊詳細計畫用） ---------- */
 interface PlanStep {
   lv: number;
   stat: StatKey;
@@ -47,7 +69,204 @@ export default function BuildView() {
   const state = useAppState();
   const dispatch = useDispatch();
 
-  const build = builds.find((b) => b.id === state.ui.buildId) ?? builds[0];
+  /* ===================== ① 職業 × 流派 浪費分析 ===================== */
+  const cls = classes.find((c) => c.id === state.ui.classId) ?? classes[0];
+
+  // 流派依「此職業浪費點數」由少到多排序（穩定排序，浪費相同維持原順序）
+  const rankedBuilds = useMemo(
+    () =>
+      metaBuilds
+        .map((b, i) => ({ b, w: wasteOf(cls, b), i }))
+        .sort((a, z) => a.w - z.w || a.i - z.i),
+    [cls],
+  );
+  const meta = metaBuilds.find((b) => b.id === state.ui.metaBuildId) ?? metaBuilds[0];
+
+  const waste = wasteOf(cls, meta);
+  const wst = wasteByStat(cls, meta);
+  const fin = finalStats(cls, meta);
+  const finalLv = buildLevel(fin); // = 150 + 浪費
+  const suit = suitability(waste);
+
+  // 此流派最省的職業 Top3
+  const bestClasses = useMemo(
+    () =>
+      classes
+        .map((c) => ({ c, w: wasteOf(c, meta) }))
+        .sort((a, z) => a.w - z.w)
+        .slice(0, 3),
+    [meta],
+  );
+
+  return (
+    <div className="view build-view">
+      {/* ---------- 選單：先職業、再流派 ---------- */}
+      <div className="mb-pickers">
+        <label className="mb-pick">
+          <span className="tb-label">初始職業</span>
+          <select
+            className="kind-select"
+            value={cls.id}
+            onChange={(e) => dispatch({ type: "setClassId", id: e.target.value })}
+          >
+            {classes.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}（{c.en} · Lv{c.lv}）
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="mb-pick">
+          <span className="tb-label">流派（依浪費少→多）</span>
+          <select
+            className="kind-select"
+            value={meta.id}
+            onChange={(e) => dispatch({ type: "setMetaBuildId", id: e.target.value })}
+          >
+            {rankedBuilds.map(({ b, w }) => (
+              <option key={b.id} value={b.id}>
+                浪費 {w}　{b.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      {/* ---------- 浪費分析卡 ---------- */}
+      <div className={"mb-verdict " + suit.cls}>
+        <div className="mb-verdict-top">
+          <span className="mb-verdict-name">
+            {cls.name} → {meta.name}
+          </span>
+          <span className="badge">{meta.tag}</span>
+        </div>
+        <div className="mb-verdict-waste">
+          浪費 <b>{waste}</b> 點 · {suit.label}
+        </div>
+        <div className="mb-verdict-sub">
+          走完此流派實際會到 Lv{finalLv}
+          {waste > 0 ? `（比理想多 ${waste} 級，全卡在用不到的屬性洗不掉）` : "（剛好 Lv150，無冗餘）"}
+        </div>
+        {waste > 0 && (
+          <div className="mb-waste-chips">
+            {statOrder
+              .filter((k) => wst[k] > 0)
+              .map((k) => (
+                <span key={k} className="mb-waste-chip" style={{ borderColor: statMeta[k].color }}>
+                  {statMeta[k].name} +{wst[k]}
+                </span>
+              ))}
+          </div>
+        )}
+        <div className="mb-verdict-blurb">{meta.blurb}</div>
+      </div>
+
+      {/* ---------- Lv150 屬性面板 ---------- */}
+      <div className="build-section">
+        <div className="build-section-title">
+          Lv150 目標面板 · {cls.name}起手
+        </div>
+        <div className="build-stats">
+          {statOrder.map((k) => {
+            const m = statMeta[k];
+            const v = fin[k];
+            const isPrimary = meta.primary.includes(k);
+            const wasted = wst[k] > 0;
+            return (
+              <div
+                key={k}
+                className={"build-stat" + (isPrimary ? " next" : "") + (wasted ? " mb-stat-wasted" : "")}
+              >
+                <span className="build-stat-name">
+                  {m.name}
+                  <span className="build-stat-en">{m.en}</span>
+                </span>
+                <div className="build-stat-bar">
+                  <div style={{ width: (v / 99) * 100 + "%", background: m.color }} />
+                </div>
+                <span className="build-stat-val">
+                  {v}
+                  {wasted ? <span className="mb-stat-waste-tag"> (+{wst[k]}廢)</span> : isPrimary ? " ★" : ""}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        <div className="build-softcaps">
+          職業起手：
+          {statOrder.map((k) => `${statMeta[k].name}${cls.stats[k]}`).join(" / ")}
+          。★ = 主屬性；標「廢」者為職業起始值高於本流派所需、洗點也降不掉的浪費。
+        </div>
+      </div>
+
+      {/* ---------- 代表武器解鎖 ---------- */}
+      <div className="build-section">
+        <div className="build-section-title">代表武器 · 對 Lv150 目標</div>
+        <div className="build-gear">
+          {meta.gear.map((g) => {
+            const missing = (Object.entries(g.req) as [StatKey, number][])
+              .filter(([k, v]) => meta.target[k] < v)
+              .map(([k, v]) => `${statMeta[k].name} ${meta.target[k]}/${v}`);
+            const ok = missing.length === 0;
+            return (
+              <div key={g.name} className={"build-gear-row" + (ok ? "" : " locked")}>
+                <span className="build-gear-mark">{ok ? "✓" : "✗"}</span>
+                <span className="build-gear-name">{g.name}</span>
+                <span className="badge">{g.tag}</span>
+                <span className="build-gear-req">
+                  {ok
+                    ? (Object.entries(g.req) as [StatKey, number][])
+                        .map(([k, v]) => `${statMeta[k].en}${v}`)
+                        .join(" / ")
+                    : "缺 " + missing.join("、")}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ---------- 此流派最省職業 Top3 ---------- */}
+      <div className="build-section">
+        <div className="build-section-title">{meta.name} · 最省的初始職業</div>
+        <div className="mb-rank">
+          {bestClasses.map(({ c, w }, i) => (
+            <button
+              key={c.id}
+              className={"mb-rank-row" + (c.id === cls.id ? " current" : "")}
+              onClick={() => dispatch({ type: "setClassId", id: c.id })}
+            >
+              <span className="mb-rank-no">{i + 1}</span>
+              <span className="mb-rank-name">{c.name}</span>
+              <span className="mb-rank-waste">浪費 {w}</span>
+            </button>
+          ))}
+        </div>
+        <div className="build-softcaps">點選即切換到該職業比較。</div>
+      </div>
+
+      {/* ===================== ② 盜賊感應流 逐級實戰計畫 ===================== */}
+      <DetailPlanner />
+
+      <div className="build-footer">
+        浪費＝Σ max(0, 職業起始值 − 流派所需)。等級 = 八維總和 − 79。流派配點以 Lv{TARGET_LV} 為基準 · 選擇自動儲存
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   ② 盜賊感應流 Lv5→200 逐級實戰計畫（既有功能，對應實機存檔）
+   僅出血流/龍饗有逐級資料；以 metaBuildId 連動，預設收合。
+   ============================================================ */
+function DetailPlanner() {
+  const state = useAppState();
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+
+  // 只有出血流/龍饗在 builds[] 有逐級資料
+  const detail = builds.find((b) => b.id === state.ui.metaBuildId);
+  const build = detail ?? builds[0];
   const plan = useMemo(() => buildPlan([...earlySegments, ...build.tail]), [build]);
   const MAX_LV = baseLv + plan.length; // 200
 
@@ -56,8 +275,6 @@ export default function BuildView() {
     dispatch({ type: "setBuildLv", lv: Math.max(baseLv, Math.min(MAX_LV, v)) });
 
   const [showAll, setShowAll] = useState(false);
-
-  // 等級輸入框：本地字串 state，允許暫時清空／中途值
   const [lvText, setLvText] = useState(String(lv));
   useEffect(() => {
     setLvText(String(lv));
@@ -82,173 +299,174 @@ export default function BuildView() {
   const next = lv < MAX_LV ? plan[lv - baseLv] : null;
   const upcoming = useMemo(() => plan.slice(lv - baseLv, lv - baseLv + 8), [plan, lv]);
 
+  const available = !!detail; // 此流派是否有逐級資料
+
   return (
-    <div className="view build-view">
-      {/* ---------- build 選擇 ---------- */}
-      <div className="build-picker">
-        <span className="tb-label">流派</span>
-        <select
-          className="kind-select"
-          value={build.id}
-          onChange={(e) => dispatch({ type: "setBuildId", id: e.target.value })}
-        >
-          {builds.map((b) => (
-            <option key={b.id} value={b.id}>
-              {b.name}
-            </option>
-          ))}
-        </select>
+    <div className="build-section">
+      <div className="build-section-head">
+        <div className="build-section-title">盜賊感應流 · 逐級實戰計畫（Lv5→200）</div>
+        <button className="ghost-btn small" onClick={() => setOpen(!open)}>
+          {open ? "收合" : "展開"}
+        </button>
       </div>
-      <div className="build-intro">{build.intro}</div>
-
-      {/* ---------- 升級步進器 ---------- */}
-      <div className="build-stepper">
-        <div className="build-step-row">
-          <button className="ghost-btn build-pm" onClick={() => setLevel(lv - 1)} disabled={lv <= baseLv}>
-            −
-          </button>
-          <div className="build-lv">
-            <span className="tb-label">目前等級</span>
-            <input
-              type="number"
-              className="build-lv-input"
-              value={lvText}
-              min={baseLv}
-              max={MAX_LV}
-              onChange={(e) => onLvChange(e.target.value)}
-              onBlur={onLvBlur}
-            />
-          </div>
-          <button className="gold-btn build-pm" onClick={() => setLevel(lv + 1)} disabled={lv >= MAX_LV}>
-            ＋
-          </button>
+      {!open ? (
+        <div className="build-softcaps">
+          對應實機存檔的逐級配點（出血流／龍饗）。{available ? "點「展開」查看。" : "（此流派無逐級資料，請於上方選出血流或龍饗）"}
         </div>
-        <input
-          type="range"
-          className="build-slider"
-          min={baseLv}
-          max={MAX_LV}
-          value={lv}
-          onChange={(e) => setLevel(parseInt(e.target.value, 10))}
-        />
-      </div>
-
-      {/* ---------- 下一級 ---------- */}
-      {next ? (
-        <div className="build-next">
-          <div className="build-next-head">
-            下一級 · Lv{lv} → Lv{next.lv}
-          </div>
-          <div className="build-next-stat">
-            加 <b style={{ color: statMeta[next.stat].color }}>【{statMeta[next.stat].name}】</b>
-            <span className="build-next-arrow">
-              {next.value - 1} → {next.value}
-            </span>
-          </div>
-          <div className="build-next-runes">所需盧恩 ≈ {runeCost(lv).toLocaleString()}</div>
-          {next.note && <div className="build-next-note">◆ {next.note}</div>}
-          <button className="gold-btn build-levelup" onClick={() => setLevel(lv + 1)}>
-            已在賜福處升級，記錄 +1
-          </button>
+      ) : !available ? (
+        <div className="build-softcaps">
+          目前選的流派沒有逐級實戰資料。逐級計畫僅提供「出血流」與「龍饗流」，請在上方流派選單切換。
         </div>
       ) : (
-        <div className="build-next">
-          <div className="build-next-stat">🏆 Lv{MAX_LV} 配點畢業</div>
-          <div className="build-next-note">200 級之後自由配點建議順序：集中力 → 30、耐力 → 35，生命力以外皆可。</div>
-        </div>
+        <>
+          <div className="build-intro">{build.intro}</div>
+
+          {/* 升級步進器 */}
+          <div className="build-stepper">
+            <div className="build-step-row">
+              <button className="ghost-btn build-pm" onClick={() => setLevel(lv - 1)} disabled={lv <= baseLv}>
+                −
+              </button>
+              <div className="build-lv">
+                <span className="tb-label">目前等級</span>
+                <input
+                  type="number"
+                  className="build-lv-input"
+                  value={lvText}
+                  min={baseLv}
+                  max={MAX_LV}
+                  onChange={(e) => onLvChange(e.target.value)}
+                  onBlur={onLvBlur}
+                />
+              </div>
+              <button className="gold-btn build-pm" onClick={() => setLevel(lv + 1)} disabled={lv >= MAX_LV}>
+                ＋
+              </button>
+            </div>
+            <input
+              type="range"
+              className="build-slider"
+              min={baseLv}
+              max={MAX_LV}
+              value={lv}
+              onChange={(e) => setLevel(parseInt(e.target.value, 10))}
+            />
+          </div>
+
+          {/* 下一級 */}
+          {next ? (
+            <div className="build-next">
+              <div className="build-next-head">
+                下一級 · Lv{lv} → Lv{next.lv}
+              </div>
+              <div className="build-next-stat">
+                加 <b style={{ color: statMeta[next.stat].color }}>【{statMeta[next.stat].name}】</b>
+                <span className="build-next-arrow">
+                  {next.value - 1} → {next.value}
+                </span>
+              </div>
+              <div className="build-next-runes">所需盧恩 ≈ {runeCost(lv).toLocaleString()}</div>
+              {next.note && <div className="build-next-note">◆ {next.note}</div>}
+              <button className="gold-btn build-levelup" onClick={() => setLevel(lv + 1)}>
+                已在賜福處升級，記錄 +1
+              </button>
+            </div>
+          ) : (
+            <div className="build-next">
+              <div className="build-next-stat">🏆 Lv{MAX_LV} 配點畢業</div>
+              <div className="build-next-note">200 級之後自由配點建議順序：集中力 → 30、耐力 → 35，生命力以外皆可。</div>
+            </div>
+          )}
+
+          {/* 屬性面板 */}
+          <div className="build-section">
+            <div className="build-section-title">目前屬性 · Lv{lv}</div>
+            <div className="build-stats">
+              {statOrder.map((k) => {
+                const m = statMeta[k];
+                const v = stats[k];
+                const isNext = next && next.stat === k;
+                return (
+                  <div key={k} className={"build-stat" + (isNext ? " next" : "")}>
+                    <span className="build-stat-name">
+                      {m.name}
+                      <span className="build-stat-en">{m.en}</span>
+                    </span>
+                    <div className="build-stat-bar">
+                      <div style={{ width: (v / 99) * 100 + "%", background: m.color }} />
+                    </div>
+                    <span className="build-stat-val">
+                      {v}
+                      {isNext ? " ▲" : ""}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="build-softcaps">{build.softcaps}</div>
+          </div>
+
+          {/* 裝備解鎖 */}
+          <div className="build-section">
+            <div className="build-section-title">裝備解鎖狀態</div>
+            <div className="build-route">{build.route}</div>
+            <div className="build-gear">
+              {build.gear.map((g) => {
+                const missing = (Object.entries(g.req) as [StatKey, number][])
+                  .filter(([k, v]) => stats[k] < v)
+                  .map(([k, v]) => `${statMeta[k].name} ${stats[k]}/${v}`);
+                const ok = missing.length === 0;
+                return (
+                  <div key={g.name} className={"build-gear-row" + (ok ? "" : " locked")}>
+                    <span className="build-gear-mark">{ok ? "✓" : "✗"}</span>
+                    <span className="build-gear-name">{g.name}</span>
+                    <span className="badge">{g.tag}</span>
+                    <span className="build-gear-req">
+                      {ok
+                        ? (Object.entries(g.req) as [StatKey, number][])
+                            .map(([k, v]) => `${statMeta[k].en}${v}`)
+                            .join(" / ")
+                        : "缺 " + missing.join("、")}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 完整時間軸 */}
+          <div className="build-section">
+            <div className="build-section-head">
+              <div className="build-section-title">完整配點時間軸（點任一級可跳轉）</div>
+              <button className="ghost-btn small" onClick={() => setShowAll(!showAll)}>
+                {showAll ? "收合，只看附近" : `展開全部 ${plan.length} 級`}
+              </button>
+            </div>
+            <div className="build-timeline">
+              {(showAll ? plan : upcoming).map((p) => {
+                const m = statMeta[p.stat];
+                const passed = p.lv <= lv;
+                const isNext = next && p.lv === next.lv;
+                return (
+                  <div key={p.lv}>
+                    <button
+                      className={"build-tl-row" + (passed ? " passed" : "") + (isNext ? " next" : "")}
+                      onClick={() => setLevel(p.lv)}
+                    >
+                      <span className="build-tl-lv">Lv{p.lv}</span>
+                      <span className="build-tl-dot" style={{ background: m.color }} />
+                      <span className="build-tl-stat">{m.name}</span>
+                      <span className="build-tl-val">→ {p.value}</span>
+                      {passed && <span className="build-tl-check">✓</span>}
+                    </button>
+                    {p.note && <div className="build-tl-note">◆ {p.note}</div>}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </>
       )}
-
-      {/* ---------- 屬性面板 ---------- */}
-      <div className="build-section">
-        <div className="build-section-title">目前屬性 · Lv{lv}</div>
-        <div className="build-stats">
-          {statOrder.map((k) => {
-            const m = statMeta[k];
-            const v = stats[k];
-            const isNext = next && next.stat === k;
-            return (
-              <div key={k} className={"build-stat" + (isNext ? " next" : "")}>
-                <span className="build-stat-name">
-                  {m.name}
-                  <span className="build-stat-en">{m.en}</span>
-                </span>
-                <div className="build-stat-bar">
-                  <div style={{ width: (v / 99) * 100 + "%", background: m.color }} />
-                </div>
-                <span className="build-stat-val">
-                  {v}
-                  {isNext ? " ▲" : ""}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-        <div className="build-softcaps">{build.softcaps}</div>
-      </div>
-
-      {/* ---------- 裝備解鎖 ---------- */}
-      <div className="build-section">
-        <div className="build-section-title">裝備解鎖狀態</div>
-        <div className="build-route">{build.route}</div>
-        <div className="build-gear">
-          {build.gear.map((g) => {
-            const missing = (Object.entries(g.req) as [StatKey, number][])
-              .filter(([k, v]) => stats[k] < v)
-              .map(([k, v]) => `${statMeta[k].name} ${stats[k]}/${v}`);
-            const ok = missing.length === 0;
-            return (
-              <div key={g.name} className={"build-gear-row" + (ok ? "" : " locked")}>
-                <span className="build-gear-mark">{ok ? "✓" : "✗"}</span>
-                <span className="build-gear-name">{g.name}</span>
-                <span className="badge">{g.tag}</span>
-                <span className="build-gear-req">
-                  {ok
-                    ? (Object.entries(g.req) as [StatKey, number][])
-                        .map(([k, v]) => `${statMeta[k].en}${v}`)
-                        .join(" / ")
-                    : "缺 " + missing.join("、")}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ---------- 完整時間軸 ---------- */}
-      <div className="build-section">
-        <div className="build-section-head">
-          <div className="build-section-title">完整配點時間軸（點任一級可跳轉）</div>
-          <button className="ghost-btn small" onClick={() => setShowAll(!showAll)}>
-            {showAll ? "收合，只看附近" : "展開全部 195 級"}
-          </button>
-        </div>
-        <div className="build-timeline">
-          {(showAll ? plan : upcoming).map((p) => {
-            const m = statMeta[p.stat];
-            const passed = p.lv <= lv;
-            const isNext = next && p.lv === next.lv;
-            return (
-              <div key={p.lv}>
-                <button
-                  className={"build-tl-row" + (passed ? " passed" : "") + (isNext ? " next" : "")}
-                  onClick={() => setLevel(p.lv)}
-                >
-                  <span className="build-tl-lv">Lv{p.lv}</span>
-                  <span className="build-tl-dot" style={{ background: m.color }} />
-                  <span className="build-tl-stat">{m.name}</span>
-                  <span className="build-tl-val">→ {p.value}</span>
-                  {passed && <span className="build-tl-check">✓</span>}
-                </button>
-                {p.note && <div className="build-tl-note">◆ {p.note}</div>}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="build-footer">
-        Lv5→57 為共用段，對應實機存檔；Lv57 起依所選 build 分流。若實際配點偏離，擊敗蕾娜菈後用幼生露滴洗點對齊即可 · 目前等級自動儲存
-      </div>
     </div>
   );
 }

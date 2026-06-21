@@ -99,6 +99,27 @@ export interface BuildDef {
   gear: GearItem[];
 }
 
+/** 初始職業：起始等級與八維（用於計算配點浪費） */
+export interface ClassDef {
+  id: string;
+  name: string;
+  en: string;
+  lv: number;
+  stats: Stats;
+}
+
+/** 一條 build 在 Lv150 的目標配點（職業無關，供浪費比較用） */
+export interface MetaBuild {
+  id: string;
+  name: string;
+  tag: string;
+  /** 主屬性（會以色塊強調） */
+  primary: StatKey[];
+  blurb: string;
+  target: Stats;
+  gear: GearItem[];
+}
+
 export interface BuildData {
   statMeta: Record<StatKey, StatMeta>;
   statOrder: StatKey[];
@@ -107,4 +128,8 @@ export interface BuildData {
   /** Lv5→57 共用段 */
   earlySegments: Segment[];
   builds: BuildDef[];
+  /** 十個初始職業 */
+  classes: ClassDef[];
+  /** 12 條 Lv150 meta 流派 */
+  metaBuilds: MetaBuild[];
 }

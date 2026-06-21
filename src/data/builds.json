@@ -507,5 +507,127 @@
         }
       ]
     }
+  ],
+  "classes": [
+    { "id": "vagabond",   "name": "流浪騎士", "en": "Vagabond",   "lv": 9,  "stats": { "vig": 15, "mnd": 10, "end": 11, "str": 14, "dex": 13, "int": 9,  "fai": 9,  "arc": 7 } },
+    { "id": "warrior",    "name": "戰士",     "en": "Warrior",    "lv": 8,  "stats": { "vig": 11, "mnd": 12, "end": 11, "str": 10, "dex": 16, "int": 10, "fai": 8,  "arc": 9 } },
+    { "id": "hero",       "name": "勇者",     "en": "Hero",       "lv": 7,  "stats": { "vig": 14, "mnd": 9,  "end": 12, "str": 16, "dex": 9,  "int": 7,  "fai": 8,  "arc": 11 } },
+    { "id": "bandit",     "name": "盜賊",     "en": "Bandit",     "lv": 5,  "stats": { "vig": 10, "mnd": 11, "end": 10, "str": 9,  "dex": 13, "int": 9,  "fai": 8,  "arc": 14 } },
+    { "id": "astrologer", "name": "星見",     "en": "Astrologer", "lv": 6,  "stats": { "vig": 9,  "mnd": 15, "end": 9,  "str": 8,  "dex": 12, "int": 16, "fai": 7,  "arc": 9 } },
+    { "id": "prisoner",   "name": "囚犯",     "en": "Prisoner",   "lv": 9,  "stats": { "vig": 11, "mnd": 12, "end": 11, "str": 11, "dex": 14, "int": 14, "fai": 6,  "arc": 9 } },
+    { "id": "confessor",  "name": "告解者",   "en": "Confessor",  "lv": 10, "stats": { "vig": 10, "mnd": 13, "end": 10, "str": 12, "dex": 12, "int": 9,  "fai": 14, "arc": 9 } },
+    { "id": "prophet",    "name": "預言者",   "en": "Prophet",    "lv": 7,  "stats": { "vig": 10, "mnd": 14, "end": 8,  "str": 11, "dex": 10, "int": 7,  "fai": 16, "arc": 10 } },
+    { "id": "samurai",    "name": "武士",     "en": "Samurai",    "lv": 9,  "stats": { "vig": 12, "mnd": 11, "end": 13, "str": 12, "dex": 15, "int": 9,  "fai": 8,  "arc": 8 } },
+    { "id": "wretch",     "name": "無賴",     "en": "Wretch",     "lv": 1,  "stats": { "vig": 10, "mnd": 10, "end": 10, "str": 10, "dex": 10, "int": 10, "fai": 10, "arc": 10 } }
+  ],
+  "metaBuilds": [
+    {
+      "id": "str", "name": "純力量", "tag": "近戰", "primary": ["str"],
+      "blurb": "巨人碎石／重劍等大型武器，力氣 80 衝硬上限，戰技灰／重擊壓制。",
+      "target": { "vig": 60, "mnd": 12, "end": 30, "str": 88, "dex": 13, "int": 9, "fai": 8, "arc": 9 },
+      "gear": [
+        { "name": "巨人碎石 Giant-Crusher", "req": { "str": 60, "dex": 12 }, "tag": "主力" },
+        { "name": "接合劍 Bastard Sword", "req": { "str": 16, "dex": 9 }, "tag": "過渡" }
+      ]
+    },
+    {
+      "id": "dex", "name": "純敏捷", "tag": "近戰", "primary": ["dex"],
+      "blurb": "瑪蓮妮亞之手／打刀等速攻武器，靈巧 80 吃滿補正，連段與居合。",
+      "target": { "vig": 60, "mnd": 16, "end": 32, "str": 12, "dex": 83, "int": 9, "fai": 8, "arc": 9 },
+      "gear": [
+        { "name": "瑪蓮妮亞之手 Hand of Malenia", "req": { "str": 16, "dex": 48 }, "tag": "主力" },
+        { "name": "打刀 Uchigatana", "req": { "str": 11, "dex": 15 }, "tag": "過渡" }
+      ]
+    },
+    {
+      "id": "quality", "name": "上質（力／敏）", "tag": "近戰", "primary": ["str", "dex"],
+      "blurb": "力敏雙修各約 55，武器池最廣，重武器與細劍通吃。",
+      "target": { "vig": 60, "mnd": 14, "end": 28, "str": 47, "dex": 55, "int": 8, "fai": 8, "arc": 9 },
+      "gear": [
+        { "name": "戴爾的大劍 Ordovis's Greatsword", "req": { "str": 20, "dex": 14 }, "tag": "主力" },
+        { "name": "接合劍 Bastard Sword", "req": { "str": 16, "dex": 9 }, "tag": "過渡" }
+      ]
+    },
+    {
+      "id": "int", "name": "純智力（法術）", "tag": "法術", "primary": ["int"],
+      "blurb": "純輝石法師，智力 77 推流星雨／彗星阿茲爾，遠程秒人。",
+      "target": { "vig": 60, "mnd": 38, "end": 16, "str": 10, "dex": 12, "int": 77, "fai": 7, "arc": 9 },
+      "gear": [
+        { "name": "卡利亞王室權杖 Carian Regal Scepter", "req": { "str": 8, "int": 60 }, "tag": "法杖" },
+        { "name": "露莎特的輝石杖 Lusat's Glintstone Staff", "req": { "int": 52 }, "tag": "法杖" }
+      ]
+    },
+    {
+      "id": "fai", "name": "純信仰（禱告）", "tag": "禱告", "primary": ["fai"],
+      "blurb": "純信仰禱告師，信仰 75 推黃金律法／火焰禱告與神聖遺物劍。",
+      "target": { "vig": 60, "mnd": 38, "end": 17, "str": 12, "dex": 10, "int": 8, "fai": 75, "arc": 9 },
+      "gear": [
+        { "name": "神聖遺物劍 Sacred Relic Sword", "req": { "str": 14, "dex": 22, "fai": 22 }, "tag": "主力" },
+        { "name": "金律聖印 Erdtree Seal", "req": { "fai": 10 }, "tag": "聖印" }
+      ]
+    },
+    {
+      "id": "bleed", "name": "出血流（屍山血海）", "tag": "敏／感", "primary": ["dex", "arc"],
+      "blurb": "敏感雙修血咒，靠出血累積秒破韌性；本工具盜賊感應流的核心。",
+      "target": { "vig": 60, "mnd": 16, "end": 26, "str": 16, "dex": 46, "int": 9, "fai": 9, "arc": 47 },
+      "gear": [
+        { "name": "屍山血海 Rivers of Blood", "req": { "str": 12, "dex": 18, "arc": 20 }, "tag": "主力" },
+        { "name": "長牙 Nagakiba", "req": { "str": 18, "dex": 22 }, "tag": "雙刀" }
+      ]
+    },
+    {
+      "id": "arcane", "name": "純感應（蒙格溫長槍）", "tag": "感應", "primary": ["arc"],
+      "blurb": "感應 80 衝硬上限，蒙格溫長槍血焰一閃刷血，遠程出血爆發。",
+      "target": { "vig": 60, "mnd": 16, "end": 26, "str": 24, "dex": 14, "int": 9, "fai": 9, "arc": 71 },
+      "gear": [
+        { "name": "蒙格溫的神聖長槍 Mohgwyn's Sacred Spear", "req": { "str": 24, "dex": 14, "arc": 27 }, "tag": "主力" },
+        { "name": "血鬼的手臂 Bloodfiend's Arm", "req": { "str": 28, "dex": 11, "arc": 16 }, "tag": "DLC" }
+      ]
+    },
+    {
+      "id": "intstr", "name": "魔劍（月光大劍 智／力）", "tag": "魔劍", "primary": ["int", "str"],
+      "blurb": "智力為主、力氣為輔，月光大劍冰魔波＋輝石近戰混打。",
+      "target": { "vig": 60, "mnd": 24, "end": 25, "str": 40, "dex": 12, "int": 52, "fai": 7, "arc": 9 },
+      "gear": [
+        { "name": "月光大劍 Dark Moon Greatsword", "req": { "str": 16, "dex": 11, "int": 38 }, "tag": "主力" },
+        { "name": "卡利亞王室權杖 Carian Regal Scepter", "req": { "str": 8, "int": 60 }, "tag": "法杖" }
+      ]
+    },
+    {
+      "id": "intdex", "name": "魔劍（月隱 智／敏）", "tag": "魔劍", "primary": ["int", "dex"],
+      "blurb": "智敏雙修，月隱居合魔波＋輝石速射，最泛用的智力近戰。",
+      "target": { "vig": 60, "mnd": 24, "end": 25, "str": 12, "dex": 42, "int": 50, "fai": 7, "arc": 9 },
+      "gear": [
+        { "name": "月隱 Moonveil", "req": { "str": 12, "dex": 18, "int": 23 }, "tag": "主力" },
+        { "name": "卡利亞王室權杖 Carian Regal Scepter", "req": { "str": 8, "int": 60 }, "tag": "法杖" }
+      ]
+    },
+    {
+      "id": "faistr", "name": "信劍（瀆瀆之劍 信／力）", "tag": "信劍", "primary": ["fai", "str"],
+      "blurb": "信力雙修，瀆瀆之劍「斷罪」回血爆風＋火焰禱告，最強泛用信仰近戰。",
+      "target": { "vig": 60, "mnd": 20, "end": 26, "str": 40, "dex": 14, "int": 9, "fai": 51, "arc": 9 },
+      "gear": [
+        { "name": "瀆瀆之劍 Blasphemous Blade", "req": { "str": 22, "dex": 15, "fai": 21 }, "tag": "主力" },
+        { "name": "金律聖印 Erdtree Seal", "req": { "fai": 10 }, "tag": "聖印" }
+      ]
+    },
+    {
+      "id": "dexfai", "name": "雷電（閃電矛 敏／信）", "tag": "敏／信", "primary": ["dex", "fai"],
+      "blurb": "敏信雷電流，閃電矛投擲＋雷電禱告，遠近通吃的範圍輸出。",
+      "target": { "vig": 60, "mnd": 20, "end": 25, "str": 14, "dex": 45, "int": 9, "fai": 47, "arc": 9 },
+      "gear": [
+        { "name": "古蛇王的閃電矛 Bolt of Gransax", "req": { "str": 20, "dex": 40 }, "tag": "主力" },
+        { "name": "金律聖印 Erdtree Seal", "req": { "fai": 10 }, "tag": "聖印" }
+      ]
+    },
+    {
+      "id": "dragon", "name": "龍饗流（龍息 信／感）", "tag": "信／感", "primary": ["fai", "arc"],
+      "blurb": "龍饗聖印放腐爛吐息／龍炎，遠程 AoE＋猩紅腐敗；本工具盜賊感應流分支。",
+      "target": { "vig": 60, "mnd": 28, "end": 22, "str": 12, "dex": 18, "int": 9, "fai": 30, "arc": 50 },
+      "gear": [
+        { "name": "龍饗聖印 Dragon Communion Seal", "req": { "fai": 10, "arc": 10 }, "tag": "聖印" },
+        { "name": "屍山血海 Rivers of Blood", "req": { "str": 12, "dex": 18, "arc": 20 }, "tag": "近戰" }
+      ]
+    }
   ]
 }

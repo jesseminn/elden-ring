@@ -30,6 +30,8 @@ export interface UiState {
   collectKind: string; // 收集分頁的種類 filter，"" = 全部
   buildLv: number; // 配點分頁目前等級（盜賊起手 Lv5）
   buildId: string; // 配點：選擇的 build（"bleed" / "dragon"）
+  classId: string; // 配點：選擇的初始職業（浪費比較用，預設 bandit）
+  metaBuildId: string; // 配點：選擇的 meta 流派（浪費比較用，預設 bleed）
 }
 
 export interface State {
@@ -58,6 +60,8 @@ export type Action =
   | { type: "setCollectKind"; kind: string }
   | { type: "setBuildLv"; lv: number }
   | { type: "setBuildId"; id: string }
+  | { type: "setClassId"; id: string }
+  | { type: "setMetaBuildId"; id: string }
   | { type: "openQuest"; id: string }
   | { type: "openPeek"; qid: string; fromStepId: string }
   | { type: "closePeek" }
@@ -87,6 +91,8 @@ const defaultUi: UiState = {
   collectKind: "",
   buildLv: 5,
   buildId: "bleed",
+  classId: "bandit",
+  metaBuildId: "bleed",
 };
 
 export function initialState(): State {
@@ -147,6 +153,10 @@ function reducer(state: State, action: Action): State {
       return { ...state, ui: { ...state.ui, buildLv: action.lv } };
     case "setBuildId":
       return { ...state, ui: { ...state.ui, buildId: action.id } };
+    case "setClassId":
+      return { ...state, ui: { ...state.ui, classId: action.id } };
+    case "setMetaBuildId":
+      return { ...state, ui: { ...state.ui, metaBuildId: action.id } };
     case "openQuest":
       return { ...state, ui: { ...state.ui, tab: "quests", activeQuest: action.id } };
     case "openPeek":

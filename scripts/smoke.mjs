@@ -56,23 +56,29 @@ if (tlcb){ tlcb.click(); await wait(); }
 const after = $(".qd-next .txt")?.textContent;
 console.log("4) 勾選後下一步有變化:", before !== after, "| 新下一步:", (after||"").slice(0,20));
 
-// 5) 配點器（頂層模式，與流程追蹤器同層）：切換後渲染，且分頁列收起
+// 5) 配點器：兩個選單（職業／流派）＋ 浪費分析卡，且分頁列收起
 click([...$$(".mode")].find(b=>b.textContent.includes("配點"))); await wait();
-console.log("5) 配點器渲染:", !!$(".build-view"), "| 分頁列收起:", $$(".tab").length === 0, "| 附近時間軸列數:", $$(".build-view .build-tl-row").length);
-const lvlBtn = $$(".build-view button").find(b=>b.textContent.includes("記錄"));
-click(lvlBtn); await wait();
-const ui = JSON.parse(localStorage.getItem("elden-ui-v1")||"{}");
-console.log("   升級後 buildLv:", ui.buildLv, "(預期 6)");
+const picks = $$(".mb-pick select");
+console.log("5) 配點器渲染:", !!$(".build-view"), "| 分頁列收起:", $$(".tab").length === 0, "| 選單數:", picks.length, "| 職業選項:", picks[0]?.options.length, "| 流派選項:", picks[1]?.options.length);
+console.log("   預設(盜賊×出血流) perfect:", $(".mb-verdict")?.classList.contains("perfect"), "|", $(".mb-verdict-waste")?.textContent.trim());
 
-// 6) 切換 build：下拉選「龍饗」，驗證 build 切換且裝備清單更新（出現龍饗聖印）
-const sel = $(".build-picker select");
-console.log("   build 選項數:", sel ? sel.options.length : 0);
-const dragonOpt = [...sel.options].find(o=>o.textContent.includes("龍饗"));
-sel.value = dragonOpt.value;
-sel.dispatchEvent(new window.Event("change", { bubbles: true })); await wait();
-const ui2 = JSON.parse(localStorage.getItem("elden-ui-v1")||"{}");
+// 6) 換職業=星見、流派=純智力 → 應零浪費；再換純信仰 → 浪費變大
+const [clsSel, bSel] = picks;
+const setSel = (el,v)=>{ el.value=v; el.dispatchEvent(new window.Event("change",{bubbles:true})); };
+setSel(clsSel,"astrologer"); await wait(); setSel(bSel,"int"); await wait();
+console.log("6) 星見×純智力:", $(".mb-verdict-waste")?.textContent.trim(), "| perfect:", $(".mb-verdict.perfect")!=null);
+setSel(bSel,"fai"); await wait();
+console.log("   星見×純信仰:", $(".mb-verdict-waste")?.textContent.trim());
+
+// 7) 回盜賊×龍饗，展開逐級計畫並升級 +1，驗證裝備清單與 buildLv
+setSel(clsSel,"bandit"); await wait(); setSel(bSel,"dragon"); await wait();
+const expandBtn = $$(".build-view .ghost-btn.small").find(b=>b.textContent.includes("展開"));
+if (expandBtn){ click(expandBtn); await wait(); }
 const hasSeal = $$(".build-gear-name").some(n=>n.textContent.includes("龍饗聖印"));
-console.log("6) 切換後 buildId:", ui2.buildId, "| 出現龍饗聖印:", hasSeal);
+const lvlBtn = $$(".build-view button").find(b=>b.textContent.includes("記錄"));
+if (lvlBtn){ click(lvlBtn); await wait(); }
+const ui = JSON.parse(localStorage.getItem("elden-ui-v1")||"{}");
+console.log("7) 出現龍饗聖印:", hasSeal, "| 升級後 buildLv:", ui.buildLv, "(預期 6)");
 
 console.log("錯誤數:", errors.length);
 errors.slice(0,4).forEach(e=>console.log("  X", e.slice(0,140)));

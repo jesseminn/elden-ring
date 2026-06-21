@@ -326,6 +326,39 @@ body {
 /* ---- 配點器 ---- */
 .build-picker { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .build-picker .kind-select { flex: 1; }
+
+/* ---- 職業 × 流派 浪費分析 ---- */
+.mb-pickers { display: flex; gap: 8px; margin-bottom: 12px; }
+.mb-pick { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.mb-pick .tb-label { margin: 0; }
+.mb-pick .kind-select { width: 100%; }
+@media (max-width: 480px) { .mb-pickers { flex-direction: column; } }
+
+.mb-verdict { border: 1px solid var(--border); border-left-width: 3px; border-radius: 5px; background: var(--panel); padding: 12px 13px; margin-bottom: 12px; }
+.mb-verdict.perfect { border-left-color: var(--green-bright); background: #5fa35f10; }
+.mb-verdict.great   { border-left-color: var(--green); background: #5fa35f0a; }
+.mb-verdict.ok      { border-left-color: var(--gold); background: #c9a14a0a; }
+.mb-verdict.bad     { border-left-color: var(--red, #c4574f); background: #c4574f0d; }
+.mb-verdict-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.mb-verdict-name { font-family: var(--serif); font-size: 15px; font-weight: 700; color: var(--gold-bright); }
+.mb-verdict-waste { font-size: 14px; color: var(--text); }
+.mb-verdict-waste b { font-size: 19px; font-family: var(--serif); color: var(--gold-bright); margin: 0 2px; }
+.mb-verdict.perfect .mb-verdict-waste b { color: var(--green-bright); }
+.mb-verdict-sub { font-size: 11.5px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+.mb-waste-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.mb-waste-chip { font-size: 11px; color: var(--text); padding: 2px 7px; border: 1px solid var(--border); border-left-width: 3px; border-radius: 3px; background: var(--panel2); }
+.mb-verdict-blurb { font-size: 11.5px; color: var(--muted); line-height: 1.55; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
+
+.build-stat.mb-stat-wasted { background: #c4574f12; outline: 1px solid #c4574f44; }
+.mb-stat-waste-tag { font-size: 10px; color: #c4574f; font-weight: 600; }
+
+.mb-rank { display: flex; flex-direction: column; gap: 5px; }
+.mb-rank-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--panel2); cursor: pointer; text-align: left; color: var(--text); }
+.mb-rank-row:hover { border-color: var(--gold); }
+.mb-rank-row.current { border-color: var(--gold); background: #c9a14a1a; }
+.mb-rank-no { width: 20px; height: 20px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 12px; font-weight: 700; color: var(--gold-bright); border: 1px solid var(--gold); border-radius: 50%; }
+.mb-rank-name { font-size: 13px; font-weight: 600; }
+.mb-rank-waste { margin-left: auto; font-size: 12px; color: var(--muted); }
 .build-intro { font-size: 12px; color: var(--muted); line-height: 1.55; margin-bottom: 12px; }
 .build-route { font-size: 11.5px; line-height: 1.55; color: #b7ad96; background: #ffffff06; border-left: 2px solid var(--gold); padding: 7px 10px; margin-bottom: 10px; }
 .build-view button:disabled { opacity: 0.35; cursor: default; }
