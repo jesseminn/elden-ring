@@ -6027,7 +6027,7 @@
     {
       "id": "ch22",
       "num": 22,
-      "title": "逐漸崩毀的法姆．亞茲拉",
+      "title": "逐漸崩毀的法姆・亞茲拉",
       "nonMainline": false,
       "level": "100以上",
       "upgrade": "+25",
@@ -6562,7 +6562,7 @@
     {
       "id": "nepheli",
       "name": "涅斐麗",
-      "desc": "涅斐麗‧露的支線",
+      "desc": "涅斐麗・露的支線",
       "color": "#e0a458",
       "major": true,
       "stepIds": [
@@ -6865,7 +6865,7 @@
     {
       "id": "kenneth",
       "name": "肯尼斯",
-      "desc": "肯尼斯‧海特的奪城支線",
+      "desc": "肯尼斯・海特的奪城支線",
       "color": "#a0855b",
       "major": false,
       "stepIds": [
