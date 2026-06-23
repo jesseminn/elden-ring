@@ -1786,7 +1786,8 @@
           "boss": false,
           "quests": [
             "yura"
-          ]
+          ],
+          "missable": true
         },
         {
           "id": "ch7-s38",
@@ -3179,7 +3180,8 @@
           "quests": [
             "rya",
             "tanith"
-          ]
+          ],
+          "missable": true
         },
         {
           "id": "ch11-s13",
@@ -3192,7 +3194,8 @@
           "quests": [
             "patches",
             "tanith"
-          ]
+          ],
+          "missable": true
         },
         {
           "id": "ch11-s14",
@@ -3265,7 +3268,8 @@
           "boss": false,
           "quests": [
             "yura"
-          ]
+          ],
+          "missable": true
         },
         {
           "id": "ch11-s20",

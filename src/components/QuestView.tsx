@@ -18,6 +18,10 @@ export default function QuestView() {
 
   return (
     <div className="view">
+      <div className="quest-tip">
+        💡 通則：每到新區域先探索、把每個 NPC 對話到「重複」，<b>區域大 Boss 留到最後再殺</b>，
+        以免提前打王中斷支線。少數有時效（賽爾維斯、火山官邸加入時機、別提前殺蛇半神／尤拉…）已標 <b>⚠ 易斷</b>。
+      </div>
       <div className="quest-cards">
         <div className="qc-group">主要支線</div>
         {major.map((q) => (
