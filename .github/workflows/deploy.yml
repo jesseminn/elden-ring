@@ -1,9 +1,12 @@
 name: Deploy to GitHub Pages
 
+# 只在推送 semver tag（v*）時部署；平常推 main 不會觸發。
+# 要更新線上站＝打一個版本 tag（例：git tag v1.1.0 && git push origin v1.1.0）。
+# workflow_dispatch 保留為手動逃生口。
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "v*"
   workflow_dispatch:
 
 permissions:
@@ -27,6 +30,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          # tag 觸發時注入 tag 名當版本；手動觸發（非 tag）則留空，build 退回 package.json
+          VITE_APP_VERSION: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

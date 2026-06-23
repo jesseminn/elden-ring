@@ -15,12 +15,24 @@
 
 ## 2. 開發 / 部署流程（最常忘）
 
-- **單線開發：直接在 `main` 上 commit，`git push origin main` 即觸發部署。**
+- **單線開發：直接在 `main` 上 commit。`git push origin main` 本身「不」觸發部署。**
   （使用者於 2026-06 決定：單人專案、無測試環境、不跑本地測試、出問題用 git
-  切回去即可，所以**不再用 feature 分支、也不必每次部署都先問**。）
-- **部署 = GitHub Pages，push 到 `main` 觸發**（`.github/workflows/deploy.yml`，
-  `npm run build` → 上傳 `dist`）。沒有別的部署管線。線上網址
-  **https://jesseminn.github.io/elden-ring/**。部署完用 GitHub MCP 確認 run（見 §7）。
+  切回去即可，所以**不再用 feature 分支**。）
+- **部署改為「打 semver tag 觸發」（2026-06 起，方案二精簡版）。** 平常推 main 只是存檔，
+  **要更新線上站＝打一個版本 tag**：
+  ```bash
+  # 確認 §3 四件套都過、且 package.json version 已 bump 到要發的版號後：
+  git tag v1.2.0 && git push origin v1.2.0   # 這個 push 才會觸發 GitHub Pages 部署
+  ```
+  流程：改完 → 問使用者「要不要打 tag 部署測試」→ 要的話才 tag。因為只有一個 domain，
+  **tag 部署＝線上更新（沒有獨立 staging）**。
+- **版本顯示**：首頁標題旁 `v1.x.x`（`.app-ver`）。版本由 `vite.config.ts` 注入
+  `__APP_VERSION__`：部署時用 tag 名（workflow 的 `VITE_APP_VERSION=github.ref_name`），
+  本地建置退回 `package.json` 的 `version`。**打 tag 前記得先把 `package.json` version 同步**。
+- **deploy.yml 觸發條件 = `push: tags: ['v*']` + `workflow_dispatch`**（手動逃生口）。
+  ⚠ 若 tag 部署被擋，到 repo Settings → Environments → `github-pages` → Deployment
+  branches and tags 把 `v*`／All 加進允許清單。`npm run build` → 上傳 `dist`，
+  線上網址 **https://jesseminn.github.io/elden-ring/**。部署完用 GitHub MCP 確認 run（見 §7）。
 - **鐵則：push 前一定先跑 §3 驗證四件套**，`tsc` / `smoke` / `build` 任一沒過就**不要 push**
   （使用者不跑本地測試，這層由 Claude 把關；壞掉的 build 部署會失敗，線上雖留著舊版但別污染 main）。
 - commit 要**原子化、訊息清楚**，方便出事時 `git revert`。

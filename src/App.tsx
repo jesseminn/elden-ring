@@ -72,6 +72,7 @@ export default function App() {
         <header className="topbar">
           <div className="brand">
             <h1>艾爾登法環</h1>
+            <span className="app-ver" title="目前線上版本">v{__APP_VERSION__}</span>
             <div className="modes">
               <button className={"mode" + (!onBuild ? " active" : "")} onClick={goTracker}>
                 流程追蹤器
