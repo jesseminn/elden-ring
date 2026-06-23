@@ -403,7 +403,7 @@
         {
           "id": "col-r6-19",
           "kind": "黃金種子",
-          "text": "利耶尼亞北峽谷 The Ravine：沿水走到底、小屋前金樹"
+          "text": "谷底祕村 Ravine-Veiled Village（谷底盡頭、沿水路走到底）：村屋前金樹"
         },
         {
           "id": "col-r6-20",
@@ -623,7 +623,7 @@
         {
           "id": "col-r10-1",
           "kind": "武器",
-          "text": "蛇神彎刀・土龍鱗劍（谷底秘村）"
+          "text": "蛇神彎刀・土龍鱗劍（谷底祕村）"
         },
         {
           "id": "col-r10-2",
@@ -663,8 +663,22 @@
         {
           "id": "col-r10-9",
           "kind": "黃金種子",
-          "text": "亞壇高原×數（含格密爾，亞壇+火山共 6 顆）",
-          "note": "確切點位待逐顆補"
+          "text": "亞壇大道的三叉口 Altus Highway Junction：賜福往北、路邊金樹"
+        },
+        {
+          "id": "col-r10-9b",
+          "kind": "黃金種子",
+          "text": "近黃金樹的山丘 Erdtree-Gazing Hill：盧克斯廢墟北"
+        },
+        {
+          "id": "col-r10-9c",
+          "kind": "黃金種子",
+          "text": "小黃金樹 Minor Erdtree 旁：霧林中、斷橋東"
+        },
+        {
+          "id": "col-r10-9d",
+          "kind": "黃金種子",
+          "text": "風車村 Windmill Village 東南：往多明努拉途中"
         },
         {
           "id": "col-r10-10",
@@ -780,8 +794,12 @@
         {
           "id": "col-r12-8",
           "kind": "黃金種子",
-          "text": "格密爾火山×數（計入亞壇共 6）",
-          "note": "確切點位待逐顆補"
+          "text": "沸滾河 Seethewater River 北、上格密爾途中：出狹道後幻影樹下"
+        },
+        {
+          "id": "col-r12-8b",
+          "kind": "黃金種子",
+          "text": "火山官邸 Volcano Manor 西北、第９休息站以西：幻影樹下（墜星獸後）"
         },
         {
           "id": "col-r12-9",
