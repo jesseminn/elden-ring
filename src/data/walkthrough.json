@@ -375,7 +375,8 @@
           "boss": false,
           "quests": [
             "gowry"
-          ]
+          ],
+          "lv": "Lv5~12"
         }
       ]
     },
@@ -2723,8 +2724,9 @@
             "火龍徽護符+2",
             "大山羊護符"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv70~90"
         },
         {
           "id": "ch10-s31",
@@ -2763,7 +2765,8 @@
             "「紅獅子騎士"
           ],
           "boss": false,
-          "quests": []
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch10-s34",
@@ -3551,8 +3554,9 @@
           "items": [
             "菇菇人防具一套"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv75~95"
         },
         {
           "id": "ch13-s3",
@@ -3622,10 +3626,11 @@
             "戒指指頭",
             "「獵犬騎士"
           ],
-          "boss": false,
+          "boss": true,
           "quests": [
             "gurranq"
-          ]
+          ],
+          "lv": "Lv75~95"
         },
         {
           "id": "ch13-s8",
@@ -3662,8 +3667,9 @@
             "蛇盤盾",
             "壺大炮"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv75~95"
         },
         {
           "id": "ch13-s11",
@@ -3740,8 +3746,9 @@
             "魔法：毀滅流星",
             "魔法：奔放結晶"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch13-s17",
@@ -4629,8 +4636,9 @@
             "熔爐鱗護符",
             "鮮血君王的歡愉"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv80~95"
         },
         {
           "id": "ch14-s44",
@@ -5174,10 +5182,11 @@
             "火焰習修武士的骨灰",
             "黃金種子"
           ],
-          "boss": false,
+          "boss": true,
           "quests": [
             "gurranq"
-          ]
+          ],
+          "lv": "Lv90~110"
         },
         {
           "id": "ch18-s5",
@@ -5550,8 +5559,9 @@
             "薩米爾彎刀",
             "薩米爾裝備一套"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv90~110"
         },
         {
           "id": "ch18-s35",
