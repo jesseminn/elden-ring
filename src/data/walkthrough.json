@@ -953,8 +953,10 @@
           "detail": [],
           "chapterId": "ch4",
           "items": [],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv20~30",
+          "location": "啜泣半島・小黃金樹"
         },
         {
           "id": "ch4-s12",
@@ -1972,8 +1974,40 @@
           "detail": [],
           "chapterId": "ch7",
           "items": [],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv40~50",
+          "location": "利耶尼亞・小黃金樹"
+        },
+        {
+          "id": "ch7-add-smarag",
+          "type": "optional",
+          "text": "擊敗「輝石龍」史瑪拉格（Glintstone Dragon Smarag）。",
+          "detail": [
+            "⚔ 輝石龍・魔法吐息；可選，掉龍心臟（龍饗禱告素材）"
+          ],
+          "chapterId": "ch7",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "added": true,
+          "location": "利耶尼亞・結晶森林賜福南",
+          "lv": "Lv40~50"
+        },
+        {
+          "id": "ch7-add-adula",
+          "type": "optional",
+          "text": "擊敗「輝石龍」亞杜拉（Glintstone Dragon Adula）。",
+          "detail": [
+            "⚔ 月光祭壇大教堂外的完整戰；血厚偏硬，掉龍心臟。需先抵達月光祭壇"
+          ],
+          "chapterId": "ch7",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "added": true,
+          "location": "利耶尼亞・月光祭壇（瑪努斯‧瑟利斯大教堂外）",
+          "lv": "Lv80~100"
         },
         {
           "id": "ch7-s53",
@@ -2501,8 +2535,10 @@
           "detail": [],
           "chapterId": "ch10",
           "items": [],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv55~65",
+          "location": "蓋利德・小黃金樹地下墓地旁"
         },
         {
           "id": "ch10-s4",
@@ -2565,6 +2601,21 @@
           "items": [],
           "boss": false,
           "quests": []
+        },
+        {
+          "id": "ch10-add-ekzykes",
+          "type": "optional",
+          "text": "擊敗「步入腐敗」艾格基斯（Decaying Ekzykes）。",
+          "detail": [
+            "⚔ 蓋利德大道南的腐敗飛龍；掉「腐敗吐息」禱告＋龍心臟"
+          ],
+          "chapterId": "ch10",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "added": true,
+          "location": "蓋利德・蓋利德大道南",
+          "lv": "Lv60~70"
         },
         {
           "id": "ch10-s8",
@@ -2816,8 +2867,40 @@
           "detail": [],
           "chapterId": "ch10",
           "items": [],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv70~80",
+          "location": "龍墓 Dragonbarrow・小黃金樹"
+        },
+        {
+          "id": "ch10-add-greyll",
+          "type": "optional",
+          "text": "擊敗「飛龍」桂雷爾（Flying Dragon Greyll）。",
+          "detail": [
+            "⚔ 龍墓區飛龍，比亞基爾硬；掉龍心臟"
+          ],
+          "chapterId": "ch10",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "added": true,
+          "location": "龍墓・往野獸神殿的橋",
+          "lv": "Lv60~70"
+        },
+        {
+          "id": "ch10-add-greyoll",
+          "type": "optional",
+          "text": "擊敗大龍 桂奧爾（Elder Dragon Greyoll）。",
+          "detail": [
+            "⚔ 巨型沉睡龍、被幼龍環繞；可用毒／出血遠端磨血，擊殺給大量盧恩"
+          ],
+          "chapterId": "ch10",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "added": true,
+          "location": "龍墓・法洛斯要塞西（桂奧爾龍墓）",
+          "lv": "Lv50~70"
         },
         {
           "id": "ch10-s29",
@@ -3573,6 +3656,21 @@
           "quests": [],
           "lv": "Lv60~70",
           "added": true
+        },
+        {
+          "id": "ch11-add-lansseax",
+          "type": "optional",
+          "text": "擊敗「古龍」蘭斯桑克斯（Ancient Dragon Lansseax）。",
+          "detail": [
+            "⚔ 古龍・雷電；先在棄置棺材觸發、城牆旁小徑西南打完整戰；掉古龍雷電禱告"
+          ],
+          "chapterId": "ch11",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "added": true,
+          "location": "亞壇高原・棄置棺材／城牆旁小徑",
+          "lv": "Lv70~90"
         }
       ]
     },
@@ -5755,6 +5853,21 @@
           "quests": [],
           "lv": "Lv90~110",
           "added": true
+        },
+        {
+          "id": "ch18-add-borealis",
+          "type": "optional",
+          "text": "擊敗「凍結冰霧」玻列琉斯（Borealis the Freezing Fog）。",
+          "detail": [
+            "⚔ 巨人山頂冰霧古龍・冰霜吐息，血厚傷高；掉龍心臟"
+          ],
+          "chapterId": "ch18",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "added": true,
+          "location": "巨人山頂・東北冰湖",
+          "lv": "Lv90~110"
         }
       ]
     },
@@ -5855,8 +5968,10 @@
             "化聖雪原",
             "大土龍"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv90~110",
+          "location": "化聖雪原・安身洞窟外（深處東）"
         },
         {
           "id": "ch19-s8",
