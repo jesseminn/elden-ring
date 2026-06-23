@@ -33,6 +33,12 @@
   ⚠ 若 tag 部署被擋，到 repo Settings → Environments → `github-pages` → Deployment
   branches and tags 把 `v*`／All 加進允許清單。`npm run build` → 上傳 `dist`，
   線上網址 **https://jesseminn.github.io/elden-ring/**。部署完用 GitHub MCP 確認 run（見 §7）。
+- **⚠ 沙箱推不了 tag（2026-06 實測）**：git proxy 對 tag push 回 **HTTP 403**（只收分支；
+  delete 也不收，同 §10）；GitHub MCP 也**沒有建 tag/release 的工具**（`create_branch` 只能建 heads）。
+  所以**Claude 無法從沙箱打 git tag**。要部署就用 **MCP `actions_run_trigger` method=run_workflow,
+  workflow_id=deploy.yml, ref=main**（＝workflow_dispatch；此時版本走 `package.json`，
+  **記得先 bump 再部署**）。**真正的 semver git tag 要請使用者在本機 `git tag vX.Y.Z origin/main &&
+  git push origin vX.Y.Z`**。
 - **鐵則：push 前一定先跑 §3 驗證四件套**，`tsc` / `smoke` / `build` 任一沒過就**不要 push**
   （使用者不跑本地測試，這層由 Claude 把關；壞掉的 build 部署會失敗，線上雖留著舊版但別污染 main）。
 - commit 要**原子化、訊息清楚**，方便出事時 `git revert`。
