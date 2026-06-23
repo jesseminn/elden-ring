@@ -36,14 +36,16 @@
           "type": "optional",
           "text": "攻略近林洞窟",
           "detail": [
+            "⚔ Boss:亞人首領（可召喚靈）",
             "取得「火龍徽護符」。"
           ],
           "chapterId": "ch1",
           "items": [
             "火龍徽護符"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv1~10"
         },
         {
           "id": "ch1-s4",
@@ -113,6 +115,7 @@
           "type": "optional",
           "text": "攻略風暴根腳的地下墓地",
           "detail": [
+            "⚔ Boss:歸樹看門犬",
             "取得「徘徊權貴的骨灰、權貴魔法師的骨灰、喚聲泥顱：你好」。"
           ],
           "chapterId": "ch1",
@@ -121,8 +124,9 @@
             "權貴魔法師的骨灰",
             "喚聲泥顱：你好"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv8~15"
         },
         {
           "id": "ch1-s10",
@@ -141,6 +145,7 @@
           "type": "event",
           "text": "攻略海岸洞窟(攻略BOSS可召喚古老騎士伊修托邦)",
           "detail": [
+            "⚔ Boss:亞人首領 ×2（可召喚靈：古老騎士伊修托邦）",
             "取得「裁縫針」。"
           ],
           "chapterId": "ch1",
@@ -148,7 +153,8 @@
             "裁縫針"
           ],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv5~12"
         },
         {
           "id": "ch1-s12",
@@ -189,12 +195,15 @@
           "id": "ch1-s15",
           "type": "optional",
           "text": "擊敗飛龍亞基爾。",
-          "detail": [],
+          "detail": [
+            "⚔ 平原飛龍·火焰吐息，可選；早打偏硬，騎馬遊走"
+          ],
           "chapterId": "ch1",
           "items": [],
           "boss": true,
           "quests": [],
-          "location": "寧姆格福・亞基爾湖"
+          "location": "寧姆格福・亞基爾湖",
+          "lv": "Lv15~20"
         },
         {
           "id": "ch1-s16",
@@ -224,14 +233,16 @@
           "type": "optional",
           "text": "攻略寧姆格福坑道",
           "detail": [
+            "⚔ Boss:挖石山妖",
             "取得「咆哮鍊墜」。"
           ],
           "chapterId": "ch1",
           "items": [
             "咆哮鍊墜"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv10~15"
         },
         {
           "id": "ch1-s19",

@@ -15,6 +15,8 @@ export interface Step {
   location?: string;
   /** 易斷：會錯過（missable）的關鍵步驟，UI 以 ⚠ 標示 */
   missable?: boolean;
+  /** 建議挑戰等級（Claude 後補，依 Fextralife 進程；非硬性難度），UI 以徽章標示 */
+  lv?: string;
 }
 
 export interface Chapter {

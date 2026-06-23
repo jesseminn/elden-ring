@@ -70,6 +70,10 @@ npm run smoke    # 用 jsdom 對 dist 做渲染 / 互動煙霧測試（需先 bu
 ## 資料來源
 
 - 主：[《艾爾登法環》個人筆記式攻略 — A.C / feiouex](https://home.gamer.com.tw/artwork.php?sn=5419567)
-- 輔：[手把手帶你做全支線 看完全劇情](https://forum.gamer.com.tw/C.php?bsn=36726&snA=4050)
+- 輔（支線）：[手把手帶你做全支線 看完全劇情](https://forum.gamer.com.tw/C.php?bsn=36726&snA=4050)
+- 參考（流程順序／建議等級／地下城分級）：[Fextralife — Game Progress Route](https://eldenring.wiki.fextralife.com/Game+Progress+Route)（補完版見同站 [Walkthrough](https://eldenring.wiki.fextralife.com/Walkthrough)）
+
+> feiouex 為地基（任務／劇情／拿寶完整）；Fextralife Game Progress Route 用於補「逐區建議等級」與
+> 「地下城 Boss/挑戰分級」——兩者等級互相吻合，故以前者為主、後者校正節奏。
 
 本工具僅整理流程供個人追蹤之用，攻略內容版權屬原作者。

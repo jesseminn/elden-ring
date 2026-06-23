@@ -64,9 +64,12 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
           {isCurrent && <span className="current-tag">目前進度</span>}
         </span>
 
-        {(step.boss || step.location || step.quests.length > 0 || collectIds.length > 0) && (
+        {(step.boss || step.lv || step.location || step.quests.length > 0 || collectIds.length > 0) && (
           <div className="step-extra">
             {step.boss && <span className="chip boss">BOSS</span>}
+            {step.lv && (
+              <span className="chip lv" title="建議挑戰等級（依 Fextralife 進程，非硬性難度）">{step.lv}</span>
+            )}
             {step.location && (
               <span className="chip loc" title="地點（查證補充）">{step.location}</span>
             )}
