@@ -377,6 +377,20 @@
             "gowry"
           ],
           "lv": "Lv5~12"
+        },
+        {
+          "id": "ch1-add-fringefolk",
+          "type": "optional",
+          "text": "攻略邊境英雄墓地（Fringefolk Hero's Grave）",
+          "detail": [
+            "⚔ Boss:腐爛樹靈（沿途有戰車；入口需 2 把石劍鑰匙，偏硬，可後期回頭）"
+          ],
+          "chapterId": "ch1",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "lv": "Lv30~50",
+          "added": true
         }
       ]
     },
@@ -521,6 +535,20 @@
           ],
           "boss": false,
           "quests": []
+        },
+        {
+          "id": "ch2-add-evergaol",
+          "type": "optional",
+          "text": "攻略風暴山丘的封印監牢（Evergaol）",
+          "detail": [
+            "⚔ Boss:熔爐騎士（封印監牢，無法召喚靈；史東薇爾左側草原）"
+          ],
+          "chapterId": "ch2",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "lv": "Lv15~25",
+          "added": true
         }
       ]
     },
@@ -949,6 +977,20 @@
           ],
           "boss": false,
           "quests": []
+        },
+        {
+          "id": "ch4-add-evergaol",
+          "type": "optional",
+          "text": "攻略啜泣的封印監牢（Evergaol）",
+          "detail": [
+            "⚔ Boss:薩米爾的古英雄（封印監牢）"
+          ],
+          "chapterId": "ch4",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "lv": "Lv15~25",
+          "added": true
         }
       ]
     },
@@ -2006,6 +2048,48 @@
           "items": [],
           "boss": false,
           "quests": []
+        },
+        {
+          "id": "ch7-add-evergaol_malefactor",
+          "type": "optional",
+          "text": "攻略小偷的封印監牢（Evergaol）",
+          "detail": [
+            "⚔ Boss:「盜火」亞當（封印監牢）"
+          ],
+          "chapterId": "ch7",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "lv": "Lv40~50",
+          "added": true
+        },
+        {
+          "id": "ch7-add-evergaol_cuckoo",
+          "type": "optional",
+          "text": "攻略杜鵑的封印監牢（Evergaol）",
+          "detail": [
+            "⚔ Boss:「卡利亞騎士」波爾斯（封印監牢）"
+          ],
+          "chapterId": "ch7",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "lv": "Lv40~50",
+          "added": true
+        },
+        {
+          "id": "ch7-add-evergaol_royal",
+          "type": "optional",
+          "text": "攻略王室墓地的封印監牢（Evergaol）",
+          "detail": [
+            "⚔ 封印監牢 Boss（白王劍掉落處；卡利亞書齋東）"
+          ],
+          "chapterId": "ch7",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "lv": "Lv40~50",
+          "added": true
         }
       ]
     },
@@ -2883,6 +2967,20 @@
           "quests": [
             "iji"
           ]
+        },
+        {
+          "id": "ch10-add-evergaol_sellia",
+          "type": "optional",
+          "text": "攻略瑟利亞的封印監牢（Evergaol）",
+          "detail": [
+            "⚔ Boss:戰場魔法師猶格（封印監牢）"
+          ],
+          "chapterId": "ch10",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70",
+          "added": true
         }
       ]
     },
@@ -3415,6 +3513,20 @@
           "boss": true,
           "quests": [],
           "lv": "Lv60~70"
+        },
+        {
+          "id": "ch11-add-evergaol_golden",
+          "type": "optional",
+          "text": "攻略黃金一族的封印監牢（Evergaol）",
+          "detail": [
+            "⚔ Boss:「接肢」葛孚亞（封印監牢）"
+          ],
+          "chapterId": "ch11",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70",
+          "added": true
         }
       ]
     },
@@ -5573,6 +5685,20 @@
           "boss": true,
           "quests": [],
           "lv": "Lv90~110"
+        },
+        {
+          "id": "ch18-add-evergaol_contender",
+          "type": "optional",
+          "text": "攻略準王者的封印監牢（Evergaol）",
+          "detail": [
+            "⚔ Boss:「圓桌騎士」維克（封印監牢；火山口地帶）"
+          ],
+          "chapterId": "ch18",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "lv": "Lv90~110",
+          "added": true
         }
       ]
     },
