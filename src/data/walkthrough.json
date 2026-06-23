@@ -9,6 +9,20 @@
       "upgrade": "+0至+1",
       "steps": [
         {
+          "id": "ch1-add-cave-of-knowledge",
+          "type": "optional",
+          "text": "攻略求學洞窟（Cave of Knowledge·開場教學）",
+          "detail": [
+            "⚔ Boss:葛瑞克的士兵（遊戲開場教學洞窟，新手練操作）"
+          ],
+          "chapterId": "ch1",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "lv": "Lv1",
+          "added": true
+        },
+        {
           "id": "ch1-s1",
           "type": "event",
           "text": "白面具梵雷對話。",
@@ -3879,7 +3893,6 @@
           "type": "event",
           "text": "瑟利亞的隱藏洞窟，找到底下隱藏門，拿傳說魔法。順便攻略瑟利亞隱藏洞窟：",
           "detail": [
-            "🔗 支線:瑟蓮(露莎特囚於此,瑟蓮支線關聯)",
             "⚔ Boss:腐敗結晶人（三隻）",
             "取得「結晶矛、結晶人的骨灰、魔法：毀滅流星、魔法：奔放結晶」"
           ],
@@ -3891,7 +3904,9 @@
             "魔法：奔放結晶"
           ],
           "boss": true,
-          "quests": [],
+          "quests": [
+            "sellen"
+          ],
           "lv": "Lv60~70"
         },
         {
@@ -7077,9 +7092,10 @@
         "ch9-s5",
         "ch13-s13",
         "ch13-s14",
+        "ch13-s16",
         "ch13-s21"
       ],
-      "count": 5
+      "count": 6
     },
     {
       "id": "hyetta",
@@ -7113,7 +7129,7 @@
         "ch14-s11",
         "ch14-s13"
       ],
-      "count": 5
+      "count": 6
     },
     {
       "id": "kenneth",
