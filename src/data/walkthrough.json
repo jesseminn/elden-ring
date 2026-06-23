@@ -3164,6 +3164,21 @@
           "quests": []
         },
         {
+          "id": "ch11-add-makar",
+          "type": "optional",
+          "text": "擊敗「熔岩土龍」馬卡爾（Magma Wyrm Makar）。",
+          "detail": [
+            "⚔ 古遺跡斷崖頂的熔岩土龍（谷底祕村往上、通亞壇之路）；米莉森支線可召她助戰，掉龍心臟"
+          ],
+          "chapterId": "ch11",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "added": true,
+          "location": "古遺跡斷崖頂（谷底祕村往上）",
+          "lv": "Lv40~50"
+        },
+        {
           "id": "ch11-s5",
           "type": "event",
           "text": "有進行米莉森支線的狀況，「馬卡爾」可以叫單手的米莉森幫忙。",
@@ -3822,8 +3837,10 @@
           "detail": [],
           "chapterId": "ch13",
           "items": [],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv70~80",
+          "location": "格密爾火山・萊多要塞南（沸滾河一帶）"
         },
         {
           "id": "ch13-s4",
@@ -5347,6 +5364,21 @@
           "lv": "Lv80~95"
         },
         {
+          "id": "ch17-add-fortissax",
+          "type": "optional",
+          "text": "擊敗「死龍」弗爾桑克斯（Lichdragon Fortissax）。",
+          "detail": [
+            "⚔ 菲雅支線：坐賜福進入夢境戰，雷電＋詛咒死亡；掉「死龍弗爾桑克斯的追憶」"
+          ],
+          "chapterId": "ch17",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "added": true,
+          "location": "深根底層・死王子寶座（菲雅之夢）",
+          "lv": "Lv100~120"
+        },
+        {
           "id": "ch17-s4",
           "type": "event",
           "text": "回去希芙拉河，地底導水橋旁斷崖(英雄石像鬼前)，找D的弟弟，給他裝備。",
@@ -6485,8 +6517,10 @@
           "items": [
             "漸毀野獸墓"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv100~120",
+          "location": "法姆‧亞茲拉・漸毀野獸墓前"
         },
         {
           "id": "ch22-s7",
@@ -6509,8 +6543,10 @@
           "items": [
             "龍教堂"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv100~120",
+          "location": "法姆‧亞茲拉・龍教堂屋頂"
         },
         {
           "id": "ch22-s9",
@@ -6670,13 +6706,14 @@
         {
           "id": "ch22-s21",
           "type": "event",
-          "text": "天空神殿，賜福「大橋側邊」之前，懸崖邊有地方往下跳，殺隱藏王「龍王」普拉契頓桑克斯。「米凱拉的金針」在此BOSS戰的場地才能用。",
+          "text": "天空神殿，賜福「大橋側邊」之前，懸崖邊有地方往下跳，殺隱藏王「龍王」普拉頓桑克斯。「米凱拉的金針」在此BOSS戰的場地才能用。",
           "detail": [],
           "chapterId": "ch22",
           "items": [],
           "boss": true,
           "quests": [],
-          "lv": "Lv110~130"
+          "lv": "Lv110~130",
+          "location": "法姆‧亞茲拉・天空神殿"
         },
         {
           "id": "ch22-s22",
