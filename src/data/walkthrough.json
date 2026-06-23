@@ -477,8 +477,9 @@
             "藍色舞娘護符",
             "賽施爾長刀"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv6~15"
         },
         {
           "id": "ch2-s8",
@@ -495,7 +496,8 @@
           "boss": false,
           "quests": [
             "gurranq"
-          ]
+          ],
+          "lv": "Lv6~15"
         },
         {
           "id": "ch2-s9",
@@ -560,7 +562,8 @@
           "chapterId": "ch3",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv10~20"
         },
         {
           "id": "ch3-s4",
@@ -709,7 +712,8 @@
           "boss": true,
           "quests": [
             "sellen"
-          ]
+          ],
+          "lv": "Lv10~20"
         },
         {
           "id": "ch3-s16",
@@ -809,7 +813,8 @@
           "chapterId": "ch4",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv15~25"
         },
         {
           "id": "ch4-s5",
@@ -833,8 +838,9 @@
             "亞人集團的骨灰",
             "喚聲泥顱：救命啊"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv15~25"
         },
         {
           "id": "ch4-s7",
@@ -859,8 +865,9 @@
           "items": [
             "魔力龍徽護符"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv15~25"
         },
         {
           "id": "ch4-s9",
@@ -873,8 +880,9 @@
           "items": [
             "銹蝕船錨"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv15~25"
         },
         {
           "id": "ch4-s10",
@@ -909,8 +917,9 @@
           "items": [
             "「無頭騎士"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv15~25"
         },
         {
           "id": "ch4-s13",
@@ -924,8 +933,9 @@
             "綠琥珀護符",
             "流浪戰士的製作筆記8"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv15~25"
         },
         {
           "id": "ch4-s14",
@@ -1205,7 +1215,8 @@
           "boss": true,
           "quests": [
             "nepheli"
-          ]
+          ],
+          "lv": "Lv30~40"
         },
         {
           "id": "ch6-s14",
@@ -1401,7 +1412,8 @@
           "quests": [
             "nepheli",
             "latenna"
-          ]
+          ],
+          "lv": "Lv40~50"
         },
         {
           "id": "ch7-s12",
@@ -1474,10 +1486,11 @@
             "矛護符",
             "白金之子勒緹娜的骨灰"
           ],
-          "boss": false,
+          "boss": true,
           "quests": [
             "latenna"
-          ]
+          ],
+          "lv": "Lv40~50"
         },
         {
           "id": "ch7-s18",
@@ -1663,7 +1676,8 @@
           "chapterId": "ch7",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv40~50"
         },
         {
           "id": "ch7-s34",
@@ -1832,11 +1846,12 @@
             "羅澤司的斧",
             "黑刀烙印"
           ],
-          "boss": false,
+          "boss": true,
           "quests": [
             "ranni",
             "gurranq"
-          ]
+          ],
+          "lv": "Lv40~50"
         },
         {
           "id": "ch7-s49",
@@ -1876,8 +1891,9 @@
             "結晶小刀",
             "鍛造石礦工鈴珠1"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv40~50"
         },
         {
           "id": "ch7-s52",
@@ -1901,8 +1917,9 @@
             "賢者套裝",
             "帶翼劍徽章"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv40~50"
         },
         {
           "id": "ch7-s54",
@@ -1927,8 +1944,9 @@
             "魔法：飛散結晶",
             "魔法：魔法之境"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv40~50"
         },
         {
           "id": "ch7-s56",
@@ -1945,8 +1963,9 @@
             "凱丹傭兵的骨灰",
             "喚聲泥顱：太棒了"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv40~50"
         },
         {
           "id": "ch7-s57",
@@ -1973,8 +1992,9 @@
             "雷亞盧卡利亞士兵的骨灰",
             "輝石魔法師的骨灰"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv40~50"
         },
         {
           "id": "ch7-s59",
@@ -2006,7 +2026,8 @@
           "chapterId": "ch8",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv50~60"
         },
         {
           "id": "ch8-s1b",
@@ -2025,7 +2046,8 @@
           ],
           "boss": true,
           "quests": [],
-          "added": true
+          "added": true,
+          "lv": "Lv50~60"
         },
         {
           "id": "ch8-s1c",
@@ -2259,7 +2281,8 @@
           "chapterId": "ch9",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv40~55"
         },
         {
           "id": "ch9-s2",
@@ -2377,8 +2400,9 @@
             "小惡魔頭罩",
             "發狂南瓜頭士兵的骨灰"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch10-s5",
@@ -2392,8 +2416,9 @@
             "十字薙刀",
             "名刀月隱"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch10-s6",
@@ -2409,8 +2434,9 @@
             "歐赫寶劍",
             "腐爛長生者的骨灰"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch10-s7",
@@ -2456,8 +2482,9 @@
             "小米蘭達的骨灰",
             "腐敗眷屬的骨灰"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch10-s11",
@@ -2494,7 +2521,8 @@
             "純淨金針"
           ],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch10-s14",
@@ -2637,8 +2665,9 @@
             "魔法：爆破岩盤",
             "失色鍛造石礦工鈴珠1"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch10-s26",
@@ -2705,7 +2734,8 @@
           "chapterId": "ch10",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch10-s32",
@@ -2758,8 +2788,9 @@
             "毒蛇牙",
             "金色糞金龜護符"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch10-s36",
@@ -3129,7 +3160,8 @@
           "chapterId": "ch11",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch11-s23",
@@ -3191,7 +3223,8 @@
           "boss": true,
           "quests": [
             "millicent"
-          ]
+          ],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch11-s28",
@@ -3218,8 +3251,9 @@
             "調香師托莉夏的骨灰",
             "喚聲泥顱：對不起"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch11-s30",
@@ -3248,8 +3282,9 @@
             "家人頭連枷",
             "隱身面紗護符"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch11-s32",
@@ -3264,8 +3299,9 @@
             "鈴蘭採摘工的鈴珠1",
             "古龍信徒的製作筆記1"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch11-s33",
@@ -3279,8 +3315,9 @@
             "雷龍徽護符+1",
             "山妖大錘"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch11-s34",
@@ -3326,8 +3363,9 @@
             "眾武護符+1",
             "失色鍛造石礦工鈴珠2"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch11-s38",
@@ -3340,8 +3378,9 @@
           "items": [
             "惡兆獵人大柴刀"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         },
         {
           "id": "ch11-s39",
@@ -3370,8 +3409,9 @@
             "紅種子護符",
             "喚聲泥顱：讓我們開始吧"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv60~70"
         }
       ]
     },
@@ -3423,7 +3463,8 @@
           "chapterId": "ch12",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv70~80"
         },
         {
           "id": "ch12-s5",
@@ -3562,7 +3603,8 @@
             "『起源魔法師』亞茲勒"
           ],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv75~95"
         },
         {
           "id": "ch13-s7",
@@ -3633,7 +3675,8 @@
             "格密爾火山"
           ],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv75~95"
         },
         {
           "id": "ch13-s12",
@@ -4076,8 +4119,9 @@
             "黑王大劍",
             "鍛造石礦工的鈴珠2"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv80~95"
         },
         {
           "id": "ch14-s3",
@@ -4303,8 +4347,9 @@
             "大樹守衛裝備一套",
             "斧形熔爐騎士裝備一套&奧陶匹斯大劍"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv80~95"
         },
         {
           "id": "ch14-s22",
@@ -4418,7 +4463,8 @@
           "items": [],
           "boss": true,
           "quests": [],
-          "location": "王城羅德爾・黃金樹聖所（葛孚雷黃金樹之影）"
+          "location": "王城羅德爾・黃金樹聖所（葛孚雷黃金樹之影）",
+          "lv": "Lv80~95"
         },
         {
           "id": "ch14-s30",
@@ -4510,7 +4556,8 @@
           "items": [],
           "boss": true,
           "quests": [],
-          "location": "王城羅德爾・黃金樹根部（惡兆王蒙葛特）"
+          "location": "王城羅德爾・黃金樹根部（惡兆王蒙葛特）",
+          "lv": "Lv80~95"
         },
         {
           "id": "ch14-s38",
@@ -4566,7 +4613,8 @@
           "chapterId": "ch14",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv80~95"
         },
         {
           "id": "ch14-s43",
@@ -4888,7 +4936,8 @@
           "chapterId": "ch16",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv85~100"
         },
         {
           "id": "ch16-s5",
@@ -4924,7 +4973,8 @@
           "chapterId": "ch16",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv85~100"
         },
         {
           "id": "ch16-s8",
@@ -5022,7 +5072,8 @@
           "boss": true,
           "quests": [
             "fia"
-          ]
+          ],
+          "lv": "Lv80~95"
         },
         {
           "id": "ch17-s4",
@@ -5247,7 +5298,8 @@
           "items": [],
           "boss": true,
           "quests": [],
-          "location": "格密爾火山・火山官邸（伊格雷神殿，褻瀆君王拉卡德）"
+          "location": "格密爾火山・火山官邸（伊格雷神殿，褻瀆君王拉卡德）",
+          "lv": "Lv90~110"
         },
         {
           "id": "ch18-s15",
@@ -5358,7 +5410,8 @@
           "chapterId": "ch18",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv90~110"
         },
         {
           "id": "ch18-s24",
@@ -5405,8 +5458,9 @@
             "禱告：黑焰儀式",
             "神皮繈褓護符"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv90~110"
         },
         {
           "id": "ch18-s28",
@@ -5507,7 +5561,8 @@
           "chapterId": "ch18",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv90~110"
         }
       ]
     },
@@ -5623,8 +5678,9 @@
             "小惡魔頭罩",
             "腐敗守墓人斗篷"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv100~115"
         },
         {
           "id": "ch19-s9",
@@ -5650,8 +5706,9 @@
           "items": [
             "黃金律法大劍"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv100~115"
         },
         {
           "id": "ch19-s11",
@@ -5666,8 +5723,9 @@
             "魔法： 艾斯緹隕石",
             "古龍岩鍛造石"
           ],
-          "boss": false,
-          "quests": []
+          "boss": true,
+          "quests": [],
+          "lv": "Lv100~115"
         },
         {
           "id": "ch19-s12",
@@ -5785,7 +5843,8 @@
           "items": [],
           "boss": true,
           "quests": [],
-          "location": "血之王朝・蒙格王朝靈廟（鮮血君王蒙格）"
+          "location": "血之王朝・蒙格王朝靈廟（鮮血君王蒙格）",
+          "lv": "Lv100~120"
         }
       ]
     },
@@ -5807,7 +5866,8 @@
           "boss": true,
           "quests": [
             "millicent"
-          ]
+          ],
+          "lv": "Lv110~130"
         },
         {
           "id": "ch21-s2",
@@ -6005,7 +6065,8 @@
           "items": [],
           "boss": true,
           "quests": [],
-          "location": "聖樹米凱拉・艾布雷菲爾（女武神瑪蓮妮亞）"
+          "location": "聖樹米凱拉・艾布雷菲爾（女武神瑪蓮妮亞）",
+          "lv": "Lv110~130"
         },
         {
           "id": "ch21-s17",
@@ -6065,7 +6126,8 @@
           "chapterId": "ch22",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv110~130"
         },
         {
           "id": "ch22-s3",
@@ -6304,7 +6366,8 @@
           "chapterId": "ch22",
           "items": [],
           "boss": true,
-          "quests": []
+          "quests": [],
+          "lv": "Lv110~130"
         },
         {
           "id": "ch22-s22",
@@ -6325,7 +6388,8 @@
           "items": [],
           "boss": true,
           "quests": [],
-          "location": "逐漸崩毀的法姆・亞茲拉（黑劍瑪利喀斯）"
+          "location": "逐漸崩毀的法姆・亞茲拉（黑劍瑪利喀斯）",
+          "lv": "Lv110~130"
         }
       ]
     },
@@ -6388,7 +6452,8 @@
           "items": [],
           "boss": true,
           "quests": [],
-          "location": "灰城羅德爾・黃金樹根部（荷萊露）"
+          "location": "灰城羅德爾・黃金樹根部（荷萊露）",
+          "lv": "Lv120~150"
         },
         {
           "id": "ch23-s5",
@@ -6399,7 +6464,8 @@
           "items": [],
           "boss": true,
           "quests": [],
-          "location": "灰城羅德爾・艾爾登王座（最終BOSS）"
+          "location": "灰城羅德爾・艾爾登王座（最終BOSS）",
+          "lv": "Lv120~150"
         },
         {
           "id": "ch23-s6",
