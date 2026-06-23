@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAppState, useDispatch } from "../store";
 import SheetSelect from "./SheetSelect";
+import Icon from "./Icon";
 import {
   statMeta,
   statOrder,
@@ -109,7 +110,7 @@ export default function BuildView() {
               className={"ghost-btn small mb-detail-btn" + (showDetail ? " on" : "")}
               onClick={() => setShowDetail((v) => !v)}
             >
-              {showDetail ? "收合 ▴" : "詳情 ▾"}
+              {showDetail ? "收合" : "詳情"} <Icon name="chevron" className={"mb-caret" + (showDetail ? " up" : "")} />
             </button>
           }
           options={rankedBuilds.map(({ b, w }) => ({
@@ -230,7 +231,7 @@ function BuildDetail({ cls, meta }: { cls: (typeof classes)[number]; meta: (type
             const ok = missing.length === 0;
             return (
               <div key={g.name} className={"build-gear-row" + (ok ? "" : " locked")}>
-                <span className="build-gear-mark">{ok ? "✓" : "✗"}</span>
+                <span className="build-gear-mark">{ok ? <Icon name="check" /> : <Icon name="x" />}</span>
                 <span className="build-gear-name">{g.name}</span>
                 <span className="badge">{g.tag}</span>
                 <span className="build-gear-req">
@@ -342,8 +343,8 @@ function ProgressTracker() {
       {/* 升級步進器 */}
       <div className="build-stepper">
         <div className="build-step-row">
-          <button className="ghost-btn build-pm" onClick={() => setLevel(lv - 1)} disabled={lv <= baseLv}>
-            −
+          <button className="ghost-btn build-pm" onClick={() => setLevel(lv - 1)} disabled={lv <= baseLv} aria-label="降一級">
+            <Icon name="minus" />
           </button>
           <div className="build-lv">
             <span className="tb-label">目前等級</span>
@@ -357,8 +358,8 @@ function ProgressTracker() {
               onBlur={onLvBlur}
             />
           </div>
-          <button className="gold-btn build-pm" onClick={() => setLevel(lv + 1)} disabled={lv >= MAX_LV}>
-            ＋
+          <button className="gold-btn build-pm" onClick={() => setLevel(lv + 1)} disabled={lv >= MAX_LV} aria-label="升一級">
+            <Icon name="plus" />
           </button>
         </div>
         <input
@@ -436,7 +437,7 @@ function ProgressTracker() {
             const ok = missing.length === 0;
             return (
               <div key={g.name} className={"build-gear-row" + (ok ? "" : " locked")}>
-                <span className="build-gear-mark">{ok ? "✓" : "✗"}</span>
+                <span className="build-gear-mark">{ok ? <Icon name="check" /> : <Icon name="x" />}</span>
                 <span className="build-gear-name">{g.name}</span>
                 <span className="badge">{g.tag}</span>
                 <span className="build-gear-req">
@@ -475,7 +476,7 @@ function ProgressTracker() {
                   <span className="build-tl-dot" style={{ background: m.color }} />
                   <span className="build-tl-stat">{m.name}</span>
                   <span className="build-tl-val">→ {p.value}</span>
-                  {passed && <span className="build-tl-check">✓</span>}
+                  {passed && <span className="build-tl-check"><Icon name="check" /></span>}
                 </button>
                 {p.note && <div className="build-tl-note">◆ {p.note}</div>}
               </div>

@@ -3,6 +3,7 @@ import type { Chapter, Step } from "../types";
 import { chapterStats, pct, type DoneMap } from "../lib/data";
 import { useDispatch, type Facets } from "../store";
 import { StepRow } from "./StepRow";
+import Icon from "./Icon";
 
 interface Props {
   chapter: Chapter;
@@ -59,7 +60,7 @@ function ChapterCardInner({ chapter, done, collapsed, hideDone, facets, anyFacet
               </span>
             );
           })()}
-          <span className="chapter-caret">▸</span>
+          <span className="chapter-caret"><Icon name="chevron" /></span>
         </span>
       </div>
 

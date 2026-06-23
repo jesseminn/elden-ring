@@ -19,6 +19,23 @@ export default function App() {
   const stats = useMemo(() => overallStats(state.done), [state.done]);
   const curId = useMemo(() => currentStepId(state.done), [state.done]);
 
+  // 量測固定頂欄高度寫進 --top-h，給展開章節的 sticky 標題當偏移（頂欄高度會隨模式/換行變動）
+  const topRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = topRef.current;
+    if (!el) return;
+    const apply = () =>
+      document.documentElement.style.setProperty("--top-h", el.offsetHeight + "px");
+    apply();
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", apply);
+      return () => window.removeEventListener("resize", apply);
+    }
+    const ro = new ResizeObserver(apply);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   // 配點器與流程追蹤器是兩個同層的頂層模式（最頂部切換）。
   // 記住進配點前所在的流程分頁，切回追蹤器時還原。
   const prevTabRef = useRef<typeof state.ui.tab>("flow");
@@ -51,7 +68,7 @@ export default function App() {
 
   return (
     <>
-      <div className="sticky-top">
+      <div className="sticky-top" ref={topRef}>
         <header className="topbar">
           <div className="brand">
             <h1>艾爾登法環</h1>

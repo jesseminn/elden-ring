@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+import Icon from "./Icon";
 
 /* ============================================================
    SheetSelect：可復用的「下拉 = 底部彈出 bottom sheet」選擇器
@@ -62,7 +63,7 @@ export default function SheetSelect({ label, headExtra, sheetTitle, sheetSub, va
       >
         <span className="ss-trigger-label">{cur?.triggerLabel ?? cur?.title}</span>
         {cur?.badge && <span className="ss-trigger-badge">{cur.badge}</span>}
-        <span className="ss-caret" aria-hidden="true">▾</span>
+        <span className="ss-caret" aria-hidden="true"><Icon name="chevron" /></span>
       </button>
 
       {open && (
@@ -97,7 +98,7 @@ export default function SheetSelect({ label, headExtra, sheetTitle, sheetSub, va
                       {o.sub && <span className="ss-option-sub">{o.sub}</span>}
                     </span>
                     {o.badge && <span className="ss-option-badge">{o.badge}</span>}
-                    {sel && <span className="ss-option-check" aria-hidden="true">✓</span>}
+                    {sel && <span className="ss-option-check" aria-hidden="true"><Icon name="check" /></span>}
                   </button>
                 );
               })}

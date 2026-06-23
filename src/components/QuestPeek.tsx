@@ -8,6 +8,7 @@ import {
   pct,
 } from "../lib/data";
 import { useAppState, useDispatch } from "../store";
+import Icon from "./Icon";
 
 export default function QuestPeek() {
   const { peek, done } = useAppState();
@@ -48,7 +49,7 @@ export default function QuestPeek() {
         </div>
 
         {complete ? (
-          <div className="qc-next qc-alldone">✓ 此支線全部步驟已完成</div>
+          <div className="qc-next qc-alldone"><Icon name="check" /> 此支線全部步驟已完成</div>
         ) : nextStep && nextChapter ? (
           <div className="qc-next">
             下一步：{nextStep.text}

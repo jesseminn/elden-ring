@@ -9,6 +9,7 @@ import {
 } from "../lib/data";
 import type { CollectRegion } from "../types";
 import { useAppState, useDispatch } from "../store";
+import Icon from "./Icon";
 
 export default function CollectionView() {
   const { done, ui } = useAppState();
@@ -114,7 +115,7 @@ function RegionCard({
             </svg>
             <span className="ring-pct">{p}%</span>
           </span>
-          <span className="chapter-caret">▸</span>
+          <span className="chapter-caret"><Icon name="chevron" /></span>
         </span>
       </div>
 

@@ -2,6 +2,7 @@ import { memo, useEffect, useRef, useState } from "react";
 import type { Step } from "../types";
 import { questById, collectIdsForStep, seriesKindsForStep, visibleDetail } from "../lib/data";
 import { useDispatch } from "../store";
+import Icon from "./Icon";
 
 interface Props {
   step: Step;
@@ -79,7 +80,7 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
                 title="檢視此步驟可收集的物品（勾選會同步）"
                 onClick={() => dispatch({ type: "openCollectPeek", stepId: step.id })}
               >
-                收集 ({collectIds.length}) ↗
+                收集 ({collectIds.length}) <Icon name="arrowUpRight" />
               </button>
             )}
             {seriesKinds.map((k) => (
@@ -89,7 +90,7 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
                 title={`查看「${k}」全地圖收集位置`}
                 onClick={() => dispatch({ type: "openSeries", kind: k })}
               >
-                系列：{k} ↗
+                系列：{k} <Icon name="arrowUpRight" />
               </button>
             ))}
             {step.quests.map((qid) => {
@@ -103,7 +104,7 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
                   title={`查看「${q.name}」完整支線流程（底部彈出）`}
                   onClick={() => dispatch({ type: "openPeek", qid, fromStepId: step.id })}
                 >
-                  {q.name} ↗
+                  {q.name} <Icon name="arrowUpRight" />
                 </button>
               );
             })}
@@ -122,7 +123,7 @@ function DetailBlock({ detail, show, onToggle }: { detail: string[]; show: boole
   return (
     <>
       <button className="detail-toggle" onClick={onToggle}>
-        {show ? "▾" : "▸"} 補充說明 ({detail.length})
+        <Icon name="chevron" className={"dt-caret" + (show ? " open" : "")} /> 補充說明 ({detail.length})
       </button>
       {show && (
         <div className="step-detail">

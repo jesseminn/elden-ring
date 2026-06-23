@@ -10,6 +10,7 @@ import {
 } from "../lib/data";
 import type { Quest } from "../types";
 import { useAppState, useDispatch } from "../store";
+import Icon from "./Icon";
 
 export default function QuestView() {
   const { done, ui } = useAppState();
@@ -61,7 +62,7 @@ function QuestCard({ quest, done, open }: { quest: Quest; done: DoneMap; open: b
           <div className="qc-name">{quest.name}</div>
           <div className="qc-sub">
             {complete ? (
-              <span style={{ color: "var(--green-bright)" }}>✓ 已完成</span>
+              <span style={{ color: "var(--green-bright)" }}><Icon name="check" /> 已完成</span>
             ) : nextStep && nextChapter ? (
               <>
                 <span className="next">下一步：</span>
@@ -76,7 +77,7 @@ function QuestCard({ quest, done, open }: { quest: Quest; done: DoneMap; open: b
         <span className="qc-count">
           {st.done}/{st.total} · {p}%
         </span>
-        <span className="qc-caret">▸</span>
+        <span className="qc-caret"><Icon name="chevron" /></span>
       </div>
 
       {open && (
@@ -84,7 +85,7 @@ function QuestCard({ quest, done, open }: { quest: Quest; done: DoneMap; open: b
           {quest.desc && <div className="qc-end">{quest.desc}</div>}
           <div className="qc-body">
             {complete ? (
-              <div className="qc-next qc-alldone">✓ 此支線全部步驟已完成</div>
+              <div className="qc-next qc-alldone"><Icon name="check" /> 此支線全部步驟已完成</div>
             ) : nextStep && nextChapter ? (
               <div className="qc-next">
                 下一步：{nextStep.text}
