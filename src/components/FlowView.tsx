@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { data, currentStepId } from "../lib/data";
 import { useAppState, useDispatch } from "../store";
 import { ChapterCard } from "./ChapterCard";
+import Icon from "./Icon";
 
 export default function FlowView() {
   const state = useAppState();
@@ -9,6 +10,14 @@ export default function FlowView() {
   const { done, ui, highlight } = state;
 
   const curId = useMemo(() => currentStepId(done), [done]);
+  const cur = useMemo(() => {
+    if (!curId) return null;
+    for (const ch of data.chapters) {
+      const step = ch.steps.find((s) => s.id === curId);
+      if (step) return { ch, step };
+    }
+    return null;
+  }, [curId]);
 
   // 跳轉動畫播完後清除 highlight
   useEffect(() => {
@@ -31,6 +40,29 @@ export default function FlowView() {
 
   return (
     <div className="view">
+      {cur ? (
+        <button
+          className="objective"
+          title="跳到目前進度"
+          onClick={() => dispatch({ type: "gotoStep", chapterId: cur.ch.id, stepId: cur.step.id })}
+        >
+          <span className="obj-eyebrow">
+            <Icon name="locate" size={13} /> 目前目標 · 第 {cur.ch.num} 章 {cur.ch.title}
+          </span>
+          <span className="obj-text">{cur.step.text}</span>
+          <span className="obj-go">
+            前往這一步 <Icon name="arrowUpRight" size={13} />
+          </span>
+        </button>
+      ) : (
+        <div className="objective alldone">
+          <span className="obj-eyebrow">
+            <Icon name="check" size={13} /> 流程已全部完成
+          </span>
+          <span className="obj-text">所有步驟都打勾了，去把剩下的收集與配點補完吧。</span>
+        </div>
+      )}
+
       <div className="toolbar2">
         <div className="tb-row">
           <span className="tb-label">篩選</span>
