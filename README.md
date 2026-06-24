@@ -63,9 +63,26 @@ npm run smoke    # 用 jsdom 對 dist 做渲染 / 互動煙霧測試（需先 bu
 
 ## 部署
 
-`npm run build` 後的 `dist/` 為純靜態檔，可直接放上 GitHub Pages、Netlify、
-任何靜態主機，或本機直接開啟。`vite.config.ts` 已將 `base` 設為相對路徑，
-部署在子路徑也能正常運作。
+線上站：**https://jesseminn.github.io/elden-ring/**（GitHub Pages，由
+`.github/workflows/deploy.yml` 部署）。
+
+**部署＝打 semver 版本 tag**（推 `main` 本身不會部署，只是存檔）：
+
+```bash
+# 1) 先把 package.json 的 version 同步到要發的版號
+# 2) 推一個版本 tag，這個 push 才會觸發部署
+git tag v1.2.0 && git push origin v1.2.0
+```
+
+首頁標題旁會顯示當前版本（`v1.x.x`）：部署時由 workflow 以 tag 名注入
+`__APP_VERSION__`，本地建置則退回 `package.json` 的 `version`。因為只有一個站，
+**首頁版本＝線上版本＝最後打的 tag**。
+
+`workflow_dispatch` 為手動逃生口，並可帶 `tag` 輸入——有給時由 Action 在 runner 端
+建立並推送該 tag、同一個 run 內部署（給無法從本機 push tag 的環境用）。
+
+> `npm run build` 後的 `dist/` 是純靜態檔，也可放任何靜態主機或本機直接開啟；
+> `vite.config.ts` 的 `base` 設為相對路徑，部署在子路徑也能運作。
 
 ## 資料來源
 
