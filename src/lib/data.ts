@@ -130,6 +130,9 @@ export const SERIES_KINDS = new Set<string>([
   "黃金種子", "聖盃露滴", "淚滴", "記憶石", "古龍岩", "死根", "追憶", "符節", "畫作", "地圖", "製作筆記",
 ]);
 
+// 非窮舉的類別：只列流程提到的，UI 會標「清單不完整」（武器/防具/戰灰量太大、不逐項追蹤）
+export const INCOMPLETE_KINDS = new Set<string>(["武器", "防具", "戰灰"]);
+
 // 某流程步驟連動到的「系列」種類（去重、依出現順序）
 export function seriesKindsForStep(stepId: string): string[] {
   const out: string[] = [];

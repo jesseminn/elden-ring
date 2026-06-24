@@ -4,6 +4,7 @@ import {
   collectionOverall,
   chapterForCollect,
   SERIES_KINDS,
+  INCOMPLETE_KINDS,
   pct,
   type DoneMap,
   type KindGroup,
@@ -111,6 +112,9 @@ function KindCard({
 
       {expanded && (
         <div className="chapter-body">
+          {INCOMPLETE_KINDS.has(group.kind) && (
+            <div className="region-note">⚠ 此清單僅列流程提到的，並不完整（武器/防具/戰灰量大，未逐項收錄）</div>
+          )}
           {items.map(({ item, regionName }) => {
             const isDone = !!done[item.id];
             const link = chapterForCollect(item.id);
