@@ -137,7 +137,7 @@ export default function App() {
 
       {state.ui.tab === "flow" && (
         <button className="fab" title="跳到流程中第一個未完成的步驟" onClick={jumpCurrent}>
-          <Icon name="locate" /> 跳到目前進度
+          <Icon name="locate" size={14} /> 目前進度
         </button>
       )}
 
