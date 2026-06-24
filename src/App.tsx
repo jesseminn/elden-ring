@@ -73,29 +73,30 @@ export default function App() {
         <header className="topbar">
           <div className="brand">
             <h1 title="艾爾登法環 流程攻略追蹤器">ELDEN RING</h1>
-            <div className="modes">
-              <button className={"mode" + (!onBuild ? " active" : "")} onClick={goTracker}>
-                流程追蹤器
-              </button>
-              <button className={"mode" + (onBuild ? " active" : "")} onClick={goBuild}>
-                配點器
-              </button>
-            </div>
+            <Menu onReset={reset} />
           </div>
-          <Menu onReset={reset} />
+          <div className="modes">
+            <button className={"mode" + (!onBuild ? " active" : "")} onClick={goTracker}>
+              流程追蹤器
+            </button>
+            <button className={"mode" + (onBuild ? " active" : "")} onClick={goBuild}>
+              配點器
+            </button>
+          </div>
         </header>
 
         {!onBuild && (
           <div className="subbar">
             <div className="overall">
+              <div className="overall-top">
+                <span className="overall-label">總進度</span>
+                <span className="overall-text">
+                  <b>{stats.done}</b> / {stats.total}
+                  <span className="overall-pct">{pct(stats.done, stats.total)}%</span>
+                </span>
+              </div>
               <div className="overall-bar">
                 <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
-              </div>
-              <div className="overall-text">
-                <b>
-                  {stats.done} / {stats.total}
-                </b>{" "}
-                · {pct(stats.done, stats.total)}%
               </div>
             </div>
           </div>
