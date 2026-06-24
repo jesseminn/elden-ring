@@ -64,7 +64,13 @@ body {
 }
 .topbar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; padding: 14px 14px 8px; }
 .brand { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.brand h1 { margin: 0; font-family: "Cinzel", var(--serif); font-size: 22px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-bright); font-weight: 900; text-shadow: 0 0 18px #c9a14a3d; }
+.brand h1 {
+  margin: 0; font-family: "Cormorant Garamond", var(--serif);
+  font-size: 28px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
+  background: linear-gradient(180deg, #f7e4b0, var(--gold-bright) 48%, #b5872f);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 6px #c9a14a40);
+}
 .subbar { padding: 0 14px 8px; }
 .overall { display: flex; flex-direction: column; align-items: stretch; gap: 4px; width: 100%; }
 .overall-bar { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
