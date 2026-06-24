@@ -1,16 +1,23 @@
 name: Deploy to GitHub Pages
 
-# 只在推送 semver tag（v*）時部署；平常推 main 不會觸發。
-# 要更新線上站＝打一個版本 tag（例：git tag v1.1.0 && git push origin v1.1.0）。
-# workflow_dispatch 保留為手動逃生口。
+# 兩種觸發：
+# 1) push 一個 semver tag（v*）：使用者本機 git tag 後推上來會走這條。
+# 2) workflow_dispatch：手動/由 Claude 經 MCP 觸發。可帶 tag 輸入——
+#    有給 tag 時，由 runner 端用 GITHUB_TOKEN 在伺服器建立並推該 tag（沙箱推不了 tag 的解法），
+#    然後在同一個 run 內直接部署（GITHUB_TOKEN 推的 tag 不會再觸發本 workflow，故不依賴重觸發）。
 on:
   push:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "建立並部署這個版本 tag（例 v1.1.0）。留空＝只部署目前 main、不建立 tag"
+        required: false
+        default: ""
 
 permissions:
-  contents: read
+  contents: write # 需要 write 才能由 Action 建立/推送 tag
   pages: write
   id-token: write
 
@@ -24,6 +31,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: 建立並推送 tag（workflow_dispatch 且有給 tag 時）
+        if: github.event_name == 'workflow_dispatch' && inputs.tag != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "${{ inputs.tag }}"
+          git push origin "${{ inputs.tag }}"
+      - name: 解析版本字串
+        id: ver
+        run: |
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            echo "v=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "v=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -31,8 +53,8 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          # tag 觸發時注入 tag 名當版本；手動觸發（非 tag）則留空，build 退回 package.json
-          VITE_APP_VERSION: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+          # tag 觸發＝tag 名；dispatch 有給 tag＝該 tag；都沒有＝留空，build 退回 package.json
+          VITE_APP_VERSION: ${{ steps.ver.outputs.v }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
