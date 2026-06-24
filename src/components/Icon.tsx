@@ -8,6 +8,8 @@ import {
   Minus,
   TriangleAlert,
   Star,
+  Menu as MenuIcon,
+  LocateFixed,
   type LucideIcon,
 } from "lucide-react";
 
@@ -26,7 +28,9 @@ export type IconName =
   | "plus"
   | "minus"
   | "warning"
-  | "star";
+  | "star"
+  | "menu"
+  | "locate";
 
 const MAP: Record<IconName, LucideIcon> = {
   chevron: ChevronRight,
@@ -37,6 +41,8 @@ const MAP: Record<IconName, LucideIcon> = {
   minus: Minus,
   warning: TriangleAlert,
   star: Star,
+  menu: MenuIcon,
+  locate: LocateFixed,
 };
 
 interface Props {

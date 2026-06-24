@@ -42,7 +42,6 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
   if (done) cls.push("done");
   if (isCurrent) cls.push("current");
   if (flashing) cls.push("flash");
-  if (step.added) cls.push("added");
 
   const collectIds = collectIdsForStep(step.id);
   const seriesKinds = seriesKindsForStep(step.id);

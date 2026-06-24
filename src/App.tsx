@@ -8,6 +8,7 @@ import BuildView from "./components/BuildView";
 import QuestPeek from "./components/QuestPeek";
 import SeriesPeek from "./components/SeriesPeek";
 import CollectPeek from "./components/CollectPeek";
+import Icon from "./components/Icon";
 
 export default function App() {
   const state = useAppState();
@@ -71,8 +72,7 @@ export default function App() {
       <div className="sticky-top" ref={topRef}>
         <header className="topbar">
           <div className="brand">
-            <h1>艾爾登法環</h1>
-            <span className="app-ver" title="目前線上版本">v{__APP_VERSION__}</span>
+            <h1 title="艾爾登法環 流程攻略追蹤器">ELDEN RING</h1>
             <div className="modes">
               <button className={"mode" + (!onBuild ? " active" : "")} onClick={goTracker}>
                 流程追蹤器
@@ -82,16 +82,7 @@ export default function App() {
               </button>
             </div>
           </div>
-          {!onBuild && (
-            <div className="head-btns">
-              <button className="gold-btn" title="跳到流程中第一個未完成的步驟" onClick={jumpCurrent}>
-                跳到目前進度
-              </button>
-              <button className="ghost-btn" title="清除所有進度" onClick={reset}>
-                清除進度
-              </button>
-            </div>
-          )}
+          <Menu onReset={reset} />
         </header>
 
         {!onBuild && (
@@ -144,11 +135,69 @@ export default function App() {
         <BuildView />
       )}
 
+      {state.ui.tab === "flow" && (
+        <button className="fab" title="跳到流程中第一個未完成的步驟" onClick={jumpCurrent}>
+          <Icon name="locate" /> 跳到目前進度
+        </button>
+      )}
+
       <QuestPeek />
       <SeriesPeek />
       <CollectPeek />
       <Toast toast={toast} />
     </>
+  );
+}
+
+function Menu({ onReset }: { onReset: () => void }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div className="menu-wrap" ref={ref}>
+      <button
+        className="menu-btn"
+        aria-label="選單"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <Icon name="menu" size={20} />
+      </button>
+      {open && (
+        <div className="menu-pop" role="menu">
+          <button
+            className="menu-item danger"
+            role="menuitem"
+            onClick={() => {
+              setOpen(false);
+              onReset();
+            }}
+          >
+            清除所有進度
+          </button>
+          <div className="menu-ver" title="目前線上版本">
+            版本 v{__APP_VERSION__}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
