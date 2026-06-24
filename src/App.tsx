@@ -92,11 +92,11 @@ export default function App() {
                 <span className="overall-label">總進度</span>
                 <span className="overall-text">
                   <b>{stats.done}</b> / {stats.total}
-                  <span className="overall-pct">{pct(stats.done, stats.total)}%</span>
                 </span>
               </div>
               <div className="overall-bar">
                 <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
+                <span className="overall-pct">{pct(stats.done, stats.total)}%</span>
               </div>
             </div>
           </div>
