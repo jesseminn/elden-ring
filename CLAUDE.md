@@ -15,6 +15,16 @@
 
 ## 2. 開發 / 部署流程（最常忘）
 
+- **🔴 鐵則（任何 commit / push 前都要做）：先 `git fetch origin main`，確認 `main`
+  有沒有新進度。**
+  ```bash
+  git fetch origin main && git rev-list --count HEAD..origin/main   # 回 0 才安全
+  ```
+  不是 0 就代表 `main` 已被其他 session 推進——**先把工作接到最新的 `origin/main` 上**
+  （rebase 或重設基底重做），**絕不在落後的基底上 commit / push**。
+  ⚠ 血淚案例（2026-06）：某 session 的工作分支是從一條**停在舊點、落後 main 約 40 個
+  commit** 的分支切出來的，整批改動蓋在過時程式碼上（連 logo、版本顯示、sticky 標題等
+  都缺）。**分支基底正不正確，動手前自己驗，別信分支名或既有狀態。**
 - **單線開發：直接在 `main` 上 commit。`git push origin main` 本身「不」觸發部署。**
   （使用者於 2026-06 決定：單人專案、無測試環境、不跑本地測試、出問題用 git
   切回去即可，所以**不再用 feature 分支**。）
@@ -26,7 +36,7 @@
   ```
   流程：改完 → 問使用者「要不要打 tag 部署測試」→ 要的話才 tag。因為只有一個 domain，
   **tag 部署＝線上更新（沒有獨立 staging）**。
-- **版本顯示**：首頁標題旁 `v1.x.x`（`.app-ver`）。版本由 `vite.config.ts` 注入
+- **版本顯示**：右上漢堡選單內 `版本 v1.x.x`（`.menu-ver`，2026-06 起從標題旁移入選單）。版本由 `vite.config.ts` 注入
   `__APP_VERSION__`：部署時用 tag 名（workflow 的 `VITE_APP_VERSION=github.ref_name`），
   本地建置退回 `package.json` 的 `version`。**打 tag 前記得先把 `package.json` version 同步**。
 - **deploy.yml 觸發條件 = `push: tags: ['v*']` + `workflow_dispatch`**（手動逃生口）。
