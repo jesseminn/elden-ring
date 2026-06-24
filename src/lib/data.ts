@@ -164,3 +164,36 @@ export const collectKinds: string[] = (() => {
       }
   return out;
 })();
+
+// 收集項 → 連動到的章節（取第一個連動到的流程步驟，供「收集」分頁顯示與跳轉）
+export function chapterForCollect(colId: string): { num: number; chapterId: string; stepId: string } | null {
+  for (const sid of linkMap[colId] || []) {
+    const s = stepById[sid];
+    if (s) {
+      const ch = chapterById[s.chapterId];
+      if (ch) return { num: ch.num, chapterId: ch.id, stepId: sid };
+    }
+  }
+  return null;
+}
+
+// 依「類別」分組（系列類別優先、其餘依出現順序）；每項附所屬地區名，供收集分頁以類別呈現
+export interface KindGroupItem {
+  item: CollectItem;
+  regionName: string;
+}
+export interface KindGroup {
+  kind: string;
+  items: KindGroupItem[];
+}
+export const collectByKind: KindGroup[] = (() => {
+  const map = new Map<string, KindGroupItem[]>();
+  for (const r of collectRegions)
+    for (const it of r.items) {
+      if (!map.has(it.kind)) map.set(it.kind, []);
+      map.get(it.kind)!.push({ item: it, regionName: r.name });
+    }
+  const series = [...SERIES_KINDS].filter((k) => map.has(k));
+  const rest = collectKinds.filter((k) => !SERIES_KINDS.has(k));
+  return [...series, ...rest].map((k) => ({ kind: k, items: map.get(k) || [] })).filter((g) => g.items.length);
+})();

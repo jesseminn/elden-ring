@@ -1,13 +1,13 @@
 import {
-  collectRegions,
-  collectRegionStats,
-  collectionOverall,
-  collectKinds,
+  collectByKind,
   kindStats,
+  collectionOverall,
+  chapterForCollect,
+  SERIES_KINDS,
   pct,
   type DoneMap,
+  type KindGroup,
 } from "../lib/data";
-import type { CollectRegion } from "../types";
 import { useAppState, useDispatch } from "../store";
 import Icon from "./Icon";
 
@@ -15,12 +15,7 @@ export default function CollectionView() {
   const { done, ui } = useAppState();
   const dispatch = useDispatch();
   const overall = collectionOverall(done);
-  const expIds = collectRegions.map((r) => "exp-" + r.id);
-
-  // 系列 = 有 2 項以上的種類
-  const series = collectKinds
-    .map((k) => ({ kind: k, ...kindStats(k, done) }))
-    .filter((s) => s.total >= 2);
+  const allIds = collectByKind.map((g) => "kind-" + g.kind);
 
   return (
     <div className="view">
@@ -30,24 +25,6 @@ export default function CollectionView() {
         </div>
         <div className="collect-summary-text">
           收集進度 <b>{overall.done} / {overall.total}</b> · {pct(overall.done, overall.total)}%
-        </div>
-      </div>
-
-      <div className="series-bar">
-        <span className="tb-label">系列（點擊看所有取得地點）</span>
-        <div className="series-pills">
-          {series.map((s) => {
-            const full = s.done === s.total;
-            return (
-              <button
-                key={s.kind}
-                className={"series-pill" + (full ? " full" : "")}
-                onClick={() => dispatch({ type: "openSeries", kind: s.kind })}
-              >
-                {s.kind} <span className="sp-count">{s.done}/{s.total}</span>
-              </button>
-            );
-          })}
         </div>
       </div>
 
@@ -62,51 +39,64 @@ export default function CollectionView() {
             隱藏已取得
           </label>
           <span className="tb-spacer" />
-          <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: expIds, value: true })}>
+          <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: allIds, value: true })}>
             展開
           </button>
-          <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: expIds, value: false })}>
+          <button className="ghost-btn small" onClick={() => dispatch({ type: "setAllCollapsed", ids: allIds, value: false })}>
             收合
           </button>
         </div>
       </div>
 
-      {collectRegions.map((r) => (
-        <RegionCard key={r.id} region={r} done={done} hideDone={ui.hideDone} expanded={!!ui.collapsed["exp-" + r.id]} />
+      {collectByKind.map((g) => (
+        <KindCard key={g.kind} group={g} done={done} hideDone={ui.hideDone} expanded={!!ui.collapsed["kind-" + g.kind]} />
       ))}
     </div>
   );
 }
 
-function RegionCard({
-  region,
+function KindCard({
+  group,
   done,
   hideDone,
   expanded,
 }: {
-  region: CollectRegion;
+  group: KindGroup;
   done: DoneMap;
   hideDone: boolean;
   expanded: boolean;
 }) {
   const dispatch = useDispatch();
-  const stats = collectRegionStats(region, done);
+  const stats = kindStats(group.kind, done);
   const p = pct(stats.done, stats.total);
+  const isSeries = SERIES_KINDS.has(group.kind);
 
-  const items = region.items.filter((it) => !(hideDone && done[it.id]));
+  const items = group.items.filter((g) => !(hideDone && done[g.item.id]));
 
   return (
     <div className={"chapter" + (expanded ? "" : " collapsed")}>
-      <div className="chapter-head" onClick={() => dispatch({ type: "toggleChapter", id: "exp-" + region.id })}>
+      <div className="chapter-head" onClick={() => dispatch({ type: "toggleChapter", id: "kind-" + group.kind })}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: "flex", gap: 8, alignItems: "baseline", flexWrap: "wrap" }}>
-            <span className="chapter-title">{region.name}</span>
-            <span style={{ fontSize: 11, color: "var(--muted2)", fontStyle: "italic" }}>{region.en}</span>
+            <span className="chapter-title">{group.kind}</span>
+            {isSeries && <span className="kind-series-tag">系列</span>}
           </div>
           <div style={{ fontSize: 11, color: "var(--muted)", marginTop: 2 }}>
-            {region.lv} · {region.wpn} · {stats.done}/{stats.total}
+            {stats.done}/{stats.total} 項
           </div>
         </div>
+        {isSeries && (
+          <button
+            className="ghost-btn small"
+            title="在地圖視角檢視此系列所有取得位置"
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch({ type: "openSeries", kind: group.kind });
+            }}
+          >
+            全地圖 <Icon name="arrowUpRight" />
+          </button>
+        )}
         <span className="chapter-prog">
           <span className={"ring" + (p === 100 ? " full" : "")} title={`${stats.done}/${stats.total}`}>
             <svg viewBox="0 0 36 36">
@@ -121,38 +111,41 @@ function RegionCard({
 
       {expanded && (
         <div className="chapter-body">
-          {region.note && <div className="region-note">{region.note}</div>}
-          {items.map((it) => {
-            const isDone = !!done[it.id];
+          {items.map(({ item, regionName }) => {
+            const isDone = !!done[item.id];
+            const link = chapterForCollect(item.id);
             return (
-              <label key={it.id} className={"citem" + (isDone ? " done" : "")}>
+              <label key={item.id} className={"citem" + (isDone ? " done" : "")}>
                 <input
                   type="checkbox"
                   checked={isDone}
-                  onChange={(e) => dispatch({ type: "toggleStep", id: it.id, value: e.target.checked })}
+                  onChange={(e) => dispatch({ type: "toggleStep", id: item.id, value: e.target.checked })}
                 />
                 <span className="citem-main">
                   <span className="citem-top">
-                    <button
-                      className="chip kind clickable"
-                      title={`查看所有「${it.kind}」取得地點`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        dispatch({ type: "openSeries", kind: it.kind });
-                      }}
-                    >
-                      {it.kind}
-                    </button>
-                    {it.miss && <span className="miss-tag">易斷</span>}
+                    <span className="citem-region">{regionName}</span>
+                    {item.miss && <span className="miss-tag">易斷</span>}
+                    {link && (
+                      <button
+                        className="tl-loc"
+                        title="在線性流程中查看此步驟"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          dispatch({ type: "gotoStep", chapterId: link.chapterId, stepId: link.stepId });
+                        }}
+                      >
+                        第{link.num}章 ›
+                      </button>
+                    )}
                   </span>
-                  <span className="citem-text">{it.text}</span>
-                  {it.note && <span className="citem-note">{it.note}</span>}
+                  <span className="citem-text">{item.text}</span>
+                  {item.note && <span className="citem-note">{item.note}</span>}
                 </span>
               </label>
             );
           })}
-          {items.length === 0 && <div className="empty-note">（此區已全部取得）</div>}
+          {items.length === 0 && <div className="empty-note">（此類別已全部取得）</div>}
         </div>
       )}
     </div>

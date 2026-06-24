@@ -186,7 +186,8 @@ body {
 .chip.collect:hover { border-color: var(--green-bright); background: #7c9a6a40; }
 .chip.series { color: var(--gold-bright); border-color: #6b5a2a; background: #b8902c14; cursor: pointer; font-family: inherit; transition: all .15s; }
 .chip.series:hover { border-color: var(--gold); background: #b8902c33; }
-.citem-region { font-size: 10.5px; color: var(--muted2); }
+.citem-region { font-size: 10px; color: var(--muted2); border: 1px solid var(--border2); border-radius: 3px; padding: 1px 6px; white-space: nowrap; }
+.kind-series-tag { font-size: 10px; color: var(--gold-bright); border: 1px solid #6b5a2a; background: #b8902c14; border-radius: 3px; padding: 1px 6px; }
 .chip.quest { cursor: pointer; transition: filter 0.15s; font-family: inherit; }
 .chip.quest:hover { filter: brightness(1.25); }
 
