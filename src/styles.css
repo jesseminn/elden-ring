@@ -72,14 +72,22 @@ body {
   filter: drop-shadow(0 1px 6px #c9a14a40);
 }
 .subbar { padding: 0 14px 10px; }
-.overall { display: flex; flex-direction: column; align-items: stretch; gap: 7px; width: 100%; }
-.overall-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.overall { display: flex; flex-direction: column; align-items: stretch; gap: 8px; width: 100%; }
+.overall-cap { display: flex; align-items: baseline; justify-content: center; gap: 10px; }
 .overall-label { font-family: var(--serif); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted2); }
-.overall-text { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
-.overall-text b { font-family: var(--serif); color: var(--gold-bright); font-weight: 700; font-size: 16px; }
-.overall-bar { position: relative; height: 20px; background: #00000040; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; box-shadow: inset 0 1px 3px #00000073, 0 0 9px -3px #c9a14a66; }
-.overall-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--gold), var(--gold-bright)); transition: width 0.4s ease; }
-.overall-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; color: var(--text); text-shadow: 0 1px 2px #000000b3; pointer-events: none; }
+.overall-count { font-family: var(--serif); color: var(--gold-bright); font-weight: 700; font-size: 15px; }
+.overall-pct { font-family: var(--serif); color: var(--gold); font-weight: 700; font-size: 13px; }
+.overall-frame { border: 1px solid #c9a14a55; border-radius: 6px; padding: 4px; background: #00000033; box-shadow: 0 0 11px -3px #c9a14a4d; }
+.overall-bar { position: relative; height: 6px; background: #0c0a07; border-radius: 3px; overflow: hidden; }
+.overall-frame .overall-bar { height: 14px; }
+.overall-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #b09a64, #d4bd86); transition: width 0.5s ease; }
+.overall-frame .overall-fill { position: relative; overflow: hidden; }
+.overall-frame .overall-fill::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -45%; width: 38%;
+  background: linear-gradient(90deg, transparent, #fff6d977, transparent);
+  transform: skewX(-20deg); animation: overall-sheen 4s ease-in-out infinite;
+}
+@keyframes overall-sheen { 0% { left: -45%; } 55%, 100% { left: 130%; } }
 
 /* ---- 按鈕 ---- */
 .ghost-btn, .gold-btn {

@@ -88,15 +88,15 @@ export default function App() {
         {!onBuild && (
           <div className="subbar">
             <div className="overall">
-              <div className="overall-top">
+              <div className="overall-cap">
                 <span className="overall-label">總進度</span>
-                <span className="overall-text">
-                  <b>{stats.done}</b> / {stats.total}
-                </span>
-              </div>
-              <div className="overall-bar">
-                <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
+                <span className="overall-count">{stats.done} / {stats.total}</span>
                 <span className="overall-pct">{pct(stats.done, stats.total)}%</span>
+              </div>
+              <div className="overall-frame">
+                <div className="overall-bar">
+                  <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
+                </div>
               </div>
             </div>
           </div>

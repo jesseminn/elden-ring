@@ -31,7 +31,7 @@ const firstCb = $(".step:not(.note) input[type=checkbox]");
 firstCb.click(); await wait();
 const prog = JSON.parse(localStorage.getItem("elden-progress-v1")||"{}");
 console.log("1) 勾選後 localStorage 進度筆數:", Object.keys(prog).length);
-console.log("   overall 文字:", $(".overall-text").textContent.trim());
+console.log("   overall 文字:", $(".overall-cap").textContent.trim());
 
 // 2) 點一個支線標籤
 const chip = $(".chip.quest");
