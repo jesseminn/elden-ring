@@ -1995,6 +1995,20 @@
           "lv": "Lv40~50"
         },
         {
+          "id": "ch7-add-adula-first",
+          "type": "optional",
+          "text": "首次遭遇「輝石龍」亞杜拉（Glintstone Dragon Adula）。",
+          "detail": [
+            "⚔ 菈妮支線途中、出卡利亞城寨抵達三姊妹塔（菈妮的法師塔前）時會殺出；打到半血就會逃走，此處無法擊殺、無掉落。可擊殺的完整戰在下方月光祭壇那場。"
+          ],
+          "chapterId": "ch7",
+          "items": [],
+          "boss": true,
+          "quests": [],
+          "added": true,
+          "location": "利耶尼亞・三姊妹塔（菈妮的法師塔前）"
+        },
+        {
           "id": "ch7-add-adula",
           "type": "optional",
           "text": "擊敗「輝石龍」亞杜拉（Glintstone Dragon Adula）。",
