@@ -1995,35 +1995,6 @@
           "lv": "Lv40~50"
         },
         {
-          "id": "ch7-add-adula-first",
-          "type": "optional",
-          "text": "首次遭遇「輝石龍」亞杜拉（Glintstone Dragon Adula）。",
-          "detail": [
-            "⚔ 菈妮支線途中、出卡利亞城寨抵達三姊妹塔（菈妮的法師塔前）時會殺出；打到半血就會逃走，此處無法擊殺、無掉落。可擊殺的完整戰在下方月光祭壇那場。"
-          ],
-          "chapterId": "ch7",
-          "items": [],
-          "boss": true,
-          "quests": [],
-          "added": true,
-          "location": "利耶尼亞・三姊妹塔（菈妮的法師塔前）"
-        },
-        {
-          "id": "ch7-add-adula",
-          "type": "optional",
-          "text": "擊敗「輝石龍」亞杜拉（Glintstone Dragon Adula）。",
-          "detail": [
-            "⚔ 月光祭壇大教堂外的完整戰；血厚偏硬，掉龍心臟。需先抵達月光祭壇"
-          ],
-          "chapterId": "ch7",
-          "items": [],
-          "boss": true,
-          "quests": [],
-          "added": true,
-          "location": "利耶尼亞・月光祭壇（瑪努斯‧瑟利斯大教堂外）",
-          "lv": "Lv80~100"
-        },
-        {
           "id": "ch7-s53",
           "type": "optional",
           "text": "攻略留水洞窟：",
@@ -2356,6 +2327,22 @@
           ],
           "boss": false,
           "quests": []
+        },
+        {
+          "id": "ch8-add-adula-first",
+          "type": "optional",
+          "text": "首次遭遇「輝石龍」亞杜拉（Glintstone Dragon Adula）。",
+          "detail": [
+            "⚔ 抵達三姊妹塔（菈妮的法師塔前）時殺出；打到半血就會逃走，此處無法擊殺、無掉落。可擊殺的完整戰在菈妮支線後段、月光祭壇的瑪努斯·瑟利斯大教堂外。"
+          ],
+          "chapterId": "ch8",
+          "items": [],
+          "boss": true,
+          "quests": [
+            "ranni"
+          ],
+          "added": true,
+          "location": "利耶尼亞・三姊妹塔（菈妮的法師塔前）"
         },
         {
           "id": "ch8-s13",
@@ -5242,6 +5229,23 @@
           "lv": "Lv85~100"
         },
         {
+          "id": "ch16-add-adula-kill",
+          "type": "optional",
+          "text": "擊敗「輝石龍」亞杜拉（Glintstone Dragon Adula）。",
+          "detail": [
+            "⚔ 瑪努斯·瑟利斯大教堂門口的完整戰（即首次在三姊妹塔逃走的那隻）；血厚偏硬，掉 3 龍心臟＋魔法「亞杜拉的月光劍」。打完進教堂拿暗月大劍。"
+          ],
+          "chapterId": "ch16",
+          "items": [],
+          "boss": true,
+          "quests": [
+            "ranni"
+          ],
+          "added": true,
+          "location": "利耶尼亞・月光祭壇（瑪努斯·瑟利斯大教堂外）",
+          "lv": "Lv80~100"
+        },
+        {
           "id": "ch16-s5",
           "type": "event",
           "text": "上月光祭壇後，到瑪努斯      瑟利斯大教堂拿暗月大劍，給菈妮戒指。",
@@ -6909,6 +6913,7 @@
       "stepIds": [
         "ch7-s48",
         "ch8-s9",
+        "ch8-add-adula-first",
         "ch8-s13",
         "ch8-s14",
         "ch8-s15",
@@ -6919,12 +6924,13 @@
         "ch14-s53",
         "ch15-s2",
         "ch15-s3",
+        "ch16-add-adula-kill",
         "ch16-s5",
         "ch16-s6",
         "ch16-s9",
         "ch16-s11"
       ],
-      "count": 16
+      "count": 18
     },
     {
       "id": "blaidd",
