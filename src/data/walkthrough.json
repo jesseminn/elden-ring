@@ -5391,7 +5391,9 @@
           "chapterId": "ch17",
           "items": [],
           "boss": true,
-          "quests": [],
+          "quests": [
+            "fia"
+          ],
           "added": true,
           "location": "深根底層・死王子寶座（菲雅之夢）",
           "lv": "Lv100~120"
@@ -7149,10 +7151,11 @@
         "ch7-s50",
         "ch11-s8",
         "ch17-s3",
+        "ch17-add-fortissax",
         "ch17-s5",
         "ch17-s6"
       ],
-      "count": 7
+      "count": 8
     },
     {
       "id": "millicent",
