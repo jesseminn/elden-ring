@@ -196,6 +196,17 @@ function bellSortKey(text: string): number {
   const tier = Number(text.match(/【(\d+)】/)?.[1] ?? 0);
   return (series < 0 ? 99 : series) * 100 + tier;
 }
+// 「鈴珠」群組的類別小標題（依珠子前綴判定）
+const BELL_SERIES_LABEL: Record<string, string> = {
+  鍛造石礦工: "鍛造石礦工的鈴珠 · 普通鍛造石",
+  失色石礦工: "失色石礦工的鈴珠 · 失色鍛造石",
+  鈴蘭摘採工: "鈴蘭摘採工的鈴珠 · 墓地鈴蘭（普通靈灰）",
+  靈依摘採工: "靈依摘採工的鈴珠 · 幽魂鈴蘭（傳說／特殊靈灰）",
+};
+export function bellSeriesLabel(text: string): string | null {
+  for (const k in BELL_SERIES_LABEL) if (text.startsWith(k)) return BELL_SERIES_LABEL[k];
+  return null;
+}
 
 export const collectByKind: KindGroup[] = (() => {
   const map = new Map<string, KindGroupItem[]>();

@@ -1,8 +1,10 @@
+import { Fragment } from "react";
 import {
   collectByKind,
   kindStats,
   collectionOverall,
   chapterForCollect,
+  bellSeriesLabel,
   SERIES_KINDS,
   INCOMPLETE_KINDS,
   pct,
@@ -115,40 +117,49 @@ function KindCard({
           {INCOMPLETE_KINDS.has(group.kind) && (
             <div className="region-note">⚠ 此清單僅列流程提到的，並不完整（武器/防具/戰灰量大，未逐項收錄）</div>
           )}
-          {items.map(({ item, regionName }) => {
-            const isDone = !!done[item.id];
-            const link = chapterForCollect(item.id);
-            return (
-              <label key={item.id} className={"citem" + (isDone ? " done" : "")}>
-                <input
-                  type="checkbox"
-                  checked={isDone}
-                  onChange={(e) => dispatch({ type: "toggleStep", id: item.id, value: e.target.checked })}
-                />
-                <span className="citem-main">
-                  <span className="citem-top">
-                    <span className="citem-region">{regionName}</span>
-                    {item.miss && <span className="miss-tag">易斷</span>}
-                    {link && (
-                      <button
-                        className="tl-loc"
-                        title="在線性流程中查看此步驟"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          dispatch({ type: "gotoStep", chapterId: link.chapterId, stepId: link.stepId });
-                        }}
-                      >
-                        第{link.num}章 ›
-                      </button>
-                    )}
-                  </span>
-                  <span className="citem-text">{item.text}</span>
-                  {item.note && <span className="citem-note">{item.note}</span>}
-                </span>
-              </label>
-            );
-          })}
+          {(() => {
+            let prevSub: string | null = null;
+            return items.map(({ item, regionName }) => {
+              const isDone = !!done[item.id];
+              const link = chapterForCollect(item.id);
+              const sub = group.kind === "鈴珠" ? bellSeriesLabel(item.text) : null;
+              const showSub = !!sub && sub !== prevSub;
+              prevSub = sub;
+              return (
+                <Fragment key={item.id}>
+                  {showSub && <div className="citem-subhead">{sub}</div>}
+                  <label className={"citem" + (isDone ? " done" : "")}>
+                    <input
+                      type="checkbox"
+                      checked={isDone}
+                      onChange={(e) => dispatch({ type: "toggleStep", id: item.id, value: e.target.checked })}
+                    />
+                    <span className="citem-main">
+                      <span className="citem-top">
+                        <span className="citem-region">{regionName}</span>
+                        {item.miss && <span className="miss-tag">易斷</span>}
+                        {link && (
+                          <button
+                            className="tl-loc"
+                            title="在線性流程中查看此步驟"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              dispatch({ type: "gotoStep", chapterId: link.chapterId, stepId: link.stepId });
+                            }}
+                          >
+                            第{link.num}章 ›
+                          </button>
+                        )}
+                      </span>
+                      <span className="citem-text">{item.text}</span>
+                      {item.note && <span className="citem-note">{item.note}</span>}
+                    </span>
+                  </label>
+                </Fragment>
+              );
+            });
+          })()}
           {items.length === 0 && <div className="empty-note">（此類別已全部取得）</div>}
         </div>
       )}
