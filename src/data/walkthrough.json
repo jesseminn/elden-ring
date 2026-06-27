@@ -3681,7 +3681,8 @@
           "type": "optional",
           "text": "攻略黃金一族的封印監牢（Evergaol）",
           "detail": [
-            "⚔ Boss:「接肢」葛孚亞（封印監牢）"
+            "⚔ Boss:「接肢」葛孚亞（封印監牢）",
+            "需要 1 把石劍鑰匙開啟封印。"
           ],
           "chapterId": "ch11",
           "items": [],
@@ -5319,7 +5320,9 @@
           "id": "ch16-s7",
           "type": "optional",
           "text": "擊敗刀之首的封印監牢BOSS，可利用外鄉人手段讓她摔死。",
-          "detail": [],
+          "detail": [
+            "⚔ Boss:「黑刀之首」亞勒托（封印監牢；利耶尼亞・月光祭壇，菈妮支線後期才開放抵達）"
+          ],
           "chapterId": "ch16",
           "items": [],
           "boss": true,
