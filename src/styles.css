@@ -217,9 +217,11 @@ body {
 
 /* ---- 支線（單欄卡片，手機友善） ---- */
 .quest-cards { display: flex; flex-direction: column; gap: 10px; }
-.quest-card { border: 1px solid #7c9a6a4d; border-radius: 5px; background: #1a1c16; overflow: hidden; }
-.qc-head { padding: 11px 13px; cursor: pointer; user-select: none; display: flex; align-items: center; gap: 10px; }
-.qc-head:hover { background: #ffffff08; }
+.quest-card { border: 1px solid #7c9a6a4d; border-radius: 5px; background: #1a1c16; }
+.qc-head { padding: 11px 13px; cursor: pointer; user-select: none; display: flex; align-items: center; gap: 10px; border-radius: 4px; background: #1a1c16; }
+.qc-head:hover { background: #20231b; }
+/* 展開時把支線標題做成 sticky header（停在固定頂欄下方），長時間軸捲動時標題不消失 */
+.quest-card.open > .qc-head { position: sticky; top: var(--top-h, 0px); z-index: 5; border-radius: 4px 4px 0 0; box-shadow: 0 1px 0 var(--border); }
 .qc-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
 .qc-main { flex: 1; min-width: 0; }
 .qc-name { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--green-bright); }
@@ -237,11 +239,11 @@ body {
 
 /* 支線時間軸步驟 */
 .timeline { position: relative; }
-.tl-step { position: relative; padding: 7px 4px 7px 18px; border-bottom: 1px solid var(--border); }
+.tl-step { position: relative; padding: 8px 4px 8px 9px; border-bottom: 1px solid var(--border); }
 .tl-step:last-child { border-bottom: none; }
-.tl-node { position: absolute; left: 3px; top: 13px; width: 8px; height: 8px; border-radius: 50%; background: var(--border2); border: 1px solid var(--muted2); }
-.tl-step.done .tl-node { background: var(--green); border-color: var(--green); }
-.tl-step.current .tl-node { background: var(--gold-bright); border-color: var(--gold); animation: grace-node 3.2s ease-in-out infinite; }
+/* 目前步驟：用低調的金色左緣標示「你在這」，取代原本的左側圓點 */
+.tl-step.current { box-shadow: inset 2px 0 0 var(--gold-bright); }
+.tl-step.current .tl-text { color: var(--gold-bright); }
 .tl-head { display: flex; align-items: flex-start; gap: 8px; }
 .tl-cb input { width: 16px; height: 16px; accent-color: var(--green); cursor: pointer; margin-top: 1px; }
 .tl-text { flex: 1; font-size: 13px; line-height: 1.45; }
@@ -251,8 +253,7 @@ body {
 .tl-extra { display: flex; flex-wrap: wrap; gap: 5px; margin: 5px 0 0 24px; }
 .tl-detail { margin: 5px 0 0 24px; padding: 7px 9px; background: #ffffff06; border-radius: 0; border-left: 2px solid var(--green); }
 .tl-detail .dl { font-size: 11.5px; color: #b7ad96; padding: 1px 0; line-height: 1.4; }
-.qc-next { font-size: 12px; color: var(--gold-bright); background: #e8c8740d; border: 1px solid #e8c87426; border-radius: 4px; padding: 7px 10px; margin: 0 0 8px; line-height: 1.45; }
-.qc-alldone { font-size: 12.5px; color: var(--green-bright); }
+.qc-alldone { font-size: 12.5px; color: var(--green-bright); margin: 0 0 8px; }
 
 /* ---- 圖例 ---- */
 .legend { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }

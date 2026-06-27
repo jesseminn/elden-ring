@@ -84,16 +84,9 @@ function QuestCard({ quest, done, open }: { quest: Quest; done: DoneMap; open: b
         <>
           {quest.desc && <div className="qc-end">{quest.desc}</div>}
           <div className="qc-body">
-            {complete ? (
-              <div className="qc-next qc-alldone"><Icon name="check" /> 此支線全部步驟已完成</div>
-            ) : nextStep && nextChapter ? (
-              <div className="qc-next">
-                下一步：{nextStep.text}
-                <span style={{ color: "var(--muted)" }}>
-                  （第 {nextChapter.num} 章 {nextChapter.title}）
-                </span>
-              </div>
-            ) : null}
+            {complete && (
+              <div className="qc-alldone"><Icon name="check" /> 此支線全部步驟已完成</div>
+            )}
 
             <div className="timeline">
               {quest.stepIds.map((sid) => {
@@ -103,7 +96,6 @@ function QuestCard({ quest, done, open }: { quest: Quest; done: DoneMap; open: b
                 const isNext = sid === nextId;
                 return (
                   <div key={sid} className={"tl-step" + (isDone ? " done" : "") + (isNext ? " current" : "")}>
-                    <div className="tl-node" />
                     <div className="tl-head">
                       <label className="tl-cb">
                         <input
