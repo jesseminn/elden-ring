@@ -2141,7 +2141,7 @@
           "type": "optional",
           "text": "攻略王室墓地的封印監牢（Evergaol）",
           "detail": [
-            "⚔ 封印監牢 Boss（白王劍掉落處；卡利亞書齋東）"
+            "⚔ Boss:石膚黑王（封印監牢；掉落魔法「隕石」）"
           ],
           "chapterId": "ch7",
           "items": [],
@@ -3637,6 +3637,7 @@
           "type": "optional",
           "text": "攻略調香師的藏身洞窟：",
           "detail": [
+            "⚔ Boss:惡兆獵人＋「病花」米蘭達（雙王同戰）",
             "取得「惡兆獵人大柴刀」"
           ],
           "chapterId": "ch11",

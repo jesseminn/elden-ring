@@ -1,7 +1,7 @@
 {
   "name": "elden-ring-walkthrough-tracker",
   "private": true,
-  "version": "1.9.3",
+  "version": "1.9.4",
   "type": "module",
   "scripts": {
     "data": "python3 scripts/parse.py",
