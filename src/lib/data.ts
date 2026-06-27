@@ -189,6 +189,14 @@ export interface KindGroup {
   kind: string;
   items: KindGroupItem[];
 }
+// 「鈴珠」群組內改以「珠子類別」分組、每類由低階到高階排序（而非地區順序）
+const BELL_SERIES_ORDER = ["鍛造石礦工", "失色石礦工", "鈴蘭摘採工", "靈依摘採工"];
+function bellSortKey(text: string): number {
+  const series = BELL_SERIES_ORDER.findIndex((p) => text.startsWith(p));
+  const tier = Number(text.match(/【(\d+)】/)?.[1] ?? 0);
+  return (series < 0 ? 99 : series) * 100 + tier;
+}
+
 export const collectByKind: KindGroup[] = (() => {
   const map = new Map<string, KindGroupItem[]>();
   for (const r of collectRegions)
@@ -198,5 +206,11 @@ export const collectByKind: KindGroup[] = (() => {
     }
   const series = [...SERIES_KINDS].filter((k) => map.has(k));
   const rest = collectKinds.filter((k) => !SERIES_KINDS.has(k));
-  return [...series, ...rest].map((k) => ({ kind: k, items: map.get(k) || [] })).filter((g) => g.items.length);
+  return [...series, ...rest]
+    .map((k) => {
+      const items = map.get(k) || [];
+      if (k === "鈴珠") items.sort((a, b) => bellSortKey(a.item.text) - bellSortKey(b.item.text));
+      return { kind: k, items };
+    })
+    .filter((g) => g.items.length);
 })();
