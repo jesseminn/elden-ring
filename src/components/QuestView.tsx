@@ -82,7 +82,6 @@ function QuestCard({ quest, done, open }: { quest: Quest; done: DoneMap; open: b
 
       {open && (
         <>
-          {quest.desc && <div className="qc-end">{quest.desc}</div>}
           <div className="qc-body">
             {complete && (
               <div className="qc-alldone"><Icon name="check" /> 此支線全部步驟已完成</div>
