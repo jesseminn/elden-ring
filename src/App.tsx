@@ -73,16 +73,16 @@ export default function App() {
         <header className="topbar">
           <div className="brand">
             <h1 title="艾爾登法環 流程攻略追蹤器">ELDEN RING</h1>
-            <Menu onReset={reset} />
           </div>
           <div className="modes">
             <button className={"mode" + (!onBuild ? " active" : "")} onClick={goTracker}>
-              流程追蹤器
+              流程
             </button>
             <button className={"mode" + (onBuild ? " active" : "")} onClick={goBuild}>
-              配點器
+              配點
             </button>
           </div>
+          <Menu onReset={reset} />
         </header>
 
         {!onBuild && (
