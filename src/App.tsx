@@ -86,23 +86,6 @@ export default function App() {
         </header>
 
         {!onBuild && (
-          <div className="subbar">
-            <div className="overall">
-              <div className="overall-cap">
-                <span className="overall-label">總進度</span>
-                <span className="overall-count">{stats.done} / {stats.total}</span>
-                <span className="overall-pct">{pct(stats.done, stats.total)}%</span>
-              </div>
-              <div className="overall-frame">
-                <div className="overall-bar">
-                  <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {!onBuild && (
           <nav className="tabs">
             <button
               className={"tab" + (state.ui.tab === "flow" ? " active" : "")}
@@ -123,6 +106,23 @@ export default function App() {
               收集
             </button>
           </nav>
+        )}
+
+        {!onBuild && state.ui.tab === "flow" && (
+          <div className="subbar">
+            <div className="overall">
+              <div className="overall-cap">
+                <span className="overall-label">線性流程進度</span>
+                <span className="overall-count">{stats.done} / {stats.total}</span>
+                <span className="overall-pct">{pct(stats.done, stats.total)}%</span>
+              </div>
+              <div className="overall-frame">
+                <div className="overall-bar">
+                  <div className="overall-fill" style={{ width: pct(stats.done, stats.total) + "%" }} />
+                </div>
+              </div>
+            </div>
+          </div>
         )}
       </div>
 
