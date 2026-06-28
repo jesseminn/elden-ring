@@ -6,6 +6,7 @@ import {
   questStats,
   questNextId,
   pct,
+  isDone as resolveDone,
 } from "../lib/data";
 import { useAppState, useDispatch } from "../store";
 import Icon from "./Icon";
@@ -64,7 +65,7 @@ export default function QuestPeek() {
             {quest.stepIds.map((sid) => {
               const s = stepById[sid];
               const ch = chapterById[s.chapterId];
-              const isDone = !!done[sid];
+              const isDone = resolveDone(done, sid);
               const isNext = sid === nextId;
               const isFrom = sid === peek.fromStepId;
               return (

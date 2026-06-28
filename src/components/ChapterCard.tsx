@@ -1,6 +1,6 @@
 import { memo } from "react";
 import type { Chapter, Step } from "../types";
-import { chapterStats, pct, type DoneMap } from "../lib/data";
+import { chapterStats, pct, isDone, type DoneMap } from "../lib/data";
 import { useDispatch, type Facets } from "../store";
 import { StepRow } from "./StepRow";
 import Icon from "./Icon";
@@ -30,7 +30,7 @@ function ChapterCardInner({ chapter, done, collapsed, hideDone, facets, anyFacet
       if (s.type === "note") return false; // 篩選時隱藏提示
       if (!matchFacet(s, facets)) return false;
     }
-    if (hideDone && s.type !== "note" && done[s.id]) return false;
+    if (hideDone && s.type !== "note" && isDone(done, s.id)) return false;
     return true;
   });
 
@@ -70,7 +70,7 @@ function ChapterCardInner({ chapter, done, collapsed, hideDone, facets, anyFacet
             <StepRow
               key={s.id}
               step={s}
-              done={!!done[s.id]}
+              done={isDone(done, s.id)}
               isCurrent={s.id === currentStepId}
               flash={s.id === flashStepId}
             />

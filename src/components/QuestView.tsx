@@ -7,6 +7,7 @@ import {
   questNextId,
   pct,
   type DoneMap,
+  isDone as resolveDone,
 } from "../lib/data";
 import type { Quest } from "../types";
 import { useAppState, useDispatch } from "../store";
@@ -91,7 +92,7 @@ function QuestCard({ quest, done, open }: { quest: Quest; done: DoneMap; open: b
               {quest.stepIds.map((sid) => {
                 const s = stepById[sid];
                 const ch = chapterById[s.chapterId];
-                const isDone = !!done[sid];
+                const isDone = resolveDone(done, sid);
                 const isNext = sid === nextId;
                 return (
                   <div key={sid} className={"tl-step" + (isDone ? " done" : "") + (isNext ? " current" : "")}>

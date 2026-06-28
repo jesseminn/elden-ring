@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { collectItemById, collectIdsForStep, stepById } from "../lib/data";
+import { collectItemById, collectIdsForStep, stepById, isDone as resolveDone } from "../lib/data";
 import { useAppState, useDispatch } from "../store";
 
 export default function CollectPeek() {
@@ -27,7 +27,7 @@ export default function CollectPeek() {
             <div className="qc-name">此步驟的收集品</div>
             {step && <div className="qc-sub">{step.text.slice(0, 40)}</div>}
           </div>
-          <span className="qc-count">{ids.filter((id) => done[id]).length}/{ids.length}</span>
+          <span className="qc-count">{ids.filter((id) => resolveDone(done, id)).length}/{ids.length}</span>
         </div>
 
         <div className="sheet-body">
@@ -35,7 +35,7 @@ export default function CollectPeek() {
             const entry = collectItemById[id];
             if (!entry) return null;
             const { item, regionName } = entry;
-            const isDone = !!done[id];
+            const isDone = resolveDone(done, id);
             return (
               <label key={id} className={"citem" + (isDone ? " done" : "")}>
                 <input

@@ -7,7 +7,7 @@ import {
   type Dispatch,
 } from "react";
 import type { DoneMap } from "./lib/data";
-import { linkMap } from "./lib/data";
+import { canonicalId } from "./lib/data";
 
 const LS_PROGRESS = "elden-progress-v1";
 const LS_UI = "elden-ui-v1";
@@ -92,10 +92,18 @@ const defaultUi: UiState = {
   metaBuildId: "bleed",
 };
 
+// 既有存檔正規化：把舊「事件聯動」時寫死的連動收集項 key 摺疊回其流程步驟主鍵，
+// 讓新增/變更的 links 能立即且回溯生效（避免舊 col key 殘留成孤兒）。
+function normalizeDone(raw: DoneMap): DoneMap {
+  const out: DoneMap = {};
+  for (const k in raw) if (raw[k]) out[canonicalId(k)] = true;
+  return out;
+}
+
 export function initialState(): State {
   const savedUi = load<Partial<UiState>>(LS_UI, {});
   return {
-    done: load<DoneMap>(LS_PROGRESS, {}),
+    done: normalizeDone(load<DoneMap>(LS_PROGRESS, {})),
     ui: { ...defaultUi, ...savedUi, facets: { ...defaultUi.facets, ...(savedUi.facets || {}) } },
     highlight: null,
     peek: null,
@@ -108,12 +116,10 @@ function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "toggleStep": {
       const done = { ...state.done };
-      // 連動：流程步驟與對應收集項目同步勾選
-      const ids = [action.id, ...(linkMap[action.id] || [])];
-      for (const id of ids) {
-        if (action.value) done[id] = true;
-        else delete done[id];
-      }
+      // 資料聯動：寫入「主鍵」（連動組以流程步驟為主鍵），讀取時再推導連動收集項
+      const key = canonicalId(action.id);
+      if (action.value) done[key] = true;
+      else delete done[key];
       return { ...state, done };
     }
     case "setProgress":

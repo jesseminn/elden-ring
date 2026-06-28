@@ -5,6 +5,7 @@ import {
   collectionOverall,
   chapterForCollect,
   bellSeriesLabel,
+  isDone as resolveDone,
   SERIES_KINDS,
   INCOMPLETE_KINDS,
   pct,
@@ -74,7 +75,7 @@ function KindCard({
   const p = pct(stats.done, stats.total);
   const isSeries = SERIES_KINDS.has(group.kind);
 
-  const items = group.items.filter((g) => !(hideDone && done[g.item.id]));
+  const items = group.items.filter((g) => !(hideDone && resolveDone(done, g.item.id)));
 
   return (
     <div className={"chapter" + (expanded ? "" : " collapsed")}>
@@ -120,7 +121,7 @@ function KindCard({
           {(() => {
             let prevSub: string | null = null;
             return items.map(({ item, regionName }) => {
-              const isDone = !!done[item.id];
+              const isDone = resolveDone(done, item.id);
               const link = chapterForCollect(item.id);
               const sub = group.kind === "鈴珠" ? bellSeriesLabel(item.text) : null;
               const showSub = !!sub && sub !== prevSub;

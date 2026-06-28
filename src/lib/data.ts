@@ -42,13 +42,27 @@ export const actionable = (s: Step) => s.type !== "note";
 // ---- 統計 ----
 export type DoneMap = Record<string, boolean>;
 
+// ---- 資料聯動：完成狀態的單一真相來源 ----
+// 連動組（流程步驟 ↔ 收集項）一律以「流程步驟」為主鍵；連動收集項的完成狀態
+// 在「讀取時」即時推導（isDone），而非在勾選時寫死。如此改 links.json 立即且回溯生效。
+export function canonicalId(id: string): string {
+  if (id.startsWith("col-")) {
+    const step = (linkMap[id] || []).find((x) => stepById[x]);
+    if (step) return step;
+  }
+  return id;
+}
+export function isDone(done: DoneMap, id: string): boolean {
+  return !!done[canonicalId(id)];
+}
+
 export function chapterStats(ch: Chapter, done: DoneMap) {
   let total = 0;
   let cnt = 0;
   for (const s of ch.steps) {
     if (!actionable(s)) continue;
     total++;
-    if (done[s.id]) cnt++;
+    if (isDone(done, s.id)) cnt++;
   }
   return { total, done: cnt };
 }
@@ -59,26 +73,26 @@ export function overallStats(done: DoneMap) {
   for (const s of allSteps) {
     if (!actionable(s)) continue;
     total++;
-    if (done[s.id]) cnt++;
+    if (isDone(done, s.id)) cnt++;
   }
   return { total, done: cnt };
 }
 
 export function questStats(q: Quest, done: DoneMap) {
   let cnt = 0;
-  for (const id of q.stepIds) if (done[id]) cnt++;
+  for (const id of q.stepIds) if (isDone(done, id)) cnt++;
   return { total: q.stepIds.length, done: cnt };
 }
 
 export function questNextId(q: Quest, done: DoneMap): string | null {
-  for (const id of q.stepIds) if (!done[id]) return id;
+  for (const id of q.stepIds) if (!isDone(done, id)) return id;
   return null;
 }
 
 // 全域「目前進度」= 流程上第一個未完成且可執行的步驟
 export function currentStepId(done: DoneMap): string | null {
   for (const s of allSteps) {
-    if (actionable(s) && !done[s.id]) return s.id;
+    if (actionable(s) && !isDone(done, s.id)) return s.id;
   }
   return null;
 }
@@ -88,7 +102,7 @@ export const pct = (a: number, b: number) => (b ? Math.round((a / b) * 100) : 0)
 // ---- 收集 ----
 export function collectRegionStats(r: CollectRegion, done: DoneMap) {
   let cnt = 0;
-  for (const it of r.items) if (done[it.id]) cnt++;
+  for (const it of r.items) if (isDone(done, it.id)) cnt++;
   return { total: r.items.length, done: cnt };
 }
 
@@ -98,7 +112,7 @@ export function collectionOverall(done: DoneMap) {
   for (const r of collectRegions)
     for (const it of r.items) {
       total++;
-      if (done[it.id]) cnt++;
+      if (isDone(done, it.id)) cnt++;
     }
   return { total, done: cnt };
 }
@@ -120,7 +134,7 @@ export function kindStats(kind: string, done: DoneMap) {
     for (const it of r.items)
       if (it.kind === kind) {
         total++;
-        if (done[it.id]) cnt++;
+        if (isDone(done, it.id)) cnt++;
       }
   return { total, done: cnt };
 }

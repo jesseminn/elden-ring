@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { seriesByRegion, kindStats, pct } from "../lib/data";
+import { seriesByRegion, kindStats, pct, isDone as resolveDone } from "../lib/data";
 import { useAppState, useDispatch } from "../store";
 
 export default function SeriesPeek() {
@@ -38,7 +38,7 @@ export default function SeriesPeek() {
             <div key={region.id} className="series-group">
               <div className="series-region">{region.name}</div>
               {items.map((it) => {
-                const isDone = !!done[it.id];
+                const isDone = resolveDone(done, it.id);
                 return (
                   <label key={it.id} className={"citem" + (isDone ? " done" : "")}>
                     <input
