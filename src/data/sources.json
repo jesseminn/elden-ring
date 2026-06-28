@@ -152,6 +152,22 @@
       "statement": "擊殺古龍蘭斯桑克斯無意外副作用：不鎖任何 NPC 支線、不影響龍餐祭壇/古龍教徒禱告購買、非任何前置；純選擇性野外古龍。",
       "sources": ["fextralife"],
       "note": "Q&A 查證紀錄。蘭斯桑克斯≠死龍弗爾托沙克斯（後者才綁菲雅支線）。"
+    },
+    {
+      "id": "2026-06-28-lansseax-glaive",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch11-add-lansseax",
+      "statement": "蘭斯桑克斯掉落官方名為武器「蘭斯桑克斯的薙刀」(Lansseax's Glaive)；原 detail『掉古龍雷電禱告』不精確（古龍雷電類禱告是用古龍之心在龍餐祭壇換的）。",
+      "sources": ["translations-csv", "fextralife"],
+      "note": "校正前 backlog 誤記為『雷矛』；查 incantations.csv 官方名才確認是『薙刀』。"
+    },
+    {
+      "id": "2026-06-28-astel-naturalborn",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch16-s4",
+      "statement": "腐敗湖最深處 boss 官方名為「黑暗棄子」艾絲緹 (Astel, Naturalborn of the Void)；修正『艾絲提』→『艾絲緹』。",
+      "sources": ["translations-csv"],
+      "note": "校正前 backlog 誤記為『亞斯特爾』（非官方名）；npcs.csv 官方為艾絲緹。"
     }
   ]
 }

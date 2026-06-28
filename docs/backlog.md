@@ -9,8 +9,7 @@
 
 ## 資料校正（已知不正確、待修）
 
-- [ ] **`walkthrough.json#ch11-add-lansseax`**：detail 寫「掉古龍雷電禱告」，實際掉的是**武器「蘭斯桑克斯的雷矛」**（古龍雷電「禱告」是另用古龍之心換的）。修時補 claim。來源：fextralife / 解包。
-- [ ] **`walkthrough.json#ch16-s4`**：boss 名「黑暗棄子艾絲提」宜統一為官方「**亞斯特爾（Astel）**」（追憶連結 `col-rem-6` 已對到此步、命名不一致）。來源：translations-csv（npcs）。
+- （目前無）
 
 ## 功能 / 範圍
 

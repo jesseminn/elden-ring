@@ -3701,7 +3701,7 @@
           "type": "optional",
           "text": "擊敗「古龍」蘭斯桑克斯（Ancient Dragon Lansseax）。",
           "detail": [
-            "⚔ 古龍・雷電；先在棄置棺材觸發、城牆旁小徑西南打完整戰；掉古龍雷電禱告"
+            "⚔ 古龍・雷電；先在棄置棺材觸發、城牆旁小徑西南打完整戰；掉武器「蘭斯桑克斯的薙刀」(Lansseax's Glaive)"
           ],
           "chapterId": "ch11",
           "items": [],
@@ -5270,7 +5270,7 @@
         {
           "id": "ch16-s4",
           "type": "event",
-          "text": "腐敗湖最深處，有個石棺，躺進去，之後打BOSS「黑暗棄子」艾絲提。",
+          "text": "腐敗湖最深處，有個石棺，躺進去，之後打BOSS「黑暗棄子」艾絲緹。",
           "detail": [],
           "chapterId": "ch16",
           "items": [],
