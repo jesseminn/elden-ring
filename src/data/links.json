@@ -451,6 +451,66 @@
     [
       "col-r20-90",
       "ch21-s15"
+    ],
+    [
+      "col-rem-1",
+      "ch6-s13"
+    ],
+    [
+      "col-rem-2",
+      "ch8-s1c"
+    ],
+    [
+      "col-rem-4",
+      "ch12-s4"
+    ],
+    [
+      "col-rem-3",
+      "ch10-s31"
+    ],
+    [
+      "col-rem-7",
+      "ch18-s14"
+    ],
+    [
+      "col-rem-5",
+      "ch14-s37"
+    ],
+    [
+      "col-rem-6",
+      "ch16-s4"
+    ],
+    [
+      "col-rem-8",
+      "ch17-add-fortissax"
+    ],
+    [
+      "col-rem-9",
+      "ch18-s35"
+    ],
+    [
+      "col-rem-10",
+      "ch20-s8"
+    ],
+    [
+      "col-rem-14",
+      "ch21-s16"
+    ],
+    [
+      "col-rem-11",
+      "ch22-s23"
+    ],
+    [
+      "col-rem-12",
+      "ch22-s21"
+    ],
+    [
+      "col-rem-13",
+      "ch23-s4"
+    ],
+    [
+      "col-rem-15",
+      "ch23-s5"
     ]
   ]
 }
