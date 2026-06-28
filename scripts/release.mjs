@@ -11,7 +11,10 @@ const WORK_BRANCH = "claude/ui-tweaks-8s9rh6";
 const TRAILER = `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01641ouA7Q8DQbpBSZ9WYum3`;
 
-const sh = (cmd, opts = {}) => execSync(cmd, { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"], ...opts }).trim();
+const sh = (cmd, opts = {}) => {
+  const out = execSync(cmd, { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"], ...opts });
+  return out ? out.trim() : ""; // stdio:"inherit" 時 execSync 回 null
+};
 const die = (m) => {
   console.error("✗ " + m);
   process.exit(1);
