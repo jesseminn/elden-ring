@@ -1,0 +1,157 @@
+{
+  "_README": "資料來源帳本（provenance）。sources=具名來源登錄表；claims=每筆查證/校正的依據（append-only，最新可在後）。target 格式：<檔名>#<id 或 id.field>。新增/校正資料時請同時補一筆 claim，引用 sources 裡的 id。校驗見 scripts/validate-data.mjs。",
+  "sources": {
+    "msg-zhotw": {
+      "title": "官方解包文本（正體中文）",
+      "kind": "official-dump",
+      "ref": "github.com/elden-ring-data/msg zhotw/ ；已整理為 docs/translations/*.csv",
+      "trust": "highest",
+      "note": "官方繁中專名最權威來源（武器/法術/Boss/地名/NPC）。"
+    },
+    "msg-engus": {
+      "title": "官方解包文本（英文）",
+      "kind": "official-dump",
+      "ref": "github.com/elden-ring-data/msg engus/",
+      "trust": "highest"
+    },
+    "translations-csv": {
+      "title": "本 repo 整理的官方對照表",
+      "kind": "official-dump-derived",
+      "ref": "docs/translations/*.csv（由 msg dump 以 FMG id 對齊）",
+      "trust": "highest"
+    },
+    "fextralife": {
+      "title": "Fextralife Elden Ring Wiki",
+      "kind": "wiki",
+      "ref": "https://eldenring.wiki.fextralife.com",
+      "trust": "high",
+      "note": "英文詳細 wiki；查 boss 位置/掉落/連動的主力。掉落物是驗 boss 身分的硬證據。"
+    },
+    "feiouex": {
+      "title": "feiouex 巴哈攻略（線性流程基準）",
+      "kind": "guide",
+      "ref": "https://home.gamer.com.tw/artwork.php?sn=5419567",
+      "trust": "base-route",
+      "note": "線性流程章節順序的基準；忠實鏡像它的路線（章節=段落標籤，非『同區一次做完』）。"
+    },
+    "gamersky": {
+      "title": "GamerSky 攻略",
+      "kind": "wiki-zh",
+      "ref": "https://www.gamersky.com",
+      "trust": "medium"
+    },
+    "bilibili-wiki": {
+      "title": "bilibili wiki",
+      "kind": "wiki-zh",
+      "ref": "https://wiki.biligame.com",
+      "trust": "medium"
+    }
+  },
+  "claims": [
+    {
+      "id": "2026-06-28-dectus-left",
+      "date": "2026-06-28",
+      "target": "collection.json#col-r3-2",
+      "statement": "海德要塞（Fort Haight）取得的迪可達斯符節是「左」半；右半在法洛斯要塞。",
+      "sources": ["fextralife"],
+      "note": "同步修 walkthrough.json#ch3-s10。"
+    },
+    {
+      "id": "2026-06-28-friendly-jar",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch22-s19",
+      "statement": "完成小壺（壺村繼承者）支線獲得的護符官方名為「友好壺」（非「同伴壺」）。",
+      "sources": ["translations-csv"],
+      "note": "talismans.csv：友好壺 = Companion Jar。"
+    },
+    {
+      "id": "2026-06-28-sainted-hero-zamor",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch11-s40.boss",
+      "statement": "尊貴者英雄墓地內部 boss 為「薩米爾的古英雄」(Ancient Hero of Zamor)，非腐爛樹靈；入口另有黑刀刺客 field boss。",
+      "sources": ["fextralife", "translations-csv"],
+      "note": "掉落『古龍騎士克里斯托福的骨灰』佐證。"
+    },
+    {
+      "id": "2026-06-28-giantconquer-zamor",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch18-s34.boss",
+      "statement": "巨人戰爭英雄墓地 boss 為「薩米爾的古英雄」，非腐爛樹靈。",
+      "sources": ["fextralife"],
+      "note": "掉落薩米爾彎刀＋整套薩米爾裝備佐證。"
+    },
+    {
+      "id": "2026-06-28-groveside-beastman",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch1-s3.boss",
+      "statement": "近林洞窟(Groveside Cave) boss 為「法姆‧亞茲拉的獸人」；亞人首領是海岸洞窟(ch1-s11)的。",
+      "sources": ["fextralife", "translations-csv"],
+      "note": "掉落火龍徽護符佐證。"
+    },
+    {
+      "id": "2026-06-28-altus-tunnel-swap",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch11-s33.boss",
+      "statement": "舊亞壇坑道 boss=挖石山妖（掉山妖大錘）、亞壇坑道(ch11-s37) boss=結晶人×2（掉失色礦工鈴珠2）；原資料兩者標記互換。",
+      "sources": ["fextralife"]
+    },
+    {
+      "id": "2026-06-28-royal-evergaol-onyx",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch7-add-evergaol_royal.boss",
+      "statement": "王室墓地封印監牢(Royal Grave Evergaol) boss=石膚黑王(Onyx Lord)、掉魔法「隕石」；原註記『白王劍』為相似名混淆（白王劍屬另一隻白王）。",
+      "sources": ["fextralife", "translations-csv"]
+    },
+    {
+      "id": "2026-06-28-perfumers-grotto",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch11-s38.boss",
+      "statement": "調香師的藏身洞窟(Perfumer's Grotto) fog-gate boss=惡兆獵人＋「病花」米蘭達雙王。",
+      "sources": ["fextralife", "translations-csv"]
+    },
+    {
+      "id": "2026-06-28-bell-bearing-unlocks",
+      "date": "2026-06-28",
+      "target": "collection.json#kind:鈴珠",
+      "statement": "15 顆升級素材鈴珠的解鎖對照：鍛造石礦工[1-4]→鍛造石[1-8]；失色石礦工[1-5]→失色鍛造石[1-9]（[5]僅[9]）；鈴蘭摘採工[1-3]→墓地鈴蘭[1-9]（每3階一組）；靈依摘採工[1-3]→幽魂鈴蘭[1-9]。",
+      "sources": ["fextralife", "translations-csv"],
+      "note": "各鈴珠 fextralife 個別頁逐一確認。"
+    },
+    {
+      "id": "2026-06-28-bell2-sealed-tunnel",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch14-s2",
+      "statement": "鍛造石礦工的鈴珠【2】（解鎖購買鍛造石[3][4]）在封印坑道(Sealed Tunnel)，非瑟利亞結晶坑道。",
+      "sources": ["fextralife"]
+    },
+    {
+      "id": "2026-06-28-remembrance-links",
+      "date": "2026-06-28",
+      "target": "links.json#col-rem-*",
+      "statement": "15 個追憶各連到掉落它的王戰步驟（boss 名＋擊殺步驟＋地點三方吻合）；霍拉盧連灰城(ch23-s4)非王城金影、蒙格連蒙格雯(ch20-s8)非惡兆之子、艾爾登獸連最終王(ch23-s5)。",
+      "sources": ["fextralife"]
+    },
+    {
+      "id": "2026-06-28-tear-links",
+      "date": "2026-06-28",
+      "target": "links.json#col-tear-*",
+      "statement": "6 個結晶露滴連到流程具名 field boss：啜泣半島化身→ch4-s11、龍墓腐敗化身→ch10-s28、穿林大橋蚯蚓臉→ch11-s35（斑斕硬露滴=Greatbridge Wormface 招牌掉落）。其餘為野外採集無對應步驟。",
+      "sources": ["fextralife"]
+    },
+    {
+      "id": "2026-06-28-jarbairn-missable",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch22-s12.missable",
+      "statement": "壺村小壺支線：破壞壺村活壺會永久鎖死；前置須先見過亞歷山大、收尾需完成其支線。",
+      "sources": ["fextralife"]
+    },
+    {
+      "id": "2026-06-28-lansseax-no-side-effect",
+      "date": "2026-06-28",
+      "target": "walkthrough.json#ch11-add-lansseax",
+      "statement": "擊殺古龍蘭斯桑克斯無意外副作用：不鎖任何 NPC 支線、不影響龍餐祭壇/古龍教徒禱告購買、非任何前置；純選擇性野外古龍。",
+      "sources": ["fextralife"],
+      "note": "Q&A 查證紀錄。蘭斯桑克斯≠死龍弗爾托沙克斯（後者才綁菲雅支線）。"
+    }
+  ]
+}
