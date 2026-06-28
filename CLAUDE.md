@@ -183,8 +183,11 @@ node scripts/release.mjs <version> "<commit 第一行>"
 
 ---
 
-## 10. 待辦 / 已知限制
+## 10. 待辦 → 看 `docs/backlog.md`
 
-- **遠端分支 `claude/elden-ring-strategy-tool-wqmtv8` 待手動刪除**（沙箱 git proxy 不接受刪除 push、MCP 無刪 ref 工具）→ 請使用者到 GitHub 網頁 Branches 刪。
-- **已知待校正（小）**：`ch11-add-lansseax` detail 寫「掉古龍雷電禱告」，實際掉武器「蘭斯桑克斯的雷矛」；`ch16-s4` boss 名「黑暗棄子艾絲提」宜統一為官方「亞斯特爾(Astel)」。要動時記得補 claim。
-- 範圍待擴：黃金樹幽影 DLC（base game 穩了再開）。
+**會被做掉而消失的 TODO（資料校正、功能、雜項）放 `docs/backlog.md`，不放這裡**（本檔是長效手冊）。
+分工：`docs/backlog.md`＝待辦；`lessons/`＝踩過的雷；CLAUDE.md＝長效慣例與守則。動手前掃一下 backlog。
+
+長效限制（不會「做掉」、留此供參）：
+- 沙箱 git proxy **推不了 tag、也不接受刪除 push**（部署/刪分支的繞法見 §5）。
+- 網路 **egress 有白名單**（`*.github.io`、圖床等被擋；判別與繞法見 §3）。
