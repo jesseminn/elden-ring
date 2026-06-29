@@ -176,6 +176,14 @@
       "statement": "格密爾火山賜福「移送罪人之路」東邊掉淚滴幼體的小怪，是偽裝成燃燒腐屍 (flaming Putrid Corpse) 的蚯蚓臉 (Wormface)，靠近後現真身；位於廢棄營地第一堆火旁。原攻略寫「燃燒的活屍小怪」是偽裝外觀，使用者在遊戲內看到的「蚯蚓臉」即同一隻怪。",
       "sources": ["fextralife"],
       "note": "Q&A 查證：使用者反映找不到活屍、只見蚯蚓臉。確認兩者為同一隻（偽裝怪）。"
+    },
+    {
+      "id": "2026-06-29-fort-laiedd-loot",
+      "date": "2026-06-29",
+      "target": "walkthrough.json#ch13-s3",
+      "statement": "萊多要塞 (Fort Laiedd) 補齊掉落：要塞外水母樹下「石劍鑰匙」；Boss 火焰主教掉「主教大火槌」(Prelate's Inferno Crozier) ＋「火焰主教」整套防具；城牆後白色幽魂旁護符「火對蠍」(Fire Scorpion Charm)。專名皆對官方翻譯確認。",
+      "sources": ["gamersky", "translations-csv"],
+      "note": "使用者提供 GamerSky 圖文攻略（第27頁）作補充；火對蠍位置隱蔽易漏。"
     }
   ]
 }

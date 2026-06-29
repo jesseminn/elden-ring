@@ -3858,7 +3858,12 @@
           "id": "ch13-s3",
           "type": "event",
           "text": "出沸滾河，於萊多要塞獲得武器工匠的製作筆記7，南方不遠處可以順手再次擊敗熔岩土龍。",
-          "detail": [],
+          "detail": [
+            "萊多要塞順手收：要塞外水母圍繞的樹下有「石劍鑰匙」。",
+            "擊敗 Boss 火焰主教，掉落武器「主教大火槌」(Prelate's Inferno Crozier) 與整套「火焰主教」防具。",
+            "屋內拿製作筆記後上樓；城牆後方、白色幽魂旁邊有護符「火對蠍」(Fire Scorpion Charm，增火傷、略降火抗) ——位置隱蔽容易漏。"
+          ],
+          "added": true,
           "chapterId": "ch13",
           "items": [],
           "boss": true,
