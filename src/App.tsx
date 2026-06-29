@@ -163,12 +163,20 @@ function Menu({
 }: {
   onReset: () => void;
   onSync: () => void;
-  syncStatus: "off" | "idle" | "syncing" | "error";
+  syncStatus: "off" | "idle" | "syncing" | "choosing" | "error";
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const syncLabel =
-    syncStatus === "idle" ? "已連線" : syncStatus === "syncing" ? "同步中" : syncStatus === "error" ? "錯誤" : "未啟用";
+    syncStatus === "idle"
+      ? "已連線"
+      : syncStatus === "syncing"
+      ? "同步中"
+      : syncStatus === "choosing"
+      ? "待選擇"
+      : syncStatus === "error"
+      ? "錯誤"
+      : "未啟用";
 
   useEffect(() => {
     if (!open) return;

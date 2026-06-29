@@ -296,7 +296,7 @@ body {
 .menu-item { display: flex; align-items: center; gap: 8px; justify-content: space-between; }
 .menu-sync-tag { font-size: 10px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--border2); color: var(--muted2); white-space: nowrap; }
 .menu-sync-tag.sync-idle { color: var(--green-bright); border-color: var(--green); }
-.menu-sync-tag.sync-syncing { color: var(--gold-bright); border-color: var(--gold); }
+.menu-sync-tag.sync-syncing, .menu-sync-tag.sync-choosing { color: var(--gold-bright); border-color: var(--gold); }
 .menu-sync-tag.sync-error { color: var(--miss); border-color: var(--miss); }
 .menu-ver { font-size: 11px; color: var(--muted2); padding: 9px 11px 5px; margin-top: 4px; border-top: 1px solid var(--border); }
 
@@ -319,6 +319,12 @@ body {
 .sync-help summary { cursor: pointer; color: var(--gold); }
 .sync-help ol { margin: 6px 0 0; padding-left: 18px; line-height: 1.6; }
 .sync-help li { margin-bottom: 4px; }
+.sync-status.sync-choosing { color: var(--gold-bright); }
+.sync-choice { display: flex; flex-direction: column; gap: 9px; }
+.sync-choice-head { font-size: 13px; color: var(--text); line-height: 1.5; }
+.sync-choice-counts { font-size: 12px; color: var(--muted); }
+.sync-choice-counts b { color: var(--gold-bright); }
+.sync-choice .gold-btn, .sync-choice .ghost-btn { width: 100%; padding: 9px; }
 
 /* ---- 浮動「跳到目前進度」按鈕（僅線性流程）：靜態低調，把動態焦點讓給賜福呼吸光 ---- */
 .fab {

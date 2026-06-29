@@ -18,7 +18,7 @@ export interface SyncConfig {
 interface SyncMeta extends SyncConfig {
   localUpdatedAt?: number;
 }
-export type SyncStatus = "off" | "idle" | "syncing" | "error";
+export type SyncStatus = "off" | "idle" | "syncing" | "choosing" | "error";
 
 export function loadSyncConfig(): SyncMeta | null {
   try {
@@ -81,110 +81,175 @@ export interface SyncHandle {
   config: SyncConfig | null;
   status: SyncStatus;
   error: string | null;
+  // 首次啟用且兩邊都有資料時，需使用者選擇覆蓋哪邊；否則為 null
+  choice: { localCount: number; cloudCount: number } | null;
   configure: (cfg: SyncConfig | null) => void;
+  chooseUpload: () => void; // 用本地覆蓋雲端
+  chooseDownload: () => void; // 用雲端覆蓋本地
   syncNow: () => void;
 }
 
-// 同步引擎：開站拉一次（雲端較新就採用），done 變動就 debounce 推送。
+const countDone = (d: DoneMap) => Object.keys(d).length;
+
+// 同步引擎：
+// - 首次設定 gist（config 無 baseline）：只有一邊有資料就自動；兩邊都有 → 進入 choosing 讓使用者選。
+// - 已建立 baseline：開站 / 視窗 focus / 分頁可見 → pull，僅在「雲端比本地 baseline 新」時採用。
+// - 本地 done 變動 → debounce push。
 export function useSyncEngine(done: DoneMap, dispatch: Dispatch<Action>): SyncHandle {
   const [config, setConfig] = useState<SyncMeta | null>(() => loadSyncConfig());
   const [status, setStatus] = useState<SyncStatus>(config ? "idle" : "off");
   const [error, setError] = useState<string | null>(null);
-  const ready = useRef(false); // 初次 pull 完成前不推送，避免空表覆蓋雲端
+  const [choice, setChoice] = useState<{ localCount: number; cloudCount: number } | null>(null);
+  const ready = useRef(false); // baseline 建立、可推送
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const pendingCloud = useRef<CloudPayload | null>(null);
   const cfgRef = useRef<SyncMeta | null>(config);
   cfgRef.current = config;
+  const doneRef = useRef(done);
+  doneRef.current = done;
 
-  const setLocalTs = (ts: number) => {
+  const fail = (e: unknown) => {
+    setStatus("error");
+    setError((e as Error)?.message || String(e));
+  };
+  // 建立/更新 baseline 並轉為已連線
+  const finalize = (ts: number) => {
     const c = cfgRef.current;
-    if (c) {
-      const next = { ...c, localUpdatedAt: ts };
-      saveSyncConfig(next);
-      setConfig(next);
-    }
+    if (!c) return;
+    const next = { ...c, localUpdatedAt: ts };
+    saveSyncConfig(next);
+    setConfig(next);
+    pendingCloud.current = null;
+    ready.current = true;
+    setChoice(null);
+    setStatus("idle");
+    setError(null);
   };
 
-  // 開站 / 換設定時拉雲端
+  // 開站 / 換 gist 設定
   useEffect(() => {
     if (!config) {
       setStatus("off");
       ready.current = false;
+      setChoice(null);
       return;
     }
     let cancelled = false;
     ready.current = false;
+    setChoice(null);
     setStatus("syncing");
     setError(null);
-    pullGist(config)
-      .then(async (cloud) => {
+    (async () => {
+      try {
+        const cloud = await pullGist(config);
         if (cancelled) return;
-        if (cloud && cloud.updatedAt > (config.localUpdatedAt || 0)) {
-          dispatch({ type: "setProgress", done: cloud.done }); // 雲端較新 → 採用
-          setLocalTs(cloud.updatedAt);
+        const established = config.localUpdatedAt != null;
+        if (established) {
+          // 已連線：雲端較新才採用
+          if (cloud && cloud.updatedAt > (config.localUpdatedAt || 0)) {
+            dispatch({ type: "setProgress", done: cloud.done });
+            finalize(cloud.updatedAt);
+          } else {
+            ready.current = true;
+            setStatus("idle");
+          }
+          return;
+        }
+        // 首次設定
+        const localCount = countDone(doneRef.current);
+        const cloudCount = cloud ? countDone(cloud.done) : 0;
+        if (localCount > 0 && cloudCount > 0) {
+          pendingCloud.current = cloud;
+          setChoice({ localCount, cloudCount });
+          setStatus("choosing");
+        } else if (cloud && cloudCount > 0) {
+          dispatch({ type: "setProgress", done: cloud.done }); // 只有雲端有 → 下載
+          finalize(cloud.updatedAt);
         } else {
-          await pushGist(config, done).then(setLocalTs); // 本地較新/雲端空 → 推上去
+          const ts = await pushGist(config, doneRef.current); // 只有本地有 / 兩邊空 → 上傳
+          if (!cancelled) finalize(ts);
         }
-        if (cancelled) return;
-        ready.current = true;
-        setStatus("idle");
-      })
-      .catch((e) => {
-        if (!cancelled) {
-          setStatus("error");
-          setError(e?.message || String(e));
-        }
-      });
+      } catch (e) {
+        if (!cancelled) fail(e);
+      }
+    })();
     return () => {
       cancelled = true;
     };
-    // 只在 gistId/token 變動時重拉；done 變動由下面的推送 effect 處理
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config?.gistId, config?.token]);
 
-  // done 變動 → debounce 推送
+  // done 變動 → debounce push
   useEffect(() => {
     const c = cfgRef.current;
     if (!c || !ready.current) return;
     setStatus("syncing");
     clearTimeout(timer.current);
     timer.current = setTimeout(() => {
-      pushGist(c, done)
-        .then((ts) => {
-          setLocalTs(ts);
-          setStatus("idle");
-          setError(null);
-        })
-        .catch((e) => {
-          setStatus("error");
-          setError(e?.message || String(e));
-        });
+      pushGist(c, done).then(finalize).catch(fail);
     }, 1500);
     return () => clearTimeout(timer.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [done]);
 
+  // 視窗 focus / 分頁可見 → pull（僅已連線、且雲端較新才採用）
+  useEffect(() => {
+    const pull = () => {
+      const c = cfgRef.current;
+      if (!c || !ready.current || document.visibilityState === "hidden") return;
+      pullGist(c)
+        .then((cloud) => {
+          const cc = cfgRef.current;
+          if (cc && cloud && cloud.updatedAt > (cc.localUpdatedAt || 0)) {
+            dispatch({ type: "setProgress", done: cloud.done });
+            finalize(cloud.updatedAt);
+          }
+        })
+        .catch(() => {}); // 回焦的背景 pull 失敗就靜默
+    };
+    const onVis = () => {
+      if (document.visibilityState === "visible") pull();
+    };
+    window.addEventListener("focus", pull);
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      window.removeEventListener("focus", pull);
+      document.removeEventListener("visibilitychange", onVis);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const configure = (cfg: SyncConfig | null) => {
-    if (cfg) setConfig({ ...cfg });
+    if (cfg) setConfig({ ...cfg }); // 無 baseline → 觸發首次設定流程
     else {
       saveSyncConfig(null);
       setConfig(null);
+      ready.current = false;
+      pendingCloud.current = null;
+      setChoice(null);
+      setStatus("off");
     }
+  };
+  const chooseUpload = () => {
+    const c = cfgRef.current;
+    if (!c) return;
+    setStatus("syncing");
+    pushGist(c, doneRef.current).then(finalize).catch(fail);
+  };
+  const chooseDownload = () => {
+    const c = cfgRef.current;
+    const cloud = pendingCloud.current;
+    if (!c || !cloud) return;
+    setStatus("syncing");
+    dispatch({ type: "setProgress", done: cloud.done });
+    finalize(cloud.updatedAt);
   };
   const syncNow = () => {
     const c = cfgRef.current;
     if (!c) return;
     setStatus("syncing");
-    pushGist(c, done)
-      .then((ts) => {
-        setLocalTs(ts);
-        setStatus("idle");
-        setError(null);
-      })
-      .catch((e) => {
-        setStatus("error");
-        setError(e?.message || String(e));
-      });
+    pushGist(c, doneRef.current).then(finalize).catch(fail);
   };
 
-  return { config, status, error, configure, syncNow };
+  return { config, status, error, choice, configure, chooseUpload, chooseDownload, syncNow };
 }
