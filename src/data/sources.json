@@ -184,6 +184,14 @@
       "statement": "萊多要塞 (Fort Laiedd) 補齊掉落：要塞外水母樹下「石劍鑰匙」；Boss 火焰主教掉「主教大火槌」(Prelate's Inferno Crozier) ＋「火焰主教」整套防具；城牆後白色幽魂旁護符「火對蠍」(Fire Scorpion Charm)。專名皆對官方翻譯確認。",
       "sources": ["gamersky", "translations-csv"],
       "note": "使用者提供 GamerSky 圖文攻略（第27頁）作補充；火對蠍位置隱蔽易漏。"
+    },
+    {
+      "id": "2026-06-29-memory-stones-audit",
+      "date": "2026-06-29",
+      "target": "walkthrough.json#ch4-add-oridys",
+      "statement": "對照巴哈牛肉騰『8個記憶石』清單盤點：流程原本只有 7 顆，缺啜泣半島『奧利緹斯魔法師塔』(三智獸謎題) 這顆——collection 早有 col-r1-14 但流程無對應步驟、無連動。補流程步驟 ch4-add-oridys ＋ links 連動 col-r1-14↔ch4-add-oridys。並把 collection 專名『歐利迪斯』正名為官方『奧利緹斯魔法師塔』。",
+      "sources": ["gamersky", "translations-csv"],
+      "note": "Q&A 盤點：8 顆現已全在流程（ch5-s4/ch7-s54/ch7-s57/ch8-s1/ch8-s16/ch10-s27/ch13-s6＋新增 ch4-add-oridys）。"
     }
   ]
 }
