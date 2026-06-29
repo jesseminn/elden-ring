@@ -8,6 +8,8 @@ import BuildView from "./components/BuildView";
 import QuestPeek from "./components/QuestPeek";
 import SeriesPeek from "./components/SeriesPeek";
 import CollectPeek from "./components/CollectPeek";
+import SyncSettings from "./components/SyncSettings";
+import { useSyncEngine } from "./lib/sync";
 import Icon from "./components/Icon";
 
 export default function App() {
@@ -19,6 +21,9 @@ export default function App() {
 
   const stats = useMemo(() => overallStats(state.done), [state.done]);
   const curId = useMemo(() => currentStepId(state.done), [state.done]);
+
+  const sync = useSyncEngine(state.done, dispatch);
+  const [syncOpen, setSyncOpen] = useState(false);
 
   // 量測固定頂欄高度寫進 --top-h，給展開章節的 sticky 標題當偏移（頂欄高度會隨模式/換行變動）
   const topRef = useRef<HTMLDivElement>(null);
@@ -82,7 +87,7 @@ export default function App() {
               配點
             </button>
           </div>
-          <Menu onReset={reset} />
+          <Menu onReset={reset} onSync={() => setSyncOpen(true)} syncStatus={sync.status} />
         </header>
 
         {!onBuild && (
@@ -145,14 +150,25 @@ export default function App() {
       <QuestPeek />
       <SeriesPeek />
       <CollectPeek />
+      {syncOpen && <SyncSettings sync={sync} onClose={() => setSyncOpen(false)} />}
       <Toast toast={toast} />
     </>
   );
 }
 
-function Menu({ onReset }: { onReset: () => void }) {
+function Menu({
+  onReset,
+  onSync,
+  syncStatus,
+}: {
+  onReset: () => void;
+  onSync: () => void;
+  syncStatus: "off" | "idle" | "syncing" | "error";
+}) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const syncLabel =
+    syncStatus === "idle" ? "已連線" : syncStatus === "syncing" ? "同步中" : syncStatus === "error" ? "錯誤" : "未啟用";
 
   useEffect(() => {
     if (!open) return;
@@ -183,6 +199,17 @@ function Menu({ onReset }: { onReset: () => void }) {
       </button>
       {open && (
         <div className="menu-pop" role="menu">
+          <button
+            className="menu-item"
+            role="menuitem"
+            onClick={() => {
+              setOpen(false);
+              onSync();
+            }}
+          >
+            雲端同步…
+            <span className={"menu-sync-tag sync-" + syncStatus}>{syncLabel}</span>
+          </button>
           <button
             className="menu-item danger"
             role="menuitem"
