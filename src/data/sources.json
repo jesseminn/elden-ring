@@ -192,6 +192,14 @@
       "statement": "對照巴哈牛肉騰『8個記憶石』清單盤點：流程原本只有 7 顆，缺啜泣半島『奧利緹斯魔法師塔』(三智獸謎題) 這顆——collection 早有 col-r1-14 但流程無對應步驟、無連動。補流程步驟 ch4-add-oridys ＋ links 連動 col-r1-14↔ch4-add-oridys。並把 collection 專名『歐利迪斯』正名為官方『奧利緹斯魔法師塔』。",
       "sources": ["gamersky", "translations-csv"],
       "note": "Q&A 盤點：8 顆現已全在流程（ch5-s4/ch7-s54/ch7-s57/ch8-s1/ch8-s16/ch10-s27/ch13-s6＋新增 ch4-add-oridys）。"
+    },
+    {
+      "id": "2026-06-29-melina-grace-talks",
+      "date": "2026-06-29",
+      "target": "walkthrough.json#ch14-s3",
+      "statement": "進王城內城前那批梅琳娜賜福對話（ch14-s4~s9）為各自獨立、內容不同的可選 lore，非擇一；純劇情（梅琳娜感想／轉述瑪莉卡迴響），無道具或實質獎勵。觸發＝坐賜福選『與梅琳娜交談』。截止點＝坐上王城城牆賜福(ch14-s10)後梅琳娜離開、野外不再可交談。漏聽無任何機制後果。",
+      "sources": ["fextralife"],
+      "note": "Q&A 查證：使用者問此段意義／時機。fextralife Melina 條目：玩家可於野外賜福用『Talk to Melina』選項對話、皆 optional；抵達 East Capital Rampart 賜福後梅琳娜表示離開。"
     }
   ]
 }
