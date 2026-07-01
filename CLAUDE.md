@@ -30,6 +30,14 @@
 
 外加一條互動迴圈：**使用者也會直接問我問題**。我用 repo 的資料回答；**不知道就上網查證**（官方解包 > fextralife > 中文 wiki，見 §3），**回答他、並把查到的回寫進資料（同時補一筆來源 claim）**。每個問題都是讓資料更完整的機會。
 
+### 📍 讀使用者「目前進度」（給針對性建議用）
+使用者的進度同步在一個 GitHub gist（雲端同步功能，見 §6）。**gist id 放在 Claude Code web 環境變數 `ELDEN_GIST_ID`**（不進 repo、每 session 注入；若為空就向使用者要）。要給「你在哪、下一步、易斷提醒、收集缺口」這類**進度相關**建議前，先讀它：
+```bash
+curl -s "https://api.github.com/gists/$ELDEN_GIST_ID" | jq -r '.files["elden-progress.json"].content' > /tmp/prog.json
+# 內含 {done:{主鍵:true,…}}；對 walkthrough.json 算「第一個未完成步驟＝目前進度」、各章%、支線/收集缺口
+```
+secret gist 用 id 即可無 auth 讀；token 只在使用者瀏覽器、不需要也不該放這。
+
 - **範圍**：**先做 base game**；黃金樹幽影 DLC **之後再開**（`collection.json` 已有空的 `dlc` 區佔位）。
 - **骨幹**：**以攻略流程（feiouex 路線）為骨幹**，按使用者提問與實際需要逐步長大；**不要一次鋪大全表**（會變成抄 wiki 且難維護正確性）。
 - 繁體中文 UI，所有面向使用者的文字都用繁中。技術棧：純前端、離線、React + TS + Vite 單頁，進度存 `localStorage`。
