@@ -6,11 +6,12 @@ import {
   type ReactNode,
   type Dispatch,
 } from "react";
-import type { DoneMap } from "./lib/data";
-import { canonicalId } from "./lib/data";
+import type { DoneMap, SkipMap } from "./lib/data";
+import { canonicalId, currentStepId } from "./lib/data";
 
 const LS_PROGRESS = "elden-progress-v1";
 const LS_UI = "elden-ui-v1";
+const LS_SKIPPED = "elden-skipped-v1";
 
 export type Tab = "flow" | "quests" | "collect" | "build";
 
@@ -35,6 +36,8 @@ export interface UiState {
 
 export interface State {
   done: DoneMap;
+  // 使用者主動「跳過」的主線步驟（key＝步驟 id）。只有「目前進度」可跳過、已完成不可跳過。
+  skipped: SkipMap;
   ui: UiState;
   // 跨頁跳轉用：要捲動並閃爍的步驟（非持久化）
   highlight: { stepId: string; nonce: number } | null;
@@ -48,6 +51,8 @@ export interface State {
 
 export type Action =
   | { type: "toggleStep"; id: string; value: boolean }
+  | { type: "skipStep"; id: string }
+  | { type: "unskipStep"; id: string }
   | { type: "setProgress"; done: DoneMap }
   | { type: "resetProgress" }
   | { type: "setTab"; tab: Tab }
@@ -104,6 +109,7 @@ export function initialState(): State {
   const savedUi = load<Partial<UiState>>(LS_UI, {});
   return {
     done: normalizeDone(load<DoneMap>(LS_PROGRESS, {})),
+    skipped: load<SkipMap>(LS_SKIPPED, {}),
     ui: { ...defaultUi, ...savedUi, facets: { ...defaultUi.facets, ...(savedUi.facets || {}) } },
     highlight: null,
     peek: null,
@@ -120,12 +126,30 @@ function reducer(state: State, action: Action): State {
       const key = canonicalId(action.id);
       if (action.value) done[key] = true;
       else delete done[key];
-      return { ...state, done };
+      // 勾選完成的步驟不應同時保有「已跳過」狀態
+      let skipped = state.skipped;
+      if (action.value && skipped[key]) {
+        skipped = { ...skipped };
+        delete skipped[key];
+      }
+      return { ...state, done, skipped };
+    }
+    case "skipStep": {
+      // 守則：只有「目前進度」可跳過、已完成不可跳過（UI 也只在該步顯示按鈕，此處再把關）
+      if (state.done[canonicalId(action.id)]) return state;
+      if (action.id !== currentStepId(state.done, state.skipped)) return state;
+      return { ...state, skipped: { ...state.skipped, [action.id]: true } };
+    }
+    case "unskipStep": {
+      if (!state.skipped[action.id]) return state;
+      const skipped = { ...state.skipped };
+      delete skipped[action.id];
+      return { ...state, skipped };
     }
     case "setProgress":
       return { ...state, done: action.done };
     case "resetProgress":
-      return { ...state, done: {} };
+      return { ...state, done: {}, skipped: {} };
     case "setTab":
       return { ...state, ui: { ...state.ui, tab: action.tab } };
     case "toggleChapter":
@@ -201,6 +225,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem(LS_PROGRESS, JSON.stringify(state.done));
   }, [state.done]);
+
+  useEffect(() => {
+    localStorage.setItem(LS_SKIPPED, JSON.stringify(state.skipped));
+  }, [state.skipped]);
 
   useEffect(() => {
     localStorage.setItem(LS_UI, JSON.stringify(state.ui));

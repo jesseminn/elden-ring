@@ -8,10 +8,11 @@ interface Props {
   step: Step;
   done: boolean;
   isCurrent: boolean;
+  skipped: boolean;
   flash: boolean;
 }
 
-function StepRowInner({ step, done, isCurrent, flash }: Props) {
+function StepRowInner({ step, done, isCurrent, skipped, flash }: Props) {
   const dispatch = useDispatch();
   const [showDetail, setShowDetail] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -41,6 +42,7 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
   const cls = ["step", step.type];
   if (done) cls.push("done");
   if (isCurrent) cls.push("current");
+  if (skipped) cls.push("skipped");
   if (flashing) cls.push("flash");
 
   const collectIds = collectIdsForStep(step.id);
@@ -61,7 +63,27 @@ function StepRowInner({ step, done, isCurrent, flash }: Props) {
           {step.text}
           {step.missable && <span className="miss-tag" title="易斷：操作不當可能永久錯過">易斷</span>}
           {step.added && <span className="added-tag" title="此步驟為查證網路資料後補充，非攻略原文">查證補充</span>}
-          {isCurrent && <span className="current-tag">目前進度</span>}
+          {isCurrent && !skipped && <span className="current-tag">目前進度</span>}
+          {skipped && <span className="skipped-tag" title="你選擇跳過此步；不影響完成度統計，可隨時取消">已跳過</span>}
+          {!done && skipped ? (
+            <button
+              className="skip-btn undo"
+              title="取消跳過，讓此步重新回到目前進度"
+              onClick={() => dispatch({ type: "unskipStep", id: step.id })}
+            >
+              取消跳過
+            </button>
+          ) : (
+            !done && isCurrent && (
+              <button
+                className="skip-btn"
+                title="跳過此步：目前進度往後移，但不勾選完成（可隨時取消）"
+                onClick={() => dispatch({ type: "skipStep", id: step.id })}
+              >
+                跳過
+              </button>
+            )
+          )}
         </span>
 
         {(step.boss || step.lv || step.location || step.quests.length > 0 || collectIds.length > 0) && (

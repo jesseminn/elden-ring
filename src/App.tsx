@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { overallStats, pct, currentStepId, data } from "./lib/data";
+import { overallStats, pct, currentStepId, skippedCount, data } from "./lib/data";
 import { useAppState, useDispatch } from "./store";
 import FlowView from "./components/FlowView";
 import QuestView from "./components/QuestView";
@@ -20,7 +20,8 @@ export default function App() {
   const showToast = useCallback((msg: string) => setToast({ msg, nonce: Date.now() }), []);
 
   const stats = useMemo(() => overallStats(state.done), [state.done]);
-  const curId = useMemo(() => currentStepId(state.done), [state.done]);
+  const curId = useMemo(() => currentStepId(state.done, state.skipped), [state.done, state.skipped]);
+  const nSkipped = useMemo(() => skippedCount(state.done, state.skipped), [state.done, state.skipped]);
 
   const sync = useSyncEngine(state.done, dispatch);
   const [syncOpen, setSyncOpen] = useState(false);
@@ -120,6 +121,9 @@ export default function App() {
                 <span className="overall-label">線性流程進度</span>
                 <span className="overall-count">{stats.done} / {stats.total}</span>
                 <span className="overall-pct">{pct(stats.done, stats.total)}%</span>
+                {nSkipped > 0 && (
+                  <span className="overall-skip" title="你主動跳過、尚未完成的主線步驟數">跳過 {nSkipped}</span>
+                )}
               </div>
               <div className="overall-frame">
                 <div className="overall-bar">

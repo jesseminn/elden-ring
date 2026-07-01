@@ -90,13 +90,25 @@ export function questNextId(q: Quest, done: DoneMap): string | null {
 }
 
 // 全域「目前進度」= 流程上第一個未完成且可執行的步驟
+export type SkipMap = Record<string, boolean>;
+
 // 「目前進度」只追蹤主線（type==="event"）步驟：可選（optional）步驟仍可勾選、
 // 仍計入完成度，但跳過不做就不該卡住進度指標，否則略過任何選配內容都會讓它永遠停住。
-export function currentStepId(done: DoneMap): string | null {
+// 使用者主動「跳過」的主線步驟同樣略過，進度指標往後移。
+export function currentStepId(done: DoneMap, skipped: SkipMap = {}): string | null {
   for (const s of allSteps) {
-    if (s.type === "event" && !isDone(done, s.id)) return s.id;
+    if (s.type === "event" && !isDone(done, s.id) && !skipped[s.id]) return s.id;
   }
   return null;
+}
+
+// 目前被「跳過」的主線步驟數（排除後來又勾選完成、或已不存在的 id）。
+export function skippedCount(done: DoneMap, skipped: SkipMap): number {
+  let n = 0;
+  for (const id in skipped) {
+    if (skipped[id] && stepById[id] && !isDone(done, id)) n++;
+  }
+  return n;
 }
 
 export const pct = (a: number, b: number) => (b ? Math.round((a / b) * 100) : 0);

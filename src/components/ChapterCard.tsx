@@ -1,6 +1,6 @@
 import { memo } from "react";
 import type { Chapter, Step } from "../types";
-import { chapterStats, pct, isDone, type DoneMap } from "../lib/data";
+import { chapterStats, pct, isDone, type DoneMap, type SkipMap } from "../lib/data";
 import { useDispatch, type Facets } from "../store";
 import { StepRow } from "./StepRow";
 import Icon from "./Icon";
@@ -13,6 +13,7 @@ interface Props {
   facets: Facets;
   anyFacet: boolean;
   currentStepId: string | null;
+  skipped: SkipMap;
   flashStepId: string | null;
 }
 
@@ -21,7 +22,7 @@ const matchFacet = (s: Step, f: Facets) =>
   (f.collect && s.items.length > 0) ||
   (f.npc && s.quests.length > 0);
 
-function ChapterCardInner({ chapter, done, collapsed, hideDone, facets, anyFacet, currentStepId, flashStepId }: Props) {
+function ChapterCardInner({ chapter, done, collapsed, hideDone, facets, anyFacet, currentStepId, skipped, flashStepId }: Props) {
   const dispatch = useDispatch();
   const stats = chapterStats(chapter, done);
 
@@ -72,6 +73,7 @@ function ChapterCardInner({ chapter, done, collapsed, hideDone, facets, anyFacet
               step={s}
               done={isDone(done, s.id)}
               isCurrent={s.id === currentStepId}
+              skipped={!!skipped[s.id]}
               flash={s.id === flashStepId}
             />
           ))}

@@ -190,6 +190,17 @@ body {
 .note-label { font-size: 10px; color: var(--gold); font-weight: 700; margin-right: 6px; }
 .current-tag { font-size: 10px; color: var(--gold-bright); background: #c9a14a1f; border: 1px solid #c9a14a66; padding: 1px 6px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; box-shadow: 0 0 9px #c9a14a4d; }
 .added-tag { font-size: 10px; color: #9fb4e0; background: #6f9bd81f; border: 1px solid #6f9bd866; padding: 1px 6px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; }
+.skipped-tag { font-size: 10px; color: var(--muted2); background: #7d746040; border: 1px solid var(--border2); padding: 1px 6px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; }
+/* 已跳過：整列淡化、文字加刪節（與 done 區隔——虛線而非實線）以示「略過非完成」 */
+.step.skipped { opacity: 0.62; }
+.step.skipped .step-text { text-decoration: line-through; text-decoration-style: dashed; text-decoration-color: #9a8d7266; }
+.skip-btn {
+  font-size: 10px; font-weight: 700; margin-left: 7px; padding: 1px 7px; border-radius: 3px; cursor: pointer;
+  color: var(--muted); background: transparent; border: 1px dashed var(--border2); white-space: nowrap;
+}
+.skip-btn:hover { color: var(--gold-bright); border-color: #c9a14a88; background: #c9a14a14; }
+.skip-btn.undo:hover { color: var(--green); border-color: #6f9b5f88; background: #6f9b5f14; }
+.overall-skip { font-size: 11px; font-weight: 700; color: var(--muted); margin-left: 8px; padding: 1px 7px; border-radius: 3px; border: 1px dashed var(--border2); white-space: nowrap; }
 
 .step-extra { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
 .chip { font-size: 10.5px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; background: transparent; }

@@ -6,9 +6,9 @@ import { ChapterCard } from "./ChapterCard";
 export default function FlowView() {
   const state = useAppState();
   const dispatch = useDispatch();
-  const { done, ui, highlight } = state;
+  const { done, skipped, ui, highlight } = state;
 
-  const curId = useMemo(() => currentStepId(done), [done]);
+  const curId = useMemo(() => currentStepId(done, skipped), [done, skipped]);
 
   // 跳轉動畫播完後清除 highlight
   useEffect(() => {
@@ -84,6 +84,7 @@ export default function FlowView() {
             facets={facets}
             anyFacet={anyFacet}
             currentStepId={curId}
+            skipped={skipped}
             flashStepId={highlight?.stepId ?? null}
           />
         );
