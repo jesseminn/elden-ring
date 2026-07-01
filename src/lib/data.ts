@@ -90,9 +90,11 @@ export function questNextId(q: Quest, done: DoneMap): string | null {
 }
 
 // 全域「目前進度」= 流程上第一個未完成且可執行的步驟
+// 「目前進度」只追蹤主線（type==="event"）步驟：可選（optional）步驟仍可勾選、
+// 仍計入完成度，但跳過不做就不該卡住進度指標，否則略過任何選配內容都會讓它永遠停住。
 export function currentStepId(done: DoneMap): string | null {
   for (const s of allSteps) {
-    if (actionable(s) && !isDone(done, s.id)) return s.id;
+    if (s.type === "event" && !isDone(done, s.id)) return s.id;
   }
   return null;
 }
