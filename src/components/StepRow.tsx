@@ -59,12 +59,8 @@ function StepRowInner({ step, done, isCurrent, skipped, flash }: Props) {
         />
       </label>
       <div className="step-main">
-        <span className="step-text">
-          {step.text}
-          {step.missable && <span className="miss-tag" title="易斷：操作不當可能永久錯過">易斷</span>}
-          {step.added && <span className="added-tag" title="此步驟為查證網路資料後補充，非攻略原文">查證補充</span>}
-          {isCurrent && !skipped && <span className="current-tag">目前進度</span>}
-          {skipped && <span className="skipped-tag" title="你選擇跳過此步；不影響完成度統計，可隨時取消">已跳過</span>}
+        <div className="step-titlerow">
+          <span className="step-text">{step.text}</span>
           {!done && skipped ? (
             <button
               className="skip-btn undo"
@@ -84,9 +80,9 @@ function StepRowInner({ step, done, isCurrent, skipped, flash }: Props) {
               </button>
             )
           )}
-        </span>
+        </div>
 
-        {(step.boss || step.lv || step.location || step.quests.length > 0 || collectIds.length > 0) && (
+        {(step.boss || step.lv || step.location || step.quests.length > 0 || collectIds.length > 0 || seriesKinds.length > 0 || step.missable || step.added || skipped) && (
           <div className="step-extra">
             {step.boss && <span className="chip boss">BOSS</span>}
             {step.lv && (
@@ -129,6 +125,9 @@ function StepRowInner({ step, done, isCurrent, skipped, flash }: Props) {
                 </button>
               );
             })}
+            {step.missable && <span className="chip tag-miss" title="易斷：操作不當可能永久錯過">易斷</span>}
+            {step.added && <span className="chip tag-added" title="此步驟為查證網路資料後補充，非攻略原文">查證補充</span>}
+            {skipped && <span className="chip tag-skip" title="你選擇跳過此步；不影響完成度統計，可隨時取消">已跳過</span>}
           </div>
         )}
 

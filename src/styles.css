@@ -143,8 +143,14 @@ body {
 .chapter:not(.collapsed) > .chapter-head { position: sticky; top: var(--top-h, 0px); z-index: 5; box-shadow: 0 1px 0 var(--border); }
 .chapter-head:hover { background: var(--panel2); }
 .chapter-num { font-size: 13px; font-weight: 700; color: var(--gold-bright); background: #c9a14a1f; border: 1px solid #c9a14a55; border-radius: 3px; padding: 1px 7px; min-width: 24px; text-align: center; }
-.chapter-title { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--gold-bright); flex-shrink: 0; }
-.chapter-meta { display: flex; gap: 5px; flex-wrap: wrap; flex: 1; }
+.chapter-title { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--gold-bright); }
+/* 群組標題：第一行＝編號＋地名＋百分比（靠左，緊接地名），標籤移到下方 */
+.ch-head-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.ch-head-top { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
+.chapter-pct { font-size: 13px; font-weight: 700; color: var(--gold); white-space: nowrap; }
+.chapter-pct.full { color: var(--green-bright); }
+.kind-count { font-size: 11px; color: var(--muted); }
+.chapter-meta { display: flex; gap: 5px; flex-wrap: wrap; }
 .badge { font-size: 10px; padding: 2px 7px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
 .badge.lvl { color: #7fc8e0; border-color: #2d4a55; }
 .badge.upg { color: #d8a86a; border-color: #5a4326; }
@@ -167,7 +173,7 @@ body {
 .step { display: flex; gap: 9px; padding: 8px 6px; border-radius: 4px; border-bottom: 1px solid var(--border); }
 .step:last-child { border-bottom: none; }
 .step:hover { background: var(--panel2); }
-.step.done .step-text { color: var(--muted2); text-decoration: line-through; text-decoration-color: #9a8d7280; }
+/* 已完成不加刪節線、不淡化（僅靠勾選框表示）；淡化只保留給「已跳過」 */
 .step.note { background: #3c321e40; border-left: 3px solid var(--gold); }
 .step.current {
   position: relative;
@@ -181,21 +187,23 @@ body {
   box-shadow: 0 0 7px 1px #e8c87480; animation: grace-beam 3.2s ease-in-out infinite;
 }
 .step.flash { background: #c9a14a59 !important; transition: background 0.2s; }
-.step-cb { margin-top: 2px; }
+/* 勾選框：加大點擊範圍（padding），用負 margin 抵銷、維持原本視覺位置 */
+.step-cb { display: inline-flex; align-items: flex-start; padding: 8px; margin: -6px -4px -8px -8px; cursor: pointer; }
 .step-cb input { width: 17px; height: 17px; accent-color: var(--green); cursor: pointer; }
 .step-main { flex: 1; min-width: 0; }
 .step-icon { color: var(--muted2); margin-right: 4px; }
 .step.optional .step-icon { color: #8fae7a; }
+.step-titlerow { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; }
 .step-text { font-size: 13.5px; line-height: 1.45; }
 .note-label { font-size: 10px; color: var(--gold); font-weight: 700; margin-right: 6px; }
-.current-tag { font-size: 10px; color: var(--gold-bright); background: #c9a14a1f; border: 1px solid #c9a14a66; padding: 1px 6px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; box-shadow: 0 0 9px #c9a14a4d; }
-.added-tag { font-size: 10px; color: #9fb4e0; background: #6f9bd81f; border: 1px solid #6f9bd866; padding: 1px 6px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; }
-.skipped-tag { font-size: 10px; color: var(--muted2); background: #7d746040; border: 1px solid var(--border2); padding: 1px 6px; border-radius: 3px; margin-left: 7px; font-weight: 700; white-space: nowrap; }
-/* 已跳過：整列淡化、文字加刪節（與 done 區隔——虛線而非實線）以示「略過非完成」 */
-.step.skipped { opacity: 0.62; }
-.step.skipped .step-text { text-decoration: line-through; text-decoration-style: dashed; text-decoration-color: #9a8d7266; }
+/* 狀態標籤（易斷／查證補充／已跳過）用 .chip 尺寸，與其他 label 一致，放標籤區 */
+.chip.tag-miss { color: var(--miss); border-color: #e0564a66; background: #e0564a18; font-weight: 800; }
+.chip.tag-added { color: #9fb4e0; border-color: #6f9bd866; background: #6f9bd81f; font-weight: 700; }
+.chip.tag-skip { color: var(--muted2); border-color: var(--border2); background: #7d746040; font-weight: 700; }
+/* 已跳過：整列淡化（全站唯一會 dim 的狀態；已完成不 dim、不刪節線） */
+.step.skipped { opacity: 0.6; }
 .skip-btn {
-  font-size: 10px; font-weight: 700; margin-left: 7px; padding: 1px 7px; border-radius: 3px; cursor: pointer;
+  font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 3px; cursor: pointer; flex-shrink: 0;
   color: var(--muted); background: transparent; border: 1px dashed var(--border2); white-space: nowrap;
 }
 .skip-btn:hover { color: var(--gold-bright); border-color: #c9a14a88; background: #c9a14a14; }
@@ -256,9 +264,10 @@ body {
 .tl-step.current { box-shadow: inset 2px 0 0 var(--gold-bright); }
 .tl-step.current .tl-text { color: var(--gold-bright); }
 .tl-head { display: flex; align-items: flex-start; gap: 8px; }
+.tl-cb { display: inline-flex; align-items: flex-start; padding: 8px; margin: -7px -4px -8px -8px; cursor: pointer; }
 .tl-cb input { width: 16px; height: 16px; accent-color: var(--green); cursor: pointer; margin-top: 1px; }
 .tl-text { flex: 1; font-size: 13px; line-height: 1.45; }
-.tl-step.done .tl-text { color: var(--muted2); text-decoration: line-through; }
+/* 已完成不加刪節線、不淡化（與流程一致，僅靠勾選框表示） */
 .tl-loc { font-size: 10.5px; color: var(--gold); background: #c9a14a1a; border: 1px solid #c9a14a40; border-radius: 3px; padding: 1px 6px; cursor: pointer; white-space: nowrap; font-family: inherit; }
 .tl-loc:hover { background: #c9a14a33; }
 .tl-extra { display: flex; flex-wrap: wrap; gap: 5px; margin: 5px 0 0 24px; }
@@ -410,7 +419,7 @@ body {
 .citem-top { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .chip.kind { color: var(--muted); border-color: var(--border2); }
 .citem-text { display: block; font-size: 13.5px; line-height: 1.45; margin-top: 3px; }
-.citem.done .citem-text { color: var(--muted2); text-decoration: line-through; text-decoration-color: #9a8d7280; }
+/* 已取得不加刪節線、不淡化（與流程一致，僅靠勾選框表示） */
 .citem-note { display: block; font-size: 11.5px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
 /* 收集群組內的類別小標題（鈴珠：依珠子類別分塊） */
 .citem-subhead { font-size: 11px; font-weight: 800; letter-spacing: .04em; color: var(--gold); padding: 4px 2px 5px; margin-top: 8px; border-bottom: 1px solid var(--border2); }

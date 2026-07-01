@@ -41,28 +41,28 @@ function ChapterCardInner({ chapter, done, collapsed, hideDone, facets, anyFacet
   return (
     <div className={"chapter" + (collapsed ? " collapsed" : "")} data-ch={chapter.id}>
       <div className="chapter-head" onClick={() => dispatch({ type: "toggleChapter", id: chapter.id })}>
-        <span className="chapter-num">{chapter.num}</span>
-        <span className="chapter-title">{chapter.title}</span>
-        <span className="chapter-meta">
-          {chapter.level && <span className="badge lvl">Lv {chapter.level}</span>}
-          {chapter.upgrade && <span className="badge upg">強化 {chapter.upgrade}</span>}
-          {chapter.nonMainline && <span className="badge side">非主線地圖</span>}
-        </span>
-        <span className="chapter-prog">
-          {(() => {
-            const p = pct(stats.done, stats.total);
-            return (
-              <span className={"ring" + (p === 100 ? " full" : "")} title={`${stats.done}/${stats.total}`}>
-                <svg viewBox="0 0 36 36">
-                  <circle className="ring-bg" cx="18" cy="18" r="15.5" />
-                  <circle className="ring-fg" cx="18" cy="18" r="15.5" pathLength={100} strokeDasharray={`${p} 100`} />
-                </svg>
-                <span className="ring-pct">{p}%</span>
-              </span>
-            );
-          })()}
-          <span className="chapter-caret"><Icon name="chevron" /></span>
-        </span>
+        <div className="ch-head-main">
+          <div className="ch-head-top">
+            <span className="chapter-num">{chapter.num}</span>
+            <span className="chapter-title">{chapter.title}</span>
+            {(() => {
+              const p = pct(stats.done, stats.total);
+              return (
+                <span className={"chapter-pct" + (p === 100 ? " full" : "")} title={`${stats.done}/${stats.total}`}>
+                  {p}%
+                </span>
+              );
+            })()}
+          </div>
+          {(chapter.level || chapter.upgrade || chapter.nonMainline) && (
+            <div className="chapter-meta">
+              {chapter.level && <span className="badge lvl">Lv {chapter.level}</span>}
+              {chapter.upgrade && <span className="badge upg">強化 {chapter.upgrade}</span>}
+              {chapter.nonMainline && <span className="badge side">非主線地圖</span>}
+            </div>
+          )}
+        </div>
+        <span className="chapter-caret"><Icon name="chevron" /></span>
       </div>
 
       {!collapsed && (
