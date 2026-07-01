@@ -54,6 +54,7 @@ export type Action =
   | { type: "skipStep"; id: string }
   | { type: "unskipStep"; id: string }
   | { type: "setProgress"; done: DoneMap }
+  | { type: "setSkipped"; skipped: SkipMap }
   | { type: "resetProgress" }
   | { type: "setTab"; tab: Tab }
   | { type: "toggleChapter"; id: string }
@@ -148,6 +149,8 @@ function reducer(state: State, action: Action): State {
     }
     case "setProgress":
       return { ...state, done: action.done };
+    case "setSkipped":
+      return { ...state, skipped: action.skipped };
     case "resetProgress":
       return { ...state, done: {}, skipped: {} };
     case "setTab":

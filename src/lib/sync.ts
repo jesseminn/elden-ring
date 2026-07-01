@@ -1,10 +1,10 @@
-// 雲端同步（GitHub Gist）：把進度（done 主鍵表）存進一個 gist 的 elden-progress.json。
+// 雲端同步（GitHub Gist）：把進度（done 主鍵表＋skipped 跳過表）存進一個 gist 的 elden-progress.json。
 // - 前端用使用者貼進 localStorage 的 token 寫（token 不進公開 bundle）。
 // - 衝突：兩端各帶 updatedAt，較新者勝（單人用，last-write-wins 足夠）。
 // - agent 端用 `curl api.github.com/gists/<id>` 零 auth 讀（公開 gist）。
 import { useEffect, useRef, useState } from "react";
 import type { Dispatch } from "react";
-import { canonicalId, type DoneMap } from "./data";
+import { canonicalId, type DoneMap, type SkipMap } from "./data";
 import type { Action } from "../store";
 
 const LS_SYNC = "elden-sync-v1";
@@ -35,6 +35,7 @@ function saveSyncConfig(cfg: SyncMeta | null) {
 
 interface CloudPayload {
   done: DoneMap;
+  skipped: SkipMap;
   updatedAt: number;
 }
 
@@ -49,7 +50,7 @@ export async function pullGist(cfg: SyncConfig): Promise<CloudPayload | null> {
   const j = await r.json();
   const f = j.files?.[FILE];
   if (!f || !f.content) return null;
-  let parsed: { done?: DoneMap; updatedAt?: number };
+  let parsed: { done?: DoneMap; skipped?: SkipMap; updatedAt?: number };
   try {
     parsed = JSON.parse(f.content);
   } catch {
@@ -58,12 +59,16 @@ export async function pullGist(cfg: SyncConfig): Promise<CloudPayload | null> {
   const raw = parsed.done || {};
   const done: DoneMap = {};
   for (const k in raw) if (raw[k]) done[canonicalId(k)] = true; // 正規化成主鍵
-  return { done, updatedAt: parsed.updatedAt || 0 };
+  // skipped：key 為步驟 id（無 col- 連動鍵），保留 truthy；舊 gist 無此欄→空表
+  const rawSkip = parsed.skipped || {};
+  const skipped: SkipMap = {};
+  for (const k in rawSkip) if (rawSkip[k]) skipped[k] = true;
+  return { done, skipped, updatedAt: parsed.updatedAt || 0 };
 }
 
-export async function pushGist(cfg: SyncConfig, done: DoneMap): Promise<number> {
+export async function pushGist(cfg: SyncConfig, done: DoneMap, skipped: SkipMap): Promise<number> {
   const updatedAt = Date.now();
-  const content = JSON.stringify({ done, updatedAt, app: "elden-ring-tracker" });
+  const content = JSON.stringify({ done, skipped, updatedAt, app: "elden-ring-tracker" });
   const r = await fetch(API(cfg.gistId), {
     method: "PATCH",
     headers: {
@@ -89,13 +94,14 @@ export interface SyncHandle {
   syncNow: () => void;
 }
 
-const countDone = (d: DoneMap) => Object.keys(d).length;
+// 「有無資料」計量：完成＋跳過都算進度訊號（避免只跳過沒完成時被當成空）
+const countState = (d: DoneMap, s: SkipMap) => Object.keys(d).length + Object.keys(s).length;
 
 // 同步引擎：
 // - 首次設定 gist（config 無 baseline）：只有一邊有資料就自動；兩邊都有 → 進入 choosing 讓使用者選。
 // - 已建立 baseline：開站 / 視窗 focus / 分頁可見 → pull，僅在「雲端比本地 baseline 新」時採用。
 // - 本地 done 變動 → debounce push。
-export function useSyncEngine(done: DoneMap, dispatch: Dispatch<Action>): SyncHandle {
+export function useSyncEngine(done: DoneMap, skipped: SkipMap, dispatch: Dispatch<Action>): SyncHandle {
   const [config, setConfig] = useState<SyncMeta | null>(() => loadSyncConfig());
   const [status, setStatus] = useState<SyncStatus>(config ? "idle" : "off");
   const [error, setError] = useState<string | null>(null);
@@ -107,10 +113,17 @@ export function useSyncEngine(done: DoneMap, dispatch: Dispatch<Action>): SyncHa
   cfgRef.current = config;
   const doneRef = useRef(done);
   doneRef.current = done;
+  const skippedRef = useRef(skipped);
+  skippedRef.current = skipped;
 
   const fail = (e: unknown) => {
     setStatus("error");
     setError((e as Error)?.message || String(e));
+  };
+  // 套用雲端資料：done 與 skipped 一起還原
+  const applyCloud = (cloud: CloudPayload) => {
+    dispatch({ type: "setProgress", done: cloud.done });
+    dispatch({ type: "setSkipped", skipped: cloud.skipped });
   };
   // 建立/更新 baseline 並轉為已連線
   const finalize = (ts: number) => {
@@ -147,7 +160,7 @@ export function useSyncEngine(done: DoneMap, dispatch: Dispatch<Action>): SyncHa
         if (established) {
           // 已連線：雲端較新才採用
           if (cloud && cloud.updatedAt > (config.localUpdatedAt || 0)) {
-            dispatch({ type: "setProgress", done: cloud.done });
+            applyCloud(cloud);
             finalize(cloud.updatedAt);
           } else {
             ready.current = true;
@@ -156,17 +169,17 @@ export function useSyncEngine(done: DoneMap, dispatch: Dispatch<Action>): SyncHa
           return;
         }
         // 首次設定
-        const localCount = countDone(doneRef.current);
-        const cloudCount = cloud ? countDone(cloud.done) : 0;
+        const localCount = countState(doneRef.current, skippedRef.current);
+        const cloudCount = cloud ? countState(cloud.done, cloud.skipped) : 0;
         if (localCount > 0 && cloudCount > 0) {
           pendingCloud.current = cloud;
           setChoice({ localCount, cloudCount });
           setStatus("choosing");
         } else if (cloud && cloudCount > 0) {
-          dispatch({ type: "setProgress", done: cloud.done }); // 只有雲端有 → 下載
+          applyCloud(cloud); // 只有雲端有 → 下載
           finalize(cloud.updatedAt);
         } else {
-          const ts = await pushGist(config, doneRef.current); // 只有本地有 / 兩邊空 → 上傳
+          const ts = await pushGist(config, doneRef.current, skippedRef.current); // 只有本地有 / 兩邊空 → 上傳
           if (!cancelled) finalize(ts);
         }
       } catch (e) {
@@ -179,18 +192,18 @@ export function useSyncEngine(done: DoneMap, dispatch: Dispatch<Action>): SyncHa
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config?.gistId, config?.token]);
 
-  // done 變動 → debounce push
+  // done / skipped 變動 → debounce push
   useEffect(() => {
     const c = cfgRef.current;
     if (!c || !ready.current) return;
     setStatus("syncing");
     clearTimeout(timer.current);
     timer.current = setTimeout(() => {
-      pushGist(c, done).then(finalize).catch(fail);
+      pushGist(c, done, skipped).then(finalize).catch(fail);
     }, 1500);
     return () => clearTimeout(timer.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [done]);
+  }, [done, skipped]);
 
   // 視窗 focus / 分頁可見 → pull（僅已連線、且雲端較新才採用）
   useEffect(() => {
@@ -201,7 +214,7 @@ export function useSyncEngine(done: DoneMap, dispatch: Dispatch<Action>): SyncHa
         .then((cloud) => {
           const cc = cfgRef.current;
           if (cc && cloud && cloud.updatedAt > (cc.localUpdatedAt || 0)) {
-            dispatch({ type: "setProgress", done: cloud.done });
+            applyCloud(cloud);
             finalize(cloud.updatedAt);
           }
         })
@@ -234,21 +247,21 @@ export function useSyncEngine(done: DoneMap, dispatch: Dispatch<Action>): SyncHa
     const c = cfgRef.current;
     if (!c) return;
     setStatus("syncing");
-    pushGist(c, doneRef.current).then(finalize).catch(fail);
+    pushGist(c, doneRef.current, skippedRef.current).then(finalize).catch(fail);
   };
   const chooseDownload = () => {
     const c = cfgRef.current;
     const cloud = pendingCloud.current;
     if (!c || !cloud) return;
     setStatus("syncing");
-    dispatch({ type: "setProgress", done: cloud.done });
+    applyCloud(cloud);
     finalize(cloud.updatedAt);
   };
   const syncNow = () => {
     const c = cfgRef.current;
     if (!c) return;
     setStatus("syncing");
-    pushGist(c, doneRef.current).then(finalize).catch(fail);
+    pushGist(c, doneRef.current, skippedRef.current).then(finalize).catch(fail);
   };
 
   return { config, status, error, choice, configure, chooseUpload, chooseDownload, syncNow };

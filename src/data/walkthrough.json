@@ -4478,7 +4478,7 @@
         },
         {
           "id": "ch14-s3",
-          "type": "optional",
+          "type": "event",
           "text": "進王城內城區前可以先在以下賜福跟梅琳娜對話。",
           "detail": [
             "以下 6 個賜福是可選的劇情對話（非擇一，想聽幾個都行），純 lore、沒有道具或實質獎勵。",
@@ -4495,7 +4495,7 @@
         },
         {
           "id": "ch14-s4",
-          "type": "optional",
+          "type": "event",
           "text": "啜泣半島—巡禮教堂。",
           "detail": [],
           "chapterId": "ch14",
@@ -4505,7 +4505,7 @@
         },
         {
           "id": "ch14-s5",
-          "type": "optional",
+          "type": "event",
           "text": "寧姆格福—瑪莉卡第三教堂。",
           "detail": [],
           "chapterId": "ch14",
@@ -4515,7 +4515,7 @@
         },
         {
           "id": "ch14-s6",
-          "type": "optional",
+          "type": "event",
           "text": "迪可達斯大升降機。",
           "detail": [],
           "chapterId": "ch14",
@@ -4525,7 +4525,7 @@
         },
         {
           "id": "ch14-s7",
-          "type": "optional",
+          "type": "event",
           "text": "點燃亞壇高原第一個賜福後。",
           "detail": [],
           "chapterId": "ch14",
@@ -4535,7 +4535,7 @@
         },
         {
           "id": "ch14-s8",
-          "type": "optional",
+          "type": "event",
           "text": "王城—小黃金樹教堂。",
           "detail": [],
           "chapterId": "ch14",
@@ -4545,7 +4545,7 @@
         },
         {
           "id": "ch14-s9",
-          "type": "optional",
+          "type": "event",
           "text": "王城—城外戰場遺跡。",
           "detail": [],
           "chapterId": "ch14",

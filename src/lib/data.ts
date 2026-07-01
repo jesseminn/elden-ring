@@ -92,12 +92,12 @@ export function questNextId(q: Quest, done: DoneMap): string | null {
 // 全域「目前進度」= 流程上第一個未完成且可執行的步驟
 export type SkipMap = Record<string, boolean>;
 
-// 「目前進度」只追蹤主線（type==="event"）步驟：可選（optional）步驟仍可勾選、
-// 仍計入完成度，但跳過不做就不該卡住進度指標，否則略過任何選配內容都會讓它永遠停住。
-// 使用者主動「跳過」的主線步驟同樣略過，進度指標往後移。
+// 「目前進度」＝第一個「未完成且未跳過」的步驟。步驟預設都是必要的（不分 event/optional
+// 一律納入），要略過某步只能由使用者主動「跳過」；否則進度指標會停在該步等你處理，
+// 不會憑型別自己跳過去（那會讓指標指向前面還沒處理的步驟之後、造成錯亂）。
 export function currentStepId(done: DoneMap, skipped: SkipMap = {}): string | null {
   for (const s of allSteps) {
-    if (s.type === "event" && !isDone(done, s.id) && !skipped[s.id]) return s.id;
+    if (actionable(s) && !isDone(done, s.id) && !skipped[s.id]) return s.id;
   }
   return null;
 }

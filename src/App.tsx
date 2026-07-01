@@ -23,7 +23,7 @@ export default function App() {
   const curId = useMemo(() => currentStepId(state.done, state.skipped), [state.done, state.skipped]);
   const nSkipped = useMemo(() => skippedCount(state.done, state.skipped), [state.done, state.skipped]);
 
-  const sync = useSyncEngine(state.done, dispatch);
+  const sync = useSyncEngine(state.done, state.skipped, dispatch);
   const [syncOpen, setSyncOpen] = useState(false);
 
   // 量測固定頂欄高度寫進 --top-h，給展開章節的 sticky 標題當偏移（頂欄高度會隨模式/換行變動）
