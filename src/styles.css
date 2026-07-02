@@ -144,11 +144,9 @@ body {
 .chapter-head:hover { background: var(--panel2); }
 .chapter-num { font-size: 13px; font-weight: 700; color: var(--gold-bright); background: #c9a14a1f; border: 1px solid #c9a14a55; border-radius: 3px; padding: 1px 7px; min-width: 24px; text-align: center; }
 .chapter-title { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--gold-bright); }
-/* 群組標題：第一行＝編號＋地名＋百分比（靠左，緊接地名），標籤移到下方 */
+/* 群組標題：編號在最左自成一欄；地名＋下方標籤同屬 ch-head-main（標籤對齊地名左緣，不到編號下）；進度環靠右 */
 .ch-head-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
-.ch-head-top { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
-.chapter-pct { font-size: 13px; font-weight: 700; color: var(--gold); white-space: nowrap; }
-.chapter-pct.full { color: var(--green-bright); }
+.ch-head-top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .kind-count { font-size: 11px; color: var(--muted); }
 .chapter-meta { display: flex; gap: 5px; flex-wrap: wrap; }
 .badge { font-size: 10px; padding: 2px 7px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }

@@ -83,9 +83,6 @@ function KindCard({
         <div className="ch-head-main">
           <div className="ch-head-top">
             <span className="chapter-title">{group.kind}</span>
-            <span className={"chapter-pct" + (p === 100 ? " full" : "")} title={`${stats.done}/${stats.total}`}>
-              {p}%
-            </span>
             {isSeries && <span className="kind-series-tag">系列</span>}
           </div>
           <div className="kind-count">{stats.done}/{stats.total} 項</div>
@@ -102,7 +99,16 @@ function KindCard({
             全地圖 <Icon name="arrowUpRight" />
           </button>
         )}
-        <span className="chapter-caret"><Icon name="chevron" /></span>
+        <span className="chapter-prog">
+          <span className={"ring" + (p === 100 ? " full" : "")} title={`${stats.done}/${stats.total}`}>
+            <svg viewBox="0 0 36 36">
+              <circle className="ring-bg" cx="18" cy="18" r="15.5" />
+              <circle className="ring-fg" cx="18" cy="18" r="15.5" pathLength={100} strokeDasharray={`${p} 100`} />
+            </svg>
+            <span className="ring-pct">{p}%</span>
+          </span>
+          <span className="chapter-caret"><Icon name="chevron" /></span>
+        </span>
       </div>
 
       {expanded && (
