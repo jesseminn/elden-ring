@@ -200,6 +200,14 @@
       "statement": "進王城內城前那批梅琳娜賜福對話（ch14-s4~s9）為各自獨立、內容不同的可選 lore，非擇一；純劇情（梅琳娜感想／轉述瑪莉卡迴響），無道具或實質獎勵。觸發＝坐賜福選『與梅琳娜交談』。截止點＝坐上王城城牆賜福(ch14-s10)後梅琳娜離開、野外不再可交談。漏聽無任何機制後果。",
       "sources": ["fextralife"],
       "note": "Q&A 查證：使用者問此段意義／時機。fextralife Melina 條目：玩家可於野外賜福用『Talk to Melina』選項對話、皆 optional；抵達 East Capital Rampart 賜福後梅琳娜表示離開。"
+    },
+    {
+      "id": "2026-07-02-blackguard-same-npc",
+      "date": "2026-07-02",
+      "target": "walkthrough.json#ch14-s18",
+      "statement": "「煮蝦子的流氓」（利耶尼亞湖・煮蝦小屋 Boilprawn Shack，賣煮蝦 Boiled Prawn）與「煮螃蟹的流氓」（王城外圍壕溝，煮並賣煮蟹 Boiled Crab）為同一 NPC＝Blackguard Big Boggart。官方正體中文將 Blackguard 譯為「流氓」（見流氓鐵面具 Blackguard's Iron Mask、npcs.csv），非翻譯錯誤。買蝦推進支線後他從煮蝦小屋移動到王城壕溝改賣煮蟹；食糞者支線鏈的一環。",
+      "sources": ["fextralife", "translations-csv"],
+      "note": "Q&A 查證：使用者問煮蝦/煮螃蟹流氓是否同一人、是否翻譯問題。fextralife Blackguard Big Boggart：初遇 Boilprawn Shack 賣 Boiled Prawn，買後移到 Leyndell 外圍壕溝賣 Boiled Crab。已在 ch14-s18 detail 補釐清句。"
     }
   ]
 }
